@@ -877,7 +877,7 @@ Handle every row. These are the ones that break portfolio sites in practice.
 | 29 | Image fails to load at runtime | `onError` swaps to the mist placeholder — no broken-image icon. |
 | 30 | Duplicate slugs in the content file | A build-time assertion fails the build with a clear message. |
 | 31 | Malformed date in content | `lib/dates.ts` throws at build time with the offending slug named. |
-| 32 | Spine with all 16 entries on a 320px screen | Total scroll length must stay sane — collapse pre-2022 entries into a compact variant (title, dates, one line) rather than full cards. Verify the page is under 12 screens tall on mobile. |
+| 32 | Spine with all entries on a 320px screen | Total scroll length must stay sane. As built (M10): pre-2022 entries compact, 2022-group rows mobile-compact, mobile rhythm tightened, ⇄ lines shortened to one name +N, summaries clamped to two lines on mobile. E2E-verified under 12 screens at 320×568. |
 | 33 | Screen reader on the spine | DOM order is chronological regardless of visual lanes; verify with VoiceOver and NVDA. |
 
 ---
@@ -950,7 +950,7 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 - [ ] Zowis lookbook images and brand copy, plus the store URL and Instagram handle
 - [ ] Portrait photograph
 - [ ] Current CV as PDF
-- [ ] Domain name
+- [x] Domain name — **orji.dev** (supplied 2026-08-14)
 - [ ] Whether the Zowis product feed is in scope for v1 (§12.2) or the static fallback is enough
 - [ ] Cal.com or other booking link, if wanted
 

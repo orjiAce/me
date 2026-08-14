@@ -42,7 +42,6 @@ export function Header() {
         <Link
           href="/"
           className="flex items-baseline gap-1.5 text-ink no-underline"
-          aria-label="Ace Orji — home"
         >
           <span className="font-display text-[1.375rem] font-bold leading-none tracking-[-0.02em]">
             ACE

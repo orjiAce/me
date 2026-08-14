@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Project } from "@/content/types";
 import { formatMonthYear, formatRange, numberWord } from "@/lib/dates";
+import { displayName } from "@/lib/accent";
 import { cn } from "@/lib/cn";
 
 type DatedProject = Project & { start: string };
@@ -20,6 +21,8 @@ type SpineEntryProps = {
   compact?: boolean;
   /** About-page compact variant (§10.5.2): title + meta only, everywhere. */
   dense?: boolean;
+  /** §15: heading levels never skip — h2 under a page h1, h3 under a section h2. */
+  headingLevel?: 2 | 3;
 };
 
 const TRACK_ACCENT: Record<Project["track"], string> = {
@@ -69,7 +72,9 @@ export function SpineEntry({
   grouped = false,
   compact = false,
   dense = false,
+  headingLevel = 3,
 }: SpineEntryProps) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   const meta = [project.role, project.org, project.location].filter(
     (part): part is string => Boolean(part) && part !== "⚠ NEEDS INPUT",
   );
@@ -101,7 +106,7 @@ export function SpineEntry({
        * so they stay selectable (edge case #25): clicks on text hit text,
        * clicks anywhere else on the row hit the link.
        */}
-      <h3
+      <Heading
         className={cn(
           "font-sans font-medium text-ink",
           dense ? "text-body" : "text-lead",
@@ -112,12 +117,12 @@ export function SpineEntry({
             href={`/work/${project.slug}`}
             className="no-underline after:absolute after:inset-0 hover:underline"
           >
-            {project.name}
+            {displayName(project)}
           </Link>
         ) : (
-          project.name
+          displayName(project)
         )}
-      </h3>
+      </Heading>
 
       {/* Below the title so the node aligns with every row's title line. */}
       {bracket?.pos === "start" && (
@@ -141,6 +146,7 @@ export function SpineEntry({
         <p
           className={cn(
             "measure relative z-10 mt-2 w-fit text-sm text-graphite",
+            "line-clamp-2 md:line-clamp-none", // row 32: mobile scroll budget
             compact && "hidden md:block",
           )}
         >
@@ -148,10 +154,14 @@ export function SpineEntry({
         </p>
       )}
 
+      {/* §7.2 mobile: one name, spec's own format; the rest as +N (row 32). */}
       {!dense && !grouped && concurrentNames.length > 0 && (
         <p className="mono-label mt-2 text-slate md:hidden">
           ⇄ concurrent with{" "}
-          <span className="normal-case">{concurrentNames.join(", ")}</span>
+          <span className="normal-case">
+            {concurrentNames[0]}
+            {concurrentNames.length > 1 && ` +${concurrentNames.length - 1}`}
+          </span>
         </p>
       )}
     </article>
@@ -166,10 +176,12 @@ export function SpineGroup({
   projects,
   yearLabel,
   dense = false,
+  headingLevel = 3,
 }: {
   projects: DatedProject[];
   yearLabel: string;
   dense?: boolean;
+  headingLevel?: 2 | 3;
 }) {
   return (
     <div className="spine-row" style={{ "--lane": 0 } as CSSProperties}>
@@ -180,7 +192,7 @@ export function SpineGroup({
       <ol className="mt-4 divide-y divide-hairline rounded-lg border border-hairline px-5 md:px-6">
         {projects.map((project) => (
           <li key={project.slug} className={dense ? "py-3" : "py-5"}>
-            <SpineEntry project={project} grouped dense={dense} />
+            <SpineEntry project={project} grouped dense={dense} compact headingLevel={headingLevel} />
           </li>
         ))}
       </ol>

@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { projectBySlug } from "@/content/projects";
 import { formatRange } from "@/lib/dates";
 import { loadBricolage, OG_SIZE } from "@/lib/og";
+import { displayName } from "@/lib/accent";
 
 /**
  * Per-case-study OG card — §12.5. Same grammar as the site default:
@@ -26,7 +27,7 @@ export async function generateImageMetadata({
   return [
     {
       id: "og",
-      alt: `${project?.name ?? "Case study"} — Ace Orji`,
+      alt: `${project ? displayName(project) : "Case study"} — Ace Orji`,
       size: OG_SIZE,
       contentType: "image/png",
     },
@@ -78,7 +79,7 @@ export default async function OpenGraphImage({
                 display: "flex",
               }}
             >
-              {project?.name ?? "Work"}
+              {project ? displayName(project) : "Work"}
             </div>
             <div
               style={{

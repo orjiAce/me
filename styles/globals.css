@@ -332,6 +332,7 @@
   }
   .prose a {
     color: var(--color-signal);
+    text-decoration: underline;
   }
   .prose code {
     font-family: var(--font-mono);
@@ -563,8 +564,8 @@
 /* Print — §17 edge case #28: hide chrome and decoration, expand content,
    show destination URLs after external links. */
 @media print {
-  header,
-  footer,
+  body > header,
+  body > footer,
   .marquee,
   .spine-node,
   .spine-bracket,

@@ -62,7 +62,7 @@ export default async function WorkPage({
       {shown === 0 ? (
         <p className="mt-14 text-graphite">
           No projects on this track yet.{" "}
-          <Link href="/work" className="text-signal">
+          <Link href="/work" className="text-signal underline">
             Show all work
           </Link>
         </p>
@@ -70,7 +70,7 @@ export default async function WorkPage({
         <>
           {dated.length > 0 && (
             <div className="mt-14 md:mt-20">
-              <SpineTimeline projects={dated} />
+              <SpineTimeline projects={dated} headingLevel={2} />
             </div>
           )}
 

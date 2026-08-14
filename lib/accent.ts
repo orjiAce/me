@@ -44,6 +44,20 @@ export function accentVars(project: Accentable): CSSProperties {
   } as CSSProperties;
 }
 
+/**
+ * Public display name — §17 row 8: a confidential client renders as
+ * "Confidential — {sector}" and the real name never reaches the DOM or
+ * the OG image. No current project is confidential; the path exists so
+ * flipping the flag is safe.
+ */
+export function displayName(
+  project: Pick<Project, "name" | "confidential" | "domain">,
+): string {
+  return project.confidential
+    ? `Confidential — ${project.domain ?? "client"}`
+    : project.name;
+}
+
 /** The track-accent tint for the card hover bloom (§5.1 redirect item 5). */
 export function bloomVar(project: Accentable): CSSProperties {
   const track = project.track === "founder" ? "plum" : "signal";

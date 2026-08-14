@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/ui/Tag";
-import { bloomVar } from "@/lib/accent";
+import { bloomVar, displayName } from "@/lib/accent";
 import { cn } from "@/lib/cn";
 
 /**
@@ -38,7 +38,7 @@ export function FeatureCard({
         className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-md border border-hairline bg-mist"
       >
         <span className="font-display text-h3 font-semibold text-slate transition-transform duration-[var(--dur-slow)] group-hover:scale-[1.03]">
-          {project.name}
+          {displayName(project)}
         </span>
       </div>
 
@@ -53,7 +53,7 @@ export function FeatureCard({
       </div>
 
       <h3 className="mt-3 font-sans text-lead font-medium text-ink">
-        {project.name}
+        {displayName(project)}
       </h3>
       <p className="mt-1 text-sm text-graphite">{project.summary}</p>
 

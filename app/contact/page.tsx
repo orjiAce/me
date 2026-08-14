@@ -54,7 +54,7 @@ export default function ContactPage() {
           <noscript>
             <p className="mt-6 text-sm text-graphite">
               The form needs JavaScript. Email me instead:{" "}
-              <a href={`mailto:${profile.email}`} className="text-signal">
+              <a href={`mailto:${profile.email}`} className="text-signal underline">
                 {profile.email}
               </a>
             </p>

@@ -7,15 +7,17 @@ import { NextProject } from "@/components/work/NextProject";
 import { projects, projectBySlug, spineProjects } from "@/content/projects";
 import { formatMonthYear, formatRange, sortByStartDesc } from "@/lib/dates";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { displayName } from "@/lib/accent";
 import { siteUrl } from "@/lib/site";
 
 /**
  * Case study — §10.3. Pages exist only for projects with an MDX body
- * (edge case #3); any other slug 404s (edge case #11) via
- * dynamicParams = false.
+ * (edge case #3); any other slug 404s (edge case #11) through the
+ * explicit notFound() below. dynamicParams stays default (true): with
+ * `false`, the production server answers unknown slugs with Next's
+ * built-in 404 body (NoFallbackError path) instead of the custom
+ * not-found page — found by the M10 prod-build E2E suite.
  */
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return projects
     .filter((p) => p.caseStudy)
@@ -31,11 +33,11 @@ export async function generateMetadata({
   const project = projectBySlug(slug);
   if (!project) return {};
   return {
-    title: project.name,
+    title: displayName(project),
     description: project.summary,
     alternates: { canonical: `/work/${slug}` },
     openGraph: {
-      title: `${project.name} — Ace Orji`,
+      title: `${displayName(project)} — Ace Orji`,
       description: project.summary,
       url: `/work/${slug}`,
     },
@@ -112,12 +114,12 @@ export default async function CaseStudyPage({
               "@type": "BreadcrumbList",
               itemListElement: [
                 { "@type": "ListItem", position: 1, name: "Work", item: `${siteUrl}/work` },
-                { "@type": "ListItem", position: 2, name: project.name, item: `${siteUrl}/work/${slug}` },
+                { "@type": "ListItem", position: 2, name: displayName(project), item: `${siteUrl}/work/${slug}` },
               ],
             },
             {
               "@type": "CreativeWork",
-              name: project.name,
+              name: displayName(project),
               description: project.summary,
               author: { "@type": "Person", name: "Joseph Orji", alternateName: "Ace" },
               dateCreated: project.start,
@@ -131,11 +133,11 @@ export default async function CaseStudyPage({
           <Link href="/work" className="no-underline hover:text-ink">
             Work
           </Link>{" "}
-          / <span aria-current="page">{project.name}</span>
+          / <span aria-current="page">{displayName(project)}</span>
         </nav>
 
         <header className="mt-8">
-          <h1 className="text-h1">{project.name}</h1>
+          <h1 className="text-h1">{displayName(project)}</h1>
           <p className="mt-4 text-lead text-graphite">
             {[project.role, project.org, project.location]
               .filter(Boolean)
@@ -160,7 +162,7 @@ export default async function CaseStudyPage({
               className="flex aspect-[16/10] items-center justify-center rounded-lg border border-hairline bg-mist"
             >
               <span className="font-display text-h2 font-semibold text-slate">
-                {project.name}
+                {displayName(project)}
               </span>
             </div>
 

@@ -234,7 +234,7 @@ export function ContactForm() {
             className="rounded-md border border-danger/40 bg-fog px-4 py-3 text-sm text-ink"
           >
             {errorCopy[serverError.kind]}{" "}
-            <a href={mailtoHref} className="font-medium text-signal">
+            <a href={mailtoHref} className="font-medium text-signal underline">
               {profile.email}
             </a>
           </div>
