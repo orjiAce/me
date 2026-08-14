@@ -37,8 +37,7 @@
   /* Track accents */
   --color-signal:     #1B3BE8;  /* engineering track */
   --color-signal-sub: #E8ECFE;  /* engineering tint fill */
-  --color-plum:       #7A2E4E;  /* Zowis / founder track — also Zowis duotone */
-  --bg-ivory:       #002615;  /* Zowis / founder track — also Zowis duotone */
+  --color-plum:       #7A2E4E;  /* Zowis / founder track */
   --color-plum-sub:   #F7ECF1;  /* Zowis tint fill */
 
   /* Domain palette §5.1 (M7.5 as redirected 2026-08-14) — one tuned
