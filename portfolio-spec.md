@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.4 (§11/§14 motion-strategy decision recorded 2026-08-14; v1.3 folded content amendment v3: UWA unarchived, Nexaflex added, Leadership News held, project links, §7.2 lane amendment; retains the v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.5 (M7.5 colour-pass amendment recorded 2026-08-14, domain palette pending owner approval; v1.4 §11/§14 motion strategy; v1.3 content amendment v3; v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -192,8 +192,23 @@ White background is the brief. The palette is built from a near-black ink on whi
 }
 ```
 
+**Domain palette — M7.5 colour pass (amendment 2026-08-14; hexes proposed, pending owner approval).** A second colour dimension that encodes something true: each project carries a `domain`, and the domain hue appears in exactly four places — the project tag (border + text), the cover placeholder (a duotone gradient block in the domain hue, replacing the grey mist placeholder of edge case #1 and becoming the primary visual for most projects), the card hover border, and on a case study one hairline rule plus the fact-rail labels. Nowhere else. `track` still owns the spine accents — this is a new axis, not a replacement. Derived as a tuned family (uniform perceived lightness; all bases 5.0–5.5:1 on paper, all tints ≥ 16:1 under ink):
+
+```css
+/* Proposed — do not apply to tokens until approved */
+--color-fintech:         #0F766E;  --color-fintech-sub:     #E6F5F2;
+--color-health:          #0D74AE;  --color-health-sub:      #E7F1F9;
+--color-media:           #B45309;  --color-media-sub:       #F9F0E1;
+--color-marketplace:     #8150DD;  --color-marketplace-sub: #F1EBFB;
+--color-mobility:        #527A12;  --color-mobility-sub:    #EFF4E2;
+--color-education:       #C2410C;  --color-education-sub:   #FAEEE4;
+--color-fashion:         #C63368;  --color-fashion-sub:     #FAE9F0;
+```
+
+Never: coloured body text; more than one hue per card; gradients on text; a domain hue on the spine rail (track accents own that).
+
 Rules:
-- Ink on paper is the default for everything. Accent is used at roughly **3% of visible surface area** — links, one word in a headline, the spine node, a tag border, the active filter pill. If a section looks colourful, it is wrong.
+- Ink on paper is the default for everything. Accent is used at roughly **8% of visible surface area** (amended M7.5, from 3%) — links, one word in a headline, the spine node, tag borders and text, duotone cover placeholders, tinted panels where a mist panel earns a domain tint, the active filter pill. Headings, body copy and the spine stay ink. If body text is coloured, it is wrong.
 - `--color-signal` and `--color-plum` never appear in the same component instance except in the track legend and the filter control.
 - All text/background pairs meet WCAG AA. `--color-slate` on `--color-paper` is 4.6:1 and is the lightest text permitted; never use it below 14px.
 - `<html>` sets `color-scheme: light` and `<meta name="theme-color" content="#FFFFFF">`. No dark-mode media query anywhere.
@@ -899,6 +914,7 @@ Work in these milestones; each ends in a runnable state.
 5. **Home** — all sections in order, using components already built.
 6. **Zowis, About, Lab.**
 7. **Contact + API** — form, validation, Resend, bot defence, rate limiting, all failure states.
+7.5. **Colour pass** (amendment 2026-08-14) — the §5.1 domain palette: `domain` on every project, domain hue applied in exactly its four places, duotone cover placeholders replacing mist panels (edge case #1), accent budget to ~8%. *Gate: the seven hexes are approved by the owner before landing on any card.*
 8. **Motion pass** — reveals, counters, marquee, magnetic CTA, reduced-motion guard.
 9. **Polish** — OG images, metadata, JSON-LD, sitemap, print styles, image optimisation.
 10. **Hardening** — full edge-case table, axe on every route, Lighthouse to budget, E2E suite, visual baselines.
