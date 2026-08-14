@@ -38,6 +38,7 @@ number is expected to move there.
 | M5 Home | 150 kB → **107 kB** after the motion-strategy decision † (106 kB `/work` · 106 kB `/work/[slug]`) |
 | M6 Zowis · About · Lab | 107 kB (102 kB `/zowis` · 106 kB `/about` · 103 kB `/lab`) |
 | M7 Contact + API | 107 kB (145 kB `/contact` — RHF + Zod + Radix Toast, route-local) |
+| M8 Motion pass | **108 kB** home · **106 kB** `/work` — no motion library; dep removed |
 
 † Decision recorded in spec §11/§14 (v1.4): the spine fill is a plain rAF
 scroll listener; motion is off every route until M8, and M8 must use
@@ -64,6 +65,6 @@ unaffected (see the comment in `next.config.ts`).
 - [x] **M6 Zowis, About, Lab** — Zowis brand page (plum accent, edge-#1 ratio panels, founded date/store/Instagram held as typed NEEDS_INPUT), About with the compact spine variant over all 17 dated entries + §9.5 education at year granularity, grouped stack, ways of working; Lab with live npm counts (6h ISR) and LingoBase — nothing padded
 - [x] **M7 Contact + API** — degraded-mode-first: mailto path works end to end with zero env keys (503 → inline error + toast + mailto carrying the typed message); Resend behind `RESEND_API_KEY`; honeypot fake-success, HMAC timing challenge, Turnstile-optional, in-memory rate limit (3/10min, 20/day, `Retry-After`), 60s dedupe registered only on successful send; §17 rows 12–16 covered by 14 unit tests + live curl/browser demos; about-copy.md applied with the count derived from `profile.stats`
 - [x] **M7.5 Colour pass** — five-domain palette (owner-approved, bases 5.06–5.16:1, tints ≥16:1, nudged off framework defaults), `domain` axis on all engineering projects, applied in exactly four places (tag, duotone cover, card hover border, case-study rule + fact-rail labels); Zowis rides the plum track accent, LingoBase stays hue-less; spine rail untouched
-- [ ] M8 Motion pass
+- [x] **M8 Motion pass** — guard built first (html.js gate + `usePrefersReducedMotion`; hidden states exist only when JS runs and motion is allowed), then: hero TextReveal line masks (pure CSS, 780ms total), Reveal (IO + CSS, 60ms stagger capped at 6, IO-less fallback shows content), Counter rAF odometer (SSR renders final value), MagneticCTA (fine pointers only), marquee/spine-fill already guarded; `motion` dependency removed — nothing needed a library
 - [ ] M9 Polish
 - [ ] M10 Hardening

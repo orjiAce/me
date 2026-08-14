@@ -7,6 +7,9 @@ import { Counter } from "@/components/ui/Counter";
 import { Marquee } from "@/components/ui/Marquee";
 import { CopyButton } from "@/components/ui/CopyButton";
 import { FeatureCard } from "@/components/home/FeatureCard";
+import { MagneticCTA } from "@/components/motion/MagneticCTA";
+import { Reveal } from "@/components/motion/Reveal";
+import { TextReveal } from "@/components/motion/TextReveal";
 import { SpineTimeline } from "@/components/work/SpineTimeline";
 import { capabilities } from "@/content/home";
 import { packages } from "@/content/packages";
@@ -60,14 +63,24 @@ export default async function HomePage() {
           Lead mobile engineer — Abuja, Nigeria — UTC+1
         </Eyebrow>
 
+        {/* §11.1: hero text reveal only — 3 line masks, 620ms + 80ms
+            stagger = 780ms total orchestration, load-only. */}
         <h1 className="text-display mt-8 font-bold">
-          Seventeen apps in production
-          <span className="text-signal">.</span>
-          <br />
-          Two npm packages
-          <span className="text-signal">.</span>
-          <br />
-          <span className="text-plum">One fashion label.</span>
+          <TextReveal
+            lines={[
+              <>
+                Seventeen apps in production
+                <span className="text-signal">.</span>
+              </>,
+              <>
+                Two npm packages
+                <span className="text-signal">.</span>
+              </>,
+              <span key="plum" className="text-plum">
+                One fashion label.
+              </span>,
+            ]}
+          />
         </h1>
 
         <p className="measure mt-10 text-lead">
@@ -77,17 +90,19 @@ export default async function HomePage() {
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
-          <Link
-            href="/work"
-            className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
-          >
-            See the work
-            <ArrowRight
-              aria-hidden="true"
-              size={16}
-              className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
-            />
-          </Link>
+          <MagneticCTA>
+            <Link
+              href="/work"
+              className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
+            >
+              See the work
+              <ArrowRight
+                aria-hidden="true"
+                size={16}
+                className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+              />
+            </Link>
+          </MagneticCTA>
           {/* "Download CV" ghost button lands when the PDF is supplied (§21). */}
         </div>
 
@@ -120,21 +135,15 @@ export default async function HomePage() {
           Three arguments, one operator
         </h2>
         <div className="mt-10 grid gap-[var(--grid-gap)] md:grid-cols-12">
-          <FeatureCard
-            project={jifu}
-            href="/work/jifu360"
-            className="md:col-span-7"
-          />
-          <FeatureCard
-            project={rightnowmd}
-            href="/work/rightnowmd"
-            className="md:col-span-5"
-          />
-          <FeatureCard
-            project={zowis}
-            href="/zowis"
-            className="md:col-span-12"
-          />
+          <Reveal delay={0} className="md:col-span-7">
+            <FeatureCard project={jifu} href="/work/jifu360" className="h-full" />
+          </Reveal>
+          <Reveal delay={1} className="md:col-span-5">
+            <FeatureCard project={rightnowmd} href="/work/rightnowmd" className="h-full" />
+          </Reveal>
+          <Reveal delay={2} className="md:col-span-12">
+            <FeatureCard project={zowis} href="/zowis" />
+          </Reveal>
         </div>
       </Section>
 
@@ -220,14 +229,14 @@ export default async function HomePage() {
       <Section tone="mist" wash="plum" aria-label="Capabilities">
         <Eyebrow>What I do</Eyebrow>
         <div className="mt-10 grid gap-x-[var(--grid-gap)] gap-y-12 md:grid-cols-2">
-          {capabilities.map((cap) => (
-            <div key={cap.index}>
+          {capabilities.map((cap, i) => (
+            <Reveal key={cap.index} delay={i}>
               <p className="mono-label text-signal">{cap.index}</p>
               <h3 className="mt-2 font-sans text-lead font-medium text-ink">
                 {cap.title}
               </h3>
               <p className="measure mt-3 text-sm text-graphite">{cap.body}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -295,17 +304,19 @@ export default async function HomePage() {
           {profile.availability.note} · {profile.availability.preferredLength}
         </p>
         <p className="mt-8">
-          <Link
-            href="/contact"
-            className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
-          >
-            Start a conversation
-            <ArrowRight
-              aria-hidden="true"
-              size={16}
-              className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
-            />
-          </Link>
+          <MagneticCTA>
+            <Link
+              href="/contact"
+              className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
+            >
+              Start a conversation
+              <ArrowRight
+                aria-hidden="true"
+                size={16}
+                className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+              />
+            </Link>
+          </MagneticCTA>
         </p>
       </Section>
     </>

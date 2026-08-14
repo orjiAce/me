@@ -491,6 +491,62 @@
   }
 }
 
+@layer components {
+  /*
+   * Motion pass — M8, per the §11/§14 decisions: IntersectionObserver +
+   * CSS only, no motion library. Every effect sits ON the guard, not
+   * under it: hidden initial states exist only when motion is allowed
+   * (`prefers-reduced-motion: no-preference`) and — for scroll-driven
+   * effects — when JS is running (`html.js`). Reduced-motion users and
+   * JS-off users never see a hidden or moving state.
+   */
+
+  /* TextReveal (§11.1): hero line masks, load-only, CSS animation.
+     Line separation is layout, so .line-mask is block regardless. */
+  .line-mask {
+    display: block;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .line-mask {
+      overflow: hidden;
+    }
+    .line-rise {
+      display: block;
+      transform: translateY(112%);
+      animation: line-rise var(--dur-slow) var(--ease-out) forwards;
+      animation-delay: calc(var(--line, 0) * 80ms);
+    }
+    @keyframes line-rise {
+      to {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  /* Reveal (§11.2): opacity + 16px rise, once, stagger 60ms capped at 6. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity var(--dur-slow) var(--ease-out),
+        transform var(--dur-slow) var(--ease-out);
+      transition-delay: calc(var(--reveal-delay, 0) * var(--stagger));
+    }
+    .js .reveal.is-in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* MagneticCTA (§6): transform smoothing; the JS only runs on fine
+     pointers with motion allowed. */
+  .magnetic {
+    display: inline-block;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+}
+
 /* Reduced motion — single global guard, §11.6 */
 @media (prefers-reduced-motion: reduce) {
   *,

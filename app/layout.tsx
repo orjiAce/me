@@ -31,6 +31,13 @@ export default function RootLayout({
       className={`light ${bricolage.variable} ${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
+        {/* Motion guard (§11.6): scroll-driven initial-hidden states exist
+            only under html.js — with JS off, nothing is ever hidden. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         <SkipLink />
         <Header />
         <main id="main" className="flex-1">

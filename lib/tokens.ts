@@ -1,7 +1,8 @@
 /**
- * TS mirror of the motion tokens in styles/globals.css (§5.5), for use as
- * `motion/react` values. Durations are seconds; easings are cubic-bezier
- * tuples. If a value changes here it must change in the @theme block too.
+ * TS mirror of the motion tokens in styles/globals.css (§5.5), for
+ * JS-driven effects (rAF counters, scroll fill). Durations are seconds;
+ * easings are cubic-bezier tuples. If a value changes here it must
+ * change in the @theme block too.
  */
 export const duration = {
   fast: 0.16,
