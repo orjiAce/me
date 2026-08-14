@@ -14,13 +14,11 @@ import { SpineTimeline } from "@/components/work/SpineTimeline";
 import { capabilities } from "@/content/home";
 import { packages } from "@/content/packages";
 import { profile } from "@/content/profile";
-import {
-  featuredProjects,
-  projectBySlug,
-  spineProjects,
-} from "@/content/projects";
+import { projectBySlug, spineProjects } from "@/content/projects";
 import { sortByStartDesc } from "@/lib/dates";
 import { weeklyDownloads } from "@/lib/npm";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { siteUrl } from "@/lib/site";
 
 /**
  * Home — §10.1, sections in fixed order. Static with 6h ISR (the lab
@@ -54,6 +52,29 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* §16 — Person */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: profile.name,
+          alternateName: profile.alias,
+          jobTitle: "Lead Mobile Engineer",
+          worksFor: { "@type": "Organization", name: profile.company },
+          knowsAbout: [
+            "React Native",
+            "TypeScript",
+            "Expo",
+            "Mobile architecture",
+            "WebRTC",
+            "Payments",
+          ],
+          sameAs: profile.socials.map((s) => s.href),
+          email: `mailto:${profile.email}`,
+          url: siteUrl,
+        }}
+      />
+
       {/* 2 — Hero (§10.1.2) — radial signal wash, top-right, ambient only. */}
       <Section
         spacing="none"

@@ -6,6 +6,8 @@ import { MetricRow } from "@/components/work/MetricRow";
 import { NextProject } from "@/components/work/NextProject";
 import { projects, projectBySlug, spineProjects } from "@/content/projects";
 import { formatMonthYear, formatRange, sortByStartDesc } from "@/lib/dates";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { siteUrl } from "@/lib/site";
 
 /**
  * Case study — §10.3. Pages exist only for projects with an MDX body
@@ -28,7 +30,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projectBySlug(slug);
   if (!project) return {};
-  return { title: project.name, description: project.summary };
+  return {
+    title: project.name,
+    description: project.summary,
+    alternates: { canonical: `/work/${slug}` },
+    openGraph: {
+      title: `${project.name} — Ace Orji`,
+      description: project.summary,
+      url: `/work/${slug}`,
+    },
+  };
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -92,6 +103,29 @@ export default async function CaseStudyPage({
 
   return (
     <>
+      {/* §16 — BreadcrumbList + CreativeWork */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Work", item: `${siteUrl}/work` },
+                { "@type": "ListItem", position: 2, name: project.name, item: `${siteUrl}/work/${slug}` },
+              ],
+            },
+            {
+              "@type": "CreativeWork",
+              name: project.name,
+              description: project.summary,
+              author: { "@type": "Person", name: "Joseph Orji", alternateName: "Ace" },
+              dateCreated: project.start,
+              url: `${siteUrl}/work/${slug}`,
+            },
+          ],
+        }}
+      />
       <Container className="py-[var(--section-y-sm)] md:py-[var(--section-y-md)]">
         <nav aria-label="Breadcrumb" className="mono-label text-slate">
           <Link href="/work" className="no-underline hover:text-ink">

@@ -3,6 +3,8 @@ import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { isProvided } from "@/content/profile";
 import { zowis } from "@/content/zowis";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Zowis Fashion Limited",
@@ -21,6 +23,17 @@ export const metadata: Metadata = {
 export default function ZowisPage() {
   return (
     <>
+      {/* §16 — Organization */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Zowis Fashion Limited",
+          founder: { "@type": "Person", name: "Joseph Orji" },
+          url: `${siteUrl}/zowis`,
+        }}
+      />
+
       {/* 1 — Hero — ambient wash in the brand's plum */}
       <Section
         spacing="none"

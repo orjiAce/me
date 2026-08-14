@@ -559,3 +559,38 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Print — §17 edge case #28: hide chrome and decoration, expand content,
+   show destination URLs after external links. */
+@media print {
+  header,
+  footer,
+  .marquee,
+  .spine-node,
+  .spine-bracket,
+  .spine-year,
+  .card-bloom::before {
+    display: none !important;
+  }
+  .wash-hero,
+  .wash-panel,
+  .wash-contact,
+  .wash-footer {
+    background-image: none !important;
+  }
+  .wash-plum {
+    background: none !important;
+  }
+  .wash-plum * {
+    color: var(--color-ink) !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: var(--color-graphite);
+  }
+}

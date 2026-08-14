@@ -6,15 +6,25 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { profile } from "@/content/profile";
+import { siteUrl } from "@/lib/site";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${profile.alias} Orji — ${profile.title}`,
     template: "%s — Ace Orji",
   },
   description:
     "Lead mobile engineer shipping React Native and TypeScript products for teams across four continents — and founder of Zowis Fashion Limited.",
+  openGraph: {
+    type: "website",
+    siteName: "Ace Orji",
+    locale: "en",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export const viewport: Viewport = {
