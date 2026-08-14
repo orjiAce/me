@@ -35,12 +35,13 @@ number is expected to move there.
 | M2 Content layer | 102 kB |
 | M3 The Spine | 102 kB (150 kB on `/work` — motion loads there only) |
 | M4 Work index + case studies | 102 kB (149 kB `/work` · 106 kB `/work/[slug]`) |
-| M5 Home | **150 kB** † (149 kB `/work` · 106 kB `/work/[slug]`) |
+| M5 Home | 150 kB → **107 kB** after the motion-strategy decision † (106 kB `/work` · 106 kB `/work/[slug]`) |
 
-† Over the 130 kB home budget: the §10.1.6 spine preview mounts the full
-Spine component, whose scroll-fill imports motion (~44 kB chunk). The M8
-motion pass owns the fix — either LazyMotion/`m` or replacing the fill's
-`useScroll` with a ~1 kB rAF listener — before M10 enforces the budget.
+† Decision recorded in spec §11/§14 (v1.4): the spine fill is a plain rAF
+scroll listener; motion is off every route until M8, and M8 must use
+LazyMotion + `m` with `domAnimation` (IntersectionObserver + CSS for
+Reveal/TextReveal). Home is back under the 130 kB budget with 23 kB
+headroom for the motion pass.
 
 An accidental Next 15 → 16 upgrade rode along with the M3 commit and was
 reverted immediately after; numbers above are Next 15's build table

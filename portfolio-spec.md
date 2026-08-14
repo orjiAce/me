@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.3 (content amendment v3 folded in 2026-08-14: UWA unarchived, Nexaflex added, Leadership News held, project links, §7.2 lane amendment; retains the v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.4 (§11/§14 motion-strategy decision recorded 2026-08-14; v1.3 folded content amendment v3: UWA unarchived, Nexaflex added, Leadership News held, project links, §7.2 lane amendment; retains the v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -703,8 +703,8 @@ H1 "That page doesn't exist." + one line + three links (Home, Work, Contact). No
 ## 11. Motion & interaction
 
 1. **Page load** — hero text reveal only. Nothing else animates above the fold. Total orchestration ≤ 900ms.
-2. **Scroll reveals** — `Reveal` wrapper: `opacity 0→1`, `translateY 16px→0`, 620ms `--ease-out`, `once: true`, `amount: 0.2`. Grid children stagger 60ms, capped at 6 children — never stagger a long list.
-3. **Scroll-linked** — only the spine fill. No parallax on images, no pinned sections, no horizontal scroll hijacking.
+2. **Scroll reveals** — `Reveal` wrapper: `opacity 0→1`, `translateY 16px→0`, 620ms `--ease-out`, `once: true`, `amount: 0.2`. Grid children stagger 60ms, capped at 6 children — never stagger a long list. **Decision recorded 2026-08-14:** `Reveal` and `TextReveal` are IntersectionObserver + CSS transitions, not motion components, unless M8 demonstrates a concrete effect they cannot achieve; where motion is genuinely needed (layout animation, springs), M8 imports `LazyMotion` with `domAnimation` features and `m` components — never the full `motion` import.
+3. **Scroll-linked** — only the spine fill. No parallax on images, no pinned sections, no horizontal scroll hijacking. **Decision recorded 2026-08-14:** the spine fill is a plain rAF-batched scroll listener, not a motion `useScroll` — importing motion for one scaleY put the home route 20 kB over budget. Motion stays off every route until M8.
 4. **Hover** — arrow translate, image scale, border colour, tint fill. 160ms.
 5. **Lenis** — `duration: 1.05`, `wheelMultiplier: 1`, `smoothTouch: false`. Must not break anchor links, `scroll-margin-top` on headings, or browser find-in-page. **Cut it entirely if it degrades iOS scrolling.**
 6. **Reduced motion** — a single global guard: when `prefers-reduced-motion: reduce`, `Reveal` renders children at final state, `Counter` renders the final number, `Marquee` renders a static wrapped list, `MagneticCTA` is inert, Lenis is not initialised, and CSS sets `animation-duration: 0.01ms !important; transition-duration: 0.01ms !important`.
@@ -782,6 +782,8 @@ If content ever moves to Sanity: keep `content/*.ts` as the interface, replace i
 | Fonts | 3 families, variable, `font-display: swap`, subset `latin` |
 
 Rules: `next/image` everywhere with explicit `width`/`height` or `fill` + aspect-ratio wrapper; AVIF with WebP fallback; `priority` on the hero image only; every other image lazy with a `--color-fog` placeholder box at the correct ratio; `motion` and Lenis imported only in client components that need them, never in `layout.tsx`; no barrel-file icon imports.
+
+**Budget decision recorded 2026-08-14:** the home route carries no motion at all — the spine fill is a ~1 kB rAF scroll listener (§11.3). When M8 adds animation it must use `LazyMotion` + `m` with `domAnimation` (IntersectionObserver + CSS for reveals), and the home first-load number is re-measured against the 130 kB budget at the end of that milestone. Measured after this decision: home 107 kB, `/work` 106 kB.
 
 ---
 
