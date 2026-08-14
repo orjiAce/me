@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — §5 of the build spec. This block is the single source of
+ * truth for colour, type, spacing, radii, elevation and motion. Components
+ * consume these via Tailwind utilities or var(); no off-token values.
+ *
+ * Namespaces Tailwind understands (--color-*, --text-*, --radius-*,
+ * --shadow-*, --ease-*, --breakpoint-*, --font-*) are reset to `initial`
+ * first so the default palette/scale cannot leak in: if a utility like
+ * `text-red-500` is used anywhere, it simply won't exist.
+ */
+
+@theme {
+  /* ——— Breakpoints §5.3 ——— */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ——— Colour §5.1 ——— */
+  --color-*: initial;
+
+  /* Canvas */
+  --color-paper:      #FFFFFF;  /* page background, always */
+  --color-mist:       #F4F5F7;  /* alternating section panels, cards at rest */
+  --color-fog:        #ECEEF1;  /* input fills, image placeholders */
+  --color-hairline:   #E2E5E9;  /* 1px rules, card borders */
+
+  /* Ink */
+  --color-ink:        #0C0D10;  /* headings, primary text */
+  --color-graphite:   #4E545C;  /* body copy */
+  --color-slate:      #838A93;  /* captions, meta, disabled — never below 14px */
+
+  /* Track accents */
+  --color-signal:     #1B3BE8;  /* engineering track */
+  --color-signal-sub: #E8ECFE;  /* engineering tint fill */
+  --color-plum:       #7A2E4E;  /* Zowis / founder track */
+  --color-plum-sub:   #F7ECF1;  /* Zowis tint fill */
+
+  /* State */
+  --color-success:    #147A4B;
+  --color-danger:     #B3261E;
+  --color-focus:      #1B3BE8;
+
+  /* ——— Type scale §5.2 — fluid, base 16, ~1.25 mobile / ~1.333 desktop ——— */
+  --text-*: initial;
+  --text-display: clamp(2.75rem, 1.6rem + 5.6vw, 6.5rem);   /* H1 hero */
+  --text-h1:      clamp(2.25rem, 1.5rem + 3.6vw, 4.25rem);
+  --text-h2:      clamp(1.75rem, 1.3rem + 2.2vw, 3rem);
+  --text-h3:      clamp(1.375rem, 1.15rem + 1.1vw, 1.875rem);
+  --text-lead:    clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  --text-body:    1.0625rem;   /* 17px — body copy */
+  --text-sm:      0.9375rem;
+  --text-meta:    0.8125rem;   /* mono labels */
+
+  /* ——— Radii §5.4 ——— */
+  --radius-*: initial;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* ——— Elevation §5.4 ——— */
+  --shadow-*: initial;
+  --shadow-card: 0 1px 2px rgb(12 13 16 / 0.04), 0 8px 24px -12px rgb(12 13 16 / 0.10);
+  --shadow-lift: 0 2px 4px rgb(12 13 16 / 0.05), 0 20px 40px -16px rgb(12 13 16 / 0.16);
+
+  /* ——— Motion §5.5 ——— */
+  --ease-*: initial;
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 620ms;
+  --stagger: 60ms;
+
+  /* ——— Layout §5.3 ——— */
+  --container:  1280px;
+  --gutter-sm:  20px;   /* < 768 */
+  --gutter-md:  32px;
+  --gutter-lg:  48px;   /* ≥ 1280 */
+  --grid-cols:  12;
+  --grid-gap:   24px;
+
+  /* Section rhythm §5.3 */
+  --section-y-sm: 72px;
+  --section-y-md: 112px;
+  --section-y-lg: 160px;
+
+  /* Border shorthand §5.4 */
+  --border: 1px solid var(--color-hairline);
+}
+
+/* Font families come from next/font CSS variables set on <html>. */
+@theme inline {
+  --font-*: initial;
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: light; /* light-only site — §5.1, no dark mode at v1 */
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-graphite);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65; /* body leading §5.2 */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  /* Display face for page H1s and section H2s — §5.2 */
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  /* Largest sizes tighten further — §5.2 display rules */
+  .text-display {
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 22ch; /* display measure cap */
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  /* Focus ring §5.6 — never removed, never replaced */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-signal-sub);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Mono utility label — §5.2: uppercase, tracked, data voice */
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* Body measure cap — §5.2 */
+  .measure {
+    max-width: 68ch;
+  }
+
+  /* Large-type footer nav underline sweep — §10.8 */
+  .sweep-link {
+    position: relative;
+    display: inline-block;
+  }
+  .sweep-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.04em;
+    height: 0.045em;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .sweep-link:hover::after,
+  .sweep-link:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Reduced motion — single global guard, §11.6 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
