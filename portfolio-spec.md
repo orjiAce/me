@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.1 (§13 CSP decision amended 2026-08) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.2 (full §9 chronology, 2026-08; retains the v1.1 §13 CSP decision of 2026-08) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -23,7 +23,7 @@ Three standing rules for the executor:
 
 A single site that presents two parallel bodies of work in one honest chronology:
 
-- **Engineering** — 7+ years, 12+ shipped apps, React Native / TypeScript lead work for clients in Nigeria, the US, Canada and Dubai, delivered as fully remote contracts under **Brains Digital Software Technology**.
+- **Engineering** — 7+ years and 16 shipped products, from a solo build at CheckNCommit in 2019 to concurrent lead-engineer contracts across Nigeria, the US, Canada, the UK and Dubai, delivered remotely under **Brains Digital Software Technology**.
 - **Zowis Fashion Limited** — a women's fashion brand founded and operated by the same person, with its own e-commerce and technical infrastructure.
 
 The site's thesis is that these are not two careers awkwardly stapled together. They are one operator who builds product, ships it, and runs the business around it.
@@ -313,14 +313,21 @@ This is the one thing the site is remembered for. Everything else stays quiet so
 
 ### 7.1 Why it exists
 
-The engagements were **concurrent contracts, not sequential jobs**. Lenbi ran Oct 2025 – Jul 2026 while JIFU360 ran Nov 2025 – Aug 2026 and Sinimax ran Feb 2026 – Jun 2026. A conventional stacked timeline misrepresents that as job-hopping. Rendering them as parallel lanes on a shared spine tells the truth and simultaneously demonstrates capacity.
+The engagements were **concurrent contracts, not sequential jobs**, and this is true across the whole record, not just recently:
+
+- **2026:** RightNowMD, JIFU360, Lenbi, Sinimax and OneWallet MFB all overlap.
+- **2022:** Gateway Edu, Brace Finance, PortsConnect, BluetanksEV, Sumotrust and Truzact overlap — six engagements inside one year.
+
+A conventional stacked timeline reads that as job-hopping across sixteen employers. Rendering them as parallel lanes on a shared spine tells the truth, and simultaneously demonstrates capacity. This is the single most persuasive thing on the site, which is why it is the signature element.
 
 ### 7.2 Behaviour
 
 - A continuous 1px vertical rule (`--color-hairline`) runs the full height of the work section, positioned at the left gutter on mobile and at the 2nd grid column on desktop.
 - Each engagement docks to the spine with a node: a 9px circle, filled with the **track accent**, ringed white.
 - The spine rule **fills with accent colour** from the top down as the section scrolls, driven by `useScroll` progress. This is the only scroll-linked animation on the site.
-- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes (offset horizontally by 28px on desktop) and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
+- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes (offset horizontally by 28px on desktop) and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT ×N` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
+- **Lane cap:** the algorithm must handle up to **six** simultaneous engagements (the real 2022 maximum). Beyond four lanes, stop offsetting and instead render the cluster as a bracketed group sharing one node, with the entries listed inside it and a mono header `2022 — SIX CONCURRENT ENGAGEMENTS`. Squeezing six 28px lanes into the gutter will not work at any viewport.
+- **Year rails:** sticky mono year markers (`2026`, `2025`, … `2019`) sit on the spine and pin to the top of the viewport as their range scrolls through. With sixteen entries this is what makes the timeline scannable.
 - On mobile (< 768px) lanes collapse to a single column; overlapping entries instead render a `⇄ concurrent with JIFU360` mono line beneath the title.
 - Date ranges render in Geist Mono as `10.2025 — 07.2026`; open ranges render `07.2026 — PRESENT` with the accent applied to `PRESENT` and a 2px pulsing dot (static when reduced-motion).
 - Entries are ordered by **start date descending**. Ties break on end date descending, then alphabetically — deterministic ordering is required so builds are reproducible.
@@ -428,79 +435,139 @@ export const profile: Profile = {
   },
   stats: [
     { value: '7+',   label: 'Years shipping mobile' },
-    { value: '12+',  label: 'Apps in production' },
-    { value: '4',    label: 'Continents served' },
+    { value: '16',   label: 'Products shipped' },
+    { value: '2019', label: 'Shipping since' },
     { value: '2',    label: 'Open-source packages' },
   ],
-  socials: [ /* ⚠ NEEDS INPUT: GitHub, LinkedIn, X, Upwork URLs */ ],
-  email: '⚠ NEEDS INPUT',
+  socials: [
+    { label: 'GitHub',   href: 'https://github.com/orjiace' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/orji-joseph-mobile-dev' },
+  ],
+  email: 'orjiace@gmail.com',
 };
 ```
 
-### 9.3 Projects seed — engineering
+Notes:
+- The stat `16` counts the shipped products in §9.3. The CV says "12+ apps" — **use the real count, not the old rounded one**, but confirm before publishing (§21).
+- The phone number on the CV is deliberately **not** on the site. Public phone numbers on a portfolio attract recruiter spam and offer nothing the contact form doesn't. Add it only if Ace explicitly wants it.
 
-Dated engagements (these dates are corrected and authoritative — they supersede any older CV):
+### 9.3 Projects seed — engineering track
 
-| slug | name | role | window | status |
-|---|---|---|---|---|
-| `rightnowmd` | RightNowMD | Lead Mobile Engineer | 2026-07 → present | active |
-| `jifu360` | JIFU360 (Dubai) | Lead Mobile Engineer | 2025-11 → 2026-08 | completed |
-| `lenbi` | Lenbi (Canada) | Lead Mobile Engineer | 2025-10 → 2026-07 | completed |
-| `sinimax` | Sinimax | React Native Engineer | 2026-02 → 2026-06 | on-hold |
+This is the authoritative chronology. It merges the CV with the date corrections Ace made afterwards.
 
-Undated engagements — `⚠ NEEDS INPUT: start/end months` for each. Until supplied, render them in a separate **"Earlier work"** block below the spine, ordered manually, with no date node. Do **not** guess dates.
+> **⚠ Date authority rule.** For **RightNowMD, JIFU360, Lenbi and Sinimax** the CV dates are wrong and have been corrected. The table below wins. Do not "fix" these back to the CV values.
 
-| slug | name | note |
-|---|---|---|
-| `bluetanks-ev` | BluetanksEV (US) | EV charging station navigation |
-| `sumotrust` | Sumotrust | Naira savings & investment |
-| `crowdfacture` | Crowdfacture | Community investment platform, web + mobile |
-| `quant-vertex` | Quant Vertex | PHP crypto trading platform |
+| slug | name | role | location | window | status |
+|---|---|---|---|---|---|
+| `rightnowmd` | RightNowMD | Lead Mobile Engineer | Remote, US | 2026-07 → present | active |
+| `jifu360` | JIFU360 | Lead Mobile Engineer | Dubai, AE | 2025-11 → 2026-08 | completed |
+| `lenbi` | Lenbi | Lead Mobile Engineer | Remote, CA | 2025-10 → 2026-07 | completed |
+| `sinimax` | Sinimax | Lead Mobile Engineer | Abuja, NG | 2026-02 → 2026-06 | on-hold |
+| `onewallet-mfb` | OneWallet MFB | Lead Mobile Engineer | Abuja, NG | 2024-06 → 2026-07 | completed |
+| `uwa` | UWA | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT |
+| `evricent` | EvriCent | Lead Mobile Engineer | — | 2024-02 → ⚠ | completed |
+| `delta-digital` | Delta Digital | Lead Mobile Engineer | — | 2023-05 → ⚠ | completed |
+| `gateway-edu` | Gateway Edu | Lead Mobile Engineer | NG / UK | 2022-06 → 2024-02 | completed |
+| `brace-finance` | Brace Finance | Engineering Lead | — | 2022-06 → 2023-01 | completed |
+| `portsconnect` | PortsConnect | Lead Mobile Engineer | — | 2022-06 → 2023-03 | completed |
+| `bluetanks-ev` | BluetanksEV | Lead Mobile Engineer | United States | 2022-05 → 2022-10 | completed |
+| `sumotrust` | Sumotrust | Lead Full-Stack Engineer | — | 2022-01 → 2023-02 | completed |
+| `truzact` | Truzact | Full-Stack Engineer | Nigeria | 2020-11 → 2022-04 | completed |
+| `crowdfacture` | Crowdfacture | Full-Stack Engineer | — | 2019-09 → 2021-10 | completed |
+| `checkncommit` | CheckNCommit | Full-Stack Engineer | — | 2019-10 → 2020-08 | completed |
 
-Content per project:
+Three entries have an open end date on the CV (`onewallet-mfb` end is known from a later correction; `evricent` and `delta-digital` show a start month only). Where an end month is missing, render the range as `02.2024 —` with the dash trailing and no "present" label, and flag it in §21. **Never invent an end date.**
 
-**RightNowMD** — Telemedicine platform, team TutuTech. React Native / Expo client. Zustand with persistence, TanStack Query, Formik + Yup, Reanimated. Real-time AI triage chat over WebSocket; video visits via VSee ClinicKit with SSO token handoff; booking flows split across telemedicine, nurse, provider visit and clinic visit session types; integration of a REST triage API with session/turn loop and secure key handling outside the mobile bundle. *Metrics: none public — lead with architecture instead.*
+#### Per-project content
 
-**JIFU360** — Trading education platform, Dubai. Live WebRTC streaming via Dolby Millicast, MT4/MT5 broker integration, in-app AI assistant. Metrics: `17,000+` iOS first-time downloads · `12,500` Play Store downloads · `4.8/5` from 96 iOS ratings · users across Spain, Mexico and beyond.
+**RightNowMD** — Telemedicine, team TutuTech. Full app from scratch in React Native + Expo, connecting patients with doctors across video calls, in-home nurse visits, clinic appointments and provider sessions. Separate booking paths per session type with their own routing, session creation and checkout logic. VSee ClinicKit for HD consultations via secure SSO token login so patients join without a second sign-in. Live nurse-location tracking over Socket.IO, updating on a map in real time. **DOKITA**, an AI medical chat assistant on the Anthropic API (Claude Sonnet), with auto-detected questionnaires that turn follow-ups into tappable Yes/No answers. Waiting-room timer that only exposes "Join call" inside a 15-minute window, using UTC comparisons so it holds across time zones. Firebase push for reminders, incoming calls and provider assignment. Shipped to TestFlight and Google Play via EAS. *Also in flight: a new REST triage API with a sessions/turns loop and VSee handoff, running alongside the existing chat, with the API key kept out of the mobile bundle.*
+Stack: React Native, Expo, TypeScript, Zustand (persist), TanStack Query, Formik + Yup, Reanimated, Socket.IO, Firebase Messaging, VSee ClinicKit, Anthropic API, EAS.
 
-**Lenbi** — Rental marketplace, Canada. React Native, Expo, Stripe payments, Haversine-based geolocation search.
+**JIFU360** — Trading education platform: social feeds, live streaming, AI assistance, broker integrations and a full course academy in one app. Built from scratch on a domain-driven `types → service → hooks → screen` module pattern. Live WebRTC streaming on the Dolby Millicast SDK and react-native-webrtc, including native iOS Picture-in-Picture via a custom `AVPictureInPictureVideoCallViewController` + `AVSampleBufferDisplayLayer` module with I420 → BGRA frame conversion. MT4/MT5 broker connectivity through a .NET REST API and a Go WebSocket/assets service for real-time trade placement, global trading ideas and copy-trading. Real-time chat on PubNub with cross-platform message normalisation and a link-detection moderation pipeline. Push via FCM and OneSignal. CI/CD and OTA through EAS.
+Metrics: `17,000+` iOS first-time downloads · `12,500` Play Store downloads · `4.8/5` from 96 iOS ratings · users across Spain, Mexico and beyond.
+**Lead with the 4.8/5.** It is third-party verified and speaks to build quality, which is the thing a client cannot otherwise assess.
 
-**Sinimax** — React Native streaming app (SinimaxMobile). Status `on-hold`. Present neutrally: "Engagement paused by client." No commentary on the contract.
+**Lenbi** — Peer-to-peer equipment rental marketplace where users both rent out and borrow, supporting phone and tablet. Real-time chat over WebSockets with message history, Firebase Storage attachments and automatic blocking of personal contact details inside conversations. Stripe for payments including Apple Pay, Google Pay, voucher checkout and **Stripe Connect** for lender payouts with earnings tracking and bank withdrawal. **Stripe Identity** ID verification gating listings, plus full Google and Apple sign-in with loading and cancellation states handled. Location search with expo-location and Google Places Autocomplete, sorted by distance, filtered by category, with a date-range availability calendar. Multi-step listing flow (photos, pricing, availability, location) validated step by step with Formik + Yup. OneSignal push and a rewards-points system for bookings and referrals. Performance: FlashList for long lists, React Query caching, and resolution of iOS build conflicts between the Stripe SDK and other native packages.
 
-**BluetanksEV** — EV charging navigation, US. Metric: `35,000` charging stations onboarded.
+**Sinimax** — Streaming app architected from scratch in React Native (Expo), TypeScript and NativeWind on a component system. Auth via Google OAuth through Firebase with SuperTokens session management. Cross-platform video player with platform-specific fullscreen: native `AVPlayerViewController` on iOS and a manual absolute-overlay approach on Android, resolving sync and callback edge cases. Consumption-only subscription and billing flow compliant with both stores. Zustand (persist) for global state, TanStack Query for server state with cache invalidation and optimistic updates. Reanimated + Gesture Handler for shimmer skeletons, animated headers and collapsible tab views. Status `on-hold` — render as "Engagement paused by client." No commentary on the contract.
 
-**Sumotrust** — Naira savings and investment app. Metric: `10,000+` users' funds managed.
+**OneWallet MFB** — Mobile banking for a microfinance bank: hold a wallet, move money, pay merchants, no branch visit, at bank-grade security. Sole mobile engineer leading a team of designers and one backend developer; set architecture (MVVM, Zustand) and coding standards, broke features into ClickUp tasks. Built authentication with biometrics and 2FA, the wallet, payments, instant bank-to-bank transfer, contactless QR payment, push notifications and internationalisation. Implemented end-to-end encryption, secure storage and token management. TanStack Query for server-state caching. Sentry for production bug and stability monitoring. Drove the production release through App Store and Google Play review.
+Impact line: took the app from nothing to live on both stores, and gave the team crash and stability visibility they had never had.
 
-**Crowdfacture** — Community-driven investment platform, web and mobile.
+**UWA** — A digital workforce and employment platform for the construction and built-environment industry, connecting employers with skilled, semi-skilled and entry-level workers. Employers post jobs, review applicants across construction trades and professional categories, schedule interviews, manage placements and ongoing projects, and pay workers, all in one place. Workers build a profile covering skills, experience, qualifications, certifications and employment history, assemble a portfolio of past work, track applications and interviews, and get paid for completed work. Identity verification runs through the platform so employers find workers they can rely on and workers find longer-term careers.
+⚠ **NEEDS INPUT before this can go on the spine:** Ace's role, the client/company, dates, stack, and whether it shipped. Until supplied, hold `uwa` in the content file with `status: 'archived'` and exclude it from the spine — do not guess a date to place it.
 
-**Quant Vertex** — Long-running PHP cryptocurrency trading platform.
+**EvriCent** — AI-powered spending and repayment system. React Native CLI + TypeScript, React Query for server-state caching, Apple and Google social auth, push notifications and in-app messaging, Reanimated for transitions, **Plaid SDK** for bank and credit-card linking, Stripe SDK for subscriptions. Led mobile with a team of designers and a backend developer.
 
-> **Confidentiality check before publishing:** for each client project, confirm the client name and metrics are shareable. Any that are not get `confidential: true` and render as "Confidential — {sector}" with the stack and outcomes intact.
+**Delta Digital** — Crypto trading app. TypeScript, Redux, React Query, functional components and hooks. Binance price-ticker API for live crypto prices. A trading-bot feature built in Python. Designed the full app UI in Figma and translated it to pixel-perfect React Native. Apple in-app purchase and subscriptions via RevenueCat.
+Metric: reusable component work cut the codebase by `15%` and smoothed navigation.
+
+**Gateway Edu** — Crypto education platform used across Nigeria, the UK and other African markets. Head of mobile: scalable architecture on React Native + React Navigation. Google, Apple and Facebook OAuth. React Query caching for REST. A gaming adventure system awarding points on completion. An interactive community system — create communities, post, like, comment, block, leave. Firebase Cloud Messaging push. AppsFlyer for analytics and attribution. Web3 gaming integrated with a team of game character designers.
+Metric: shipped to both stores in `4 months`.
+
+**Brace Finance** — DeFi app for buying crypto, saving, sending, swapping and tracking spending. Interpreted complex Figma UI into React Native, using **Skia** for the virtual-card UI. Built an identity architecture verifying every user via live images, facial recognition, biometrics and government-issued ID. Integrated Sentry and optimised API calls. Mentored junior and mid-level engineers and grew the team. Shipped via EAS.
+Metric: crash rate cut `20%` on low-end Android.
+
+**PortsConnect** — Scheduling and appointments platform, frontend engineer in a team of four, mobile and web. React Native, Redux, React.js, React Query, Socket.IO, TypeScript. Built the v2.0 real-time business↔customer chat on Socket.IO, then a subscription tier that opened more features and created revenue. Shipped to both stores via EAS.
+Metric: `3,000+` businesses onboarded within months of the chat release.
+
+**BluetanksEV** — Smart navigation for finding the nearest EV charging station anywhere in the US, sortable by fastest or cheapest. Live-location architecture locating stations from the user's current position, with Google Maps and Google Places API for navigation. Stripe payment flow. Expo push notifications. An admin dashboard for registered charging stations.
+Metric: `35,000` charging stations onboarded.
+
+**Sumotrust** — Naira savings and investment across mobile and web. Designed the products through user research, then built them in React Native and React with TypeScript. A naira savings system for local-currency deposits earning APY, and — with a backend engineer — a secure investment and money-gifting system. React Query for server state, Redux for client state, console statements stripped in production, keys in `.env`, tokens in secure store, biometric or PIN authentication.
+Metric: managed funds for `10,000+` users worldwide.
+
+**Truzact** — Centralised-exchange crypto savings and investment, mobile and web. UI designed in Figma from user research, built on React Native (Expo managed), Redux and TypeScript. CoinGecko infrastructure powering a live price ticker across `80+` assets. A crowdfunding/donation system for raising money from family and friends. Performance work: removed console statements and unused imports, moved styles to the StyleSheet API, cached server state with React Query and client state with Redux Toolkit. Custom wallet-address authentication written with regex rather than pulling an npm package. Chakra UI on the web app.
+Metric: the crowdfunding release added `1,000` users in two weeks.
+
+**Crowdfacture** — Community-driven investment platform. Designed the hi-fi interface in Figma, built the web app in React.js + Redux and the iOS/Android app in React Native (Expo) + Redux, and published to both stores.
+
+**CheckNCommit** — Business rating platform, TrustPilot-shaped: businesses register on a membership plan, customers who dealt with them offline create free accounts and leave ratings. Sole engineer. React.js, class components, Redux, Firebase Cloud Functions, Node.js and Express on the backend, UI designed in Adobe XD.
+
+#### Presentation rules for the long tail
+
+Sixteen projects is too many to give equal weight. Rank them:
+
+- **Case study (full MDX page):** RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV, Sumotrust. Six deep pages.
+- **Spine entry with expandable detail, no separate page:** Sinimax, EvriCent, Delta Digital, Gateway Edu, Brace Finance, PortsConnect, Truzact, Crowdfacture, CheckNCommit.
+- Everything stays on the spine regardless. The chronology is the argument — nothing gets dropped for being old.
 
 ### 9.4 Projects seed — founder track
 
-**Zowis Fashion Limited** (`slug: zowis`, `track: founder`, status active). Women's fashion brand with e-commerce. Ace is founder and also builds and runs its technical infrastructure: Supabase backend (including remediating a critical RLS misconfiguration), GUO logistics API integration for delivery, Meta Business Suite and ad account setup, plus company filings and operations. Framed as: *"I don't just build product for clients. I run one."*
+**Zowis Fashion Limited** (`slug: zowis`, `track: founder`, active). Women's fashion brand with e-commerce. Ace is founder and also builds and runs its technical infrastructure: Supabase backend (including remediating a critical RLS misconfiguration), GUO logistics API integration for delivery, Meta Business Suite and ad-account setup, plus company filings and operations. Framed as: *"I don't just build product for clients. I run one."* ⚠ Founding date needed.
 
-**LinguaAPI / LingoBase** (`slug: lingobase`, `track: founder`). Developer-facing translation API. Supabase multi-tenant backend, Azure Translator engine, dual Paystack + Stripe billing for African and international markets. Differentiator in progress: Nigerian-language TTS across Yoruba, Igbo and Hausa. UI being rebuilt to a light modern SaaS surface on Tailwind + shadcn/ui, retaining the mint/emerald accent. Status: in development — label it honestly as such.
+**LinguaAPI / LingoBase** (`slug: lingobase`, `track: founder`, in development). Developer-facing translation API. Supabase multi-tenant backend, Azure Translator engine, dual Paystack + Stripe billing for African and international markets. Differentiator in progress: Nigerian-language TTS across Yoruba, Igbo and Hausa. UI being rebuilt to a light modern SaaS surface on Tailwind + shadcn/ui, keeping the mint/emerald accent. Label it honestly as in development.
 
-**ClipForge** (`slug: clipforge`, `track: founder`). Full video-editing React Native app scaffolded on FFmpeg Kit.
+### 9.5 Education & credentials
 
-### 9.5 Packages seed
+For the About page chronology (§10.5).
+
+| Institution | Award | Years |
+|---|---|---|
+| Zero To Mastery Academy | Computer Software Engineering | 2019 – 2020 |
+| Petroleum Training Institute | High School Diploma, Computer Science & IT | 2017 – 2020 |
+| Abia State Polytechnic | National Diploma, Computer Science | 2014 – 2016 |
+
+Certifications (LinkedIn): Design Thinking — Understanding the Process; React Hooks. Render these as a quiet mono list, not as badges.
+
+### 9.6 Packages seed
 
 ```ts
 export const packages: Pkg[] = [
   { name: 'rn-credit-card-textinput',
-    description: 'Credit card input for React Native with formatting, validation and card-type detection.',
-    repo: '⚠ NEEDS INPUT', npm: 'https://www.npmjs.com/package/rn-credit-card-textinput',
+    description: 'Credit card input for React Native that accepts and validates card numbers. Works with Expo and the CLI, with TypeScript support.',
+    repo: 'https://github.com/orjiace', // ⚠ confirm exact repo URL
+    npm: 'https://www.npmjs.com/package/rn-credit-card-textinput',
     install: 'npm i rn-credit-card-textinput' },
   { name: 'rn-slick-bottom-tabs',
-    description: 'Animated bottom tab bar for React Native.',
-    repo: '⚠ NEEDS INPUT', npm: 'https://www.npmjs.com/package/rn-slick-bottom-tabs',
+    description: 'Production-ready custom bottom tab navigation for React Native — fully customisable, multiple variants, strong TypeScript support.',
+    repo: 'https://orjiace.github.io/rn-slick-bottom-tabs/',
+    npm: 'https://www.npmjs.com/package/rn-slick-bottom-tabs',
     install: 'npm i rn-slick-bottom-tabs' },
 ];
 ```
 
-### 9.6 Reserved
+### 9.7 Reserved
 
 `content/writing/*.mdx` with frontmatter `{title, date, summary, tags, draft}`. Route not built at v1.
 
@@ -528,11 +595,11 @@ Section order is fixed. Each numbered block is one `<Section>`.
 
 3. **Proof strip** — four `Counter` stats from `profile.stats`, separated by hairlines, mono labels beneath. Animates once on intersection.
 
-4. **Client marquee** — organisation names in display face, not logos (logos for these clients may not be licensed): `RightNowMD · JIFU360 · Lenbi · Sinimax · BluetanksEV · Sumotrust · Crowdfacture · Zowis`. Duplicated track, CSS transform, 40s linear loop, paused on hover and when reduced-motion. Edges masked with a paper gradient.
+4. **Client marquee** — organisation names in display face, not logos (logos for these clients may not be licensed): `RightNowMD · JIFU360 · Lenbi · OneWallet MFB · Sinimax · BluetanksEV · Sumotrust · Gateway Edu · Brace Finance · PortsConnect · Truzact · Crowdfacture · Zowis`. Duplicated track, CSS transform, 40s linear loop, paused on hover and when reduced-motion. Edges masked with a paper gradient.
 
-5. **Selected work** — three featured projects (RightNowMD, JIFU360, Zowis — one from each track, deliberately). Asymmetric grid: first card spans 7 columns, second 5, third full width. Each card: cover image (`--radius-lg`, hairline border), track tag, name, one-line summary, top metric in mono, arrow. Hover: `--shadow-lift`, image scale `1.03` over 620ms, arrow translates 4px.
+5. **Selected work** — three featured projects: **JIFU360** (the metrics and the hardest engineering), **RightNowMD** (current, AI + telemedicine), **Zowis** (the founder track). Deliberately one from each argument the site is making — technical depth, current relevance, ownership. Asymmetric grid: first card spans 7 columns, second 5, third full width. Each card: cover image (`--radius-lg`, hairline border), track tag, name, one-line summary, top metric in mono, arrow. Hover: `--shadow-lift`, image scale `1.03` over 620ms, arrow translates 4px.
 
-6. **The Spine preview** — the four most recent engagements rendered in the full Spine component, with a `View full chronology →` link to `/work`. This is the first sight of the signature element; it must land here.
+6. **The Spine preview** — 2024 to present only (RightNowMD, JIFU360, Lenbi, Sinimax, OneWallet MFB, EvriCent), rendered in the full Spine component so the concurrency is visible immediately, with `View all 16 projects, back to 2019 →` linking to `/work`. This is the first sight of the signature element; it must land here.
 
 7. **Zowis crossover band** — full-bleed `--color-plum-sub`. Two columns: left, one lookbook image at 4/5; right, eyebrow `FOUNDER TRACK`, H2 "Zowis Fashion Limited", 60-word brand paragraph, and three mono facts (e-commerce · logistics integration · brand operations). CTA `Enter Zowis →` in plum. This is the only plum-dominant band on the home page.
 
@@ -549,7 +616,8 @@ Section order is fixed. Each numbered block is one `<Section>`.
 - Page header: H1 "Work", lead sentence, and a mono line stating the honest frame: `Contracts ran concurrently. The lanes below show real overlap.`
 - **TrackFilter**: pills — `All · Engineering · Founder · Open source`. Active pill fills with its track accent at 8% and takes an accent border. Implemented as links to `/work?track=…` (works with JS disabled), enhanced client-side with `router.replace` + `scroll: false`. Filter state is announced to screen readers via a polite live region: "Showing 8 of 11 projects."
 - **SpineTimeline** with all dated projects (§7).
-- **Earlier work** block for undated projects.
+- Year rails down the spine (2026 · 2025 · 2024 · 2023 · 2022 · 2021 · 2020 · 2019) as sticky mono markers, so the reader can place any entry without reading its dates.
+- A **density note** at the 2022 cluster: five engagements overlap there. Do not hide them behind a "show more" — that cluster is the strongest evidence on the page.
 - Empty state when a filter matches nothing: "No projects on this track yet." + reset link.
 
 ### 10.3 Case study `/work/[slug]`
@@ -579,13 +647,20 @@ Distinct enough to feel like a brand page, same skeleton so it doesn't feel bolt
 
 1. Portrait + H1 "Ace" + the long-form bio in first person: 7+ years, path from first shipped app to lead engineer, why remote contract work, why fashion as well.
 2. Full life/career chronology — the Spine reused with `variant="compact"`, mixing engineering, founder milestones (Zowis incorporation, first package published) and any education entry. `⚠ NEEDS INPUT: education, first-year-of-career date`
-3. Stack — grouped columns, not a logo soup: Mobile · Backend & data · Payments · Real-time & media · Tooling. Sourced from real usage: React Native, Expo, TypeScript, Zustand, TanStack Query, Reanimated, Supabase, Firebase Cloud Functions, PHP, Paystack, Stripe, WebSocket, WebRTC (Dolby Millicast), VSee, FFmpeg Kit, Anthropic API, Azure Translator.
+3. Stack — grouped columns, not a logo soup. Every entry below appears in at least one project in §9.3, which is the rule for inclusion:
+   - **Mobile:** React Native (Expo + CLI), TypeScript, Swift, Kotlin, Reanimated, Gesture Handler, Skia, NativeWind, FlashList, EAS
+   - **State & data:** Zustand (persist, MMKV), Redux / Redux Toolkit, TanStack Query, GraphQL, Formik + Yup
+   - **Backend:** Node.js, Express, Firebase (Auth, Storage, Cloud Functions, FCM), Supabase, SuperTokens, Go, PHP, SQL
+   - **Payments & identity:** Stripe (Connect, Identity, Apple/Google Pay), Paystack, Plaid, RevenueCat, biometrics + 2FA, E2E encryption
+   - **Real-time & media:** WebRTC (Dolby Millicast), native iOS PiP, Socket.IO, PubNub, VSee ClinicKit, react-native-video
+   - **AI:** Anthropic API (Claude), Azure Translator
+   - **Ops:** Sentry, OneSignal, AppsFlyer, Google Maps & Places, ClickUp, Figma
 4. Ways of working — 4 short statements (remote-first, contract length, timezone overlap, handover standards).
 5. CTA.
 
 ### 10.6 Lab `/lab`
 
-Open-source packages with live weekly download counts and star counts, install snippets, repo links; then side projects (LingoBase, ClipForge) as cards with an honest `In development` chip.
+Open-source packages with live weekly download counts and star counts, install snippets and repo links; then LingoBase as a card with an honest `In development` chip. Do not pad this page — two packages and one side project is what exists, and a short honest page reads better than a padded one.
 
 ### 10.7 Contact `/contact`
 
@@ -664,7 +739,7 @@ If content ever moves to Sanity: keep `content/*.ts` as the interface, replace i
 
 ## 13. Security & privacy
 
-- CSP header — **decision recorded 2026-08:** `script-src` keeps `'unsafe-inline'` permanently. A nonce-based CSP would force dynamic rendering on every route, breaking the static/ISR model in §8 and the LCP budget in §14. The policy is tightened around it instead. Full policy: `default-src 'self'`; `script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com`; `style-src 'self' 'unsafe-inline'` (Next injects inline styles); `img-src 'self' data: https://cdn.prod.website-files.com https://*.supabase.co`; `font-src 'self'`; `connect-src 'self' https://plausible.io`; `frame-src https://challenges.cloudflare.com https://cal.com`; `object-src 'none'`; `base-uri 'self'`; `form-action 'self'`; `frame-ancestors 'none'`. Plus `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, HSTS.
+- CSP header — **decision recorded 2026-08 (kept from spec v1.1):** `script-src` keeps `'unsafe-inline'` permanently. A nonce-based CSP would force dynamic rendering on every route, breaking the static/ISR model in §8 and the LCP budget in §14. The policy is tightened around it instead. Full policy: `default-src 'self'`; `script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com`; `style-src 'self' 'unsafe-inline'` (Next injects inline styles); `img-src 'self' data: https://cdn.prod.website-files.com https://*.supabase.co`; `font-src 'self'`; `connect-src 'self' https://plausible.io`; `frame-src https://challenges.cloudflare.com https://cal.com`; `object-src 'none'`; `base-uri 'self'`; `form-action 'self'`; `frame-ancestors 'none'`. Plus `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, HSTS.
 - No secrets in `NEXT_PUBLIC_*` except the Turnstile site key and the Plausible domain.
 - `.env.example` committed with every key and a comment; real `.env.local` gitignored.
 - Contact submissions are personal data: state retention in a short privacy note, and do not log message bodies.
@@ -724,9 +799,9 @@ Handle every row. These are the ones that break portfolio sites in practice.
 | 1 | Project has no cover image | Render a `--color-mist` panel at the correct ratio with the project name in display face. Never a broken image, never a stretched layout. |
 | 2 | Project has no metrics | Omit the metrics section entirely. Do not render "N/A" or zeros. |
 | 3 | Project has no case study body | Card does not link to a detail page; it renders as a static card. `generateStaticParams` excludes it. |
-| 4 | Undated project | Renders in "Earlier work", not on the spine. No fabricated dates. |
+| 4 | Project with an unknown end month (EvriCent, Delta Digital) | Renders `02.2024 —` with a trailing dash and no "present" label. Never infer an end date, and never treat it as active. |
 | 5 | `end: null` | Renders "PRESENT". Verify the pulsing dot is static under reduced-motion. |
-| 6 | Three or more concurrent engagements | Lane algorithm must generalise to N lanes; at > 3 lanes on desktop, fall back to the mobile single-column treatment rather than squeezing. |
+| 6 | Six concurrent engagements (the real 2022 cluster) | Lane algorithm generalises to N. Up to 4 lanes offset horizontally; at 5+ the cluster renders as one bracketed group with a mono header. Test explicitly against the 2022 data. |
 | 7 | Very long project or client name | `text-wrap: balance`, hyphenation, and a `min-width: 0` on flex children so nothing overflows. Test with a 40-character name. |
 | 8 | Confidential client | Renders "Confidential — {sector}". Case study still exists; client name is absent from the DOM, the slug and the OG image. |
 | 9 | Filter matches nothing | Empty state with a reset link, and a live-region announcement. |
@@ -752,7 +827,8 @@ Handle every row. These are the ones that break portfolio sites in practice.
 | 29 | Image fails to load at runtime | `onError` swaps to the mist placeholder — no broken-image icon. |
 | 30 | Duplicate slugs in the content file | A build-time assertion fails the build with a clear message. |
 | 31 | Malformed date in content | `lib/dates.ts` throws at build time with the offending slug named. |
-| 32 | Screen reader on the spine | DOM order is chronological regardless of visual lanes; verify with VoiceOver and NVDA. |
+| 32 | Spine with all 16 entries on a 320px screen | Total scroll length must stay sane — collapse pre-2022 entries into a compact variant (title, dates, one line) rather than full cards. Verify the page is under 12 screens tall on mobile. |
+| 33 | Screen reader on the spine | DOM order is chronological regardless of visual lanes; verify with VoiceOver and NVDA. |
 
 ---
 
@@ -809,7 +885,10 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 ## 21. Open items — needs input before launch
 
 - [ ] Email address, and the social URLs (GitHub, LinkedIn, X, Upwork) for `profile.socials`
-- [ ] Start/end months for BluetanksEV, Sumotrust, Crowdfacture, Quant Vertex
+- [ ] End months for EvriCent and Delta Digital (the CV shows a start month only)
+- [ ] UWA: Ace's role, the client, dates, stack, and whether it shipped — it cannot go on the spine without these
+- [ ] Zowis Fashion founding date
+- [ ] Confirm the shipped-product count (16 in §9.3 vs "12+" on the old CV)
 - [ ] Career start year and any education entry for the About chronology
 - [ ] Repo URLs for both npm packages
 - [ ] Confirmation of which client names and metrics are contractually shareable

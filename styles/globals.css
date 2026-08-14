@@ -191,6 +191,117 @@
   }
 }
 
+@layer components {
+  /*
+   * Career Spine geometry — §7.2. One coordinate system, three variables:
+   * the rule sits at --spine-x, entries indent by --entry-pad past it, and
+   * concurrent entries shift a further --lane-w per lane. Lanes collapse on
+   * mobile by zeroing --lane-w; the bracket and ticks exist only ≥ md.
+   * --spine-gap must equal the vertical gap between rows so bracket
+   * segments join across list items.
+   */
+  .spine-wrap {
+    position: relative;
+    --spine-x: 4px;
+    --lane-w: 0px;
+    --entry-pad: 28px;
+    --spine-gap: 48px;
+  }
+  @media (min-width: 768px) {
+    .spine-wrap {
+      --spine-x: 8px;
+      --lane-w: 28px;
+      --entry-pad: 44px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .spine-wrap {
+      /* 2nd grid column: one 12-col track + gap inside the container */
+      --spine-x: 96px;
+    }
+  }
+
+  .spine-row {
+    position: relative;
+    padding-left: calc(var(--spine-x) + var(--entry-pad) + var(--lane, 0) * var(--lane-w));
+  }
+
+  /* 9px node, filled with the track accent, ringed white (§7.2) */
+  .spine-node {
+    position: absolute;
+    top: 8px;
+    left: calc(var(--spine-x) + var(--lane, 0) * var(--lane-w) - 4px);
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 3px var(--color-paper);
+    z-index: 1;
+  }
+
+  /* Vertical bracket joining a concurrent cluster's rows, in the rail (≥ md) */
+  .spine-bracket {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .spine-bracket {
+      display: block;
+      position: absolute;
+      left: calc(var(--spine-x) - 14px);
+      width: 1px;
+      background: var(--color-hairline);
+    }
+    .spine-bracket[data-pos="start"] {
+      top: 12px;
+      bottom: calc(-1 * var(--spine-gap));
+    }
+    .spine-bracket[data-pos="middle"] {
+      top: calc(-1 * var(--spine-gap));
+      bottom: calc(-1 * var(--spine-gap));
+    }
+    .spine-bracket[data-pos="end"] {
+      top: calc(-1 * var(--spine-gap));
+      height: calc(var(--spine-gap) + 12px);
+    }
+  }
+
+  /* Sticky year rail marker (§7.2) — covers earlier years as it pins */
+  .spine-year {
+    position: sticky;
+    top: calc(4rem + 8px); /* below the 64px header */
+    z-index: 2;
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+  .spine-year > span {
+    position: relative;
+    left: var(--spine-x);
+    display: inline-block;
+    background: var(--color-paper);
+    padding-inline: 6px;
+  }
+  @media (min-width: 768px) {
+    .spine-year > span {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* 2px pulsing dot beside PRESENT — static under reduced motion (§7.2) */
+  .spine-present-dot {
+    display: inline-block;
+    width: 2px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    vertical-align: middle;
+    box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 25%, transparent);
+    animation: spine-pulse 1.6s var(--ease-in-out) infinite;
+  }
+  @keyframes spine-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+}
+
 /* Reduced motion — single global guard, §11.6 */
 @media (prefers-reduced-motion: reduce) {
   *,

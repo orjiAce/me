@@ -33,12 +33,20 @@ number is expected to move there.
 |---|---|
 | M1 Foundation | 102 kB |
 | M2 Content layer | 102 kB |
+| M3 The Spine | 185 kB home · 226 kB /work † |
+
+† Measured differently from M1/M2: Next 16 (Turbopack) no longer prints the
+per-route size table, so M3 sums the gzipped transfer of every script tag on
+the served page. The jump is the uncommitted Next 15 → 16 upgrade in the
+working tree, not the spine — motion loads only on `/work` (one extra 40 kB
+chunk; home and `/work` otherwise share identical chunks). Re-baseline after
+deciding whether to keep Next 16.
 
 ## Build progress
 
 - [x] **M1 Foundation** — tokens, fonts, Container/Section, header, footer, 404, security headers
 - [x] **M2 Content layer** — full §9 content model, `lib/dates.ts` (35 unit tests, written first), build-time content gate
-- [ ] M3 The Spine
+- [x] **M3 The Spine** — full §9.3 chronology in content (16 projects, corrected dates, `endUnknown` for EvriCent/Delta Digital), spine layout algorithm (lanes, concurrency runs, the 2022 six-way bracketed group), SpineTimeline/SpineEntry/SpineRule components, minimal `/work` page (68 tests)
 - [ ] M4 Work index + case studies
 - [ ] M5 Home
 - [ ] M6 Zowis, About, Lab

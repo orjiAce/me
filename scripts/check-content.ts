@@ -5,13 +5,13 @@
  * whether or not any page imports the content yet.
  */
 async function main(): Promise<void> {
-  const { projects, spineProjects, earlierWork } = await import(
+  const { projects, spineProjects, undatedWork } = await import(
     "../content/projects"
   );
   const { packages } = await import("../content/packages");
   console.log(
     `content ok — ${projects.length} projects ` +
-      `(${spineProjects.length} on the spine, ${earlierWork.length} earlier work), ` +
+      `(${spineProjects.length} on the spine, ${undatedWork.length} undated), ` +
       `${packages.length} packages`,
   );
 }

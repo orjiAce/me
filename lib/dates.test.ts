@@ -2,12 +2,15 @@ import { describe, expect, it } from "vitest";
 import {
   assignLanes,
   compareYearMonth,
+  concurrencyRuns,
   formatMonthYear,
   formatRange,
+  numberWord,
   overlapClusters,
   parseYearMonth,
   rangesOverlap,
   sortByStartDesc,
+  spineLayout,
   validateProjects,
 } from "./dates";
 import type { Project } from "../content/types";
@@ -31,11 +34,11 @@ const sinimax = dated("sinimax", "2026-02", "2026-06", "Sinimax");
 const realFour = [rightnowmd, jifu360, lenbi, sinimax];
 
 /**
- * The 2022 six-way cluster (Gateway Edu, Brace Finance, PortsConnect,
- * BluetanksEV, Sumotrust, Truzact). Real months are still ⚠ NEEDS INPUT in
- * the content file; these ranges are synthetic fixtures constructed so all
- * six are pairwise concurrent (every range spans Jun 2022), which is the
- * shape the owner described. They exercise the algorithm, not the content.
+ * Synthetic six-way cluster where all six are pairwise concurrent (every
+ * range spans Jun 2022). This exercises the worst case for the lane
+ * algorithm; the *real* 2022 cluster — where Truzact chains in through
+ * Sumotrust without touching the June peak — is tested against actual
+ * content in content/projects.test.ts.
  */
 const cluster2022 = [
   dated("gateway-edu", "2022-01", "2022-12"),
@@ -261,5 +264,160 @@ describe("validateProjects", () => {
     expect(() =>
       validateProjects([valid({ slug: "endonly", start: null, end: "2026-01" })]),
     ).toThrow(/endonly/);
+  });
+
+  it("accepts a completed endUnknown project with a start month", () => {
+    expect(() =>
+      validateProjects([
+        valid({ slug: "evricent", start: "2024-02", end: null, endUnknown: true }),
+      ]),
+    ).not.toThrow();
+  });
+
+  it("rejects endUnknown combined with an end date", () => {
+    expect(() =>
+      validateProjects([
+        valid({ slug: "both", start: "2024-02", end: "2024-06", endUnknown: true }),
+      ]),
+    ).toThrow(/both/);
+  });
+
+  it("rejects endUnknown without a start date", () => {
+    expect(() =>
+      validateProjects([
+        valid({ slug: "nostart", start: null, end: null, endUnknown: true }),
+      ]),
+    ).toThrow(/nostart/);
+  });
+
+  it("rejects an active endUnknown project — unknown is never 'present' (edge case #4)", () => {
+    expect(() =>
+      validateProjects([
+        valid({
+          slug: "ghost",
+          start: "2024-02",
+          end: null,
+          endUnknown: true,
+          status: "active",
+        }),
+      ]),
+    ).toThrow(/ghost/);
+  });
+});
+
+describe("endUnknown ranges (edge case #4)", () => {
+  const evricent = {
+    slug: "evricent",
+    name: "EvriCent",
+    start: "2024-02",
+    end: null,
+    endUnknown: true,
+  };
+
+  it("formats with a trailing dash and no present label", () => {
+    expect(formatRange("2024-02", null, true)).toBe("02.2024 —");
+  });
+
+  it("counts only the start month toward overlap — never invents an extent", () => {
+    expect(rangesOverlap(evricent, dated("x", "2024-01", "2024-02"))).toBe(true);
+    expect(rangesOverlap(evricent, dated("y", "2024-06", "2026-07"))).toBe(false);
+  });
+
+  it("does not sort like an open range", () => {
+    const open = dated("open", "2024-02", null);
+    expect(sortByStartDesc([evricent, open])[0]!.slug).toBe("open");
+  });
+});
+
+describe("numberWord", () => {
+  it("spells the counts spine headers use", () => {
+    expect(numberWord(5)).toBe("FIVE");
+    expect(numberWord(6)).toBe("SIX");
+  });
+
+  it("falls back to digits beyond twelve", () => {
+    expect(numberWord(13)).toBe("13");
+  });
+});
+
+describe("concurrencyRuns", () => {
+  it("returns no runs when nothing overlaps", () => {
+    const a = dated("a", "2022-01", "2022-05");
+    const b = dated("b", "2022-06", "2022-09");
+    expect(concurrencyRuns([a, b])).toEqual([]);
+  });
+
+  it("finds one run with members and peak for a simple trio", () => {
+    const a = dated("a", "2022-01", "2022-04");
+    const b = dated("b", "2022-03", "2022-08");
+    const c = dated("c", "2022-05", "2022-10");
+    const runs = concurrencyRuns([a, b, c]);
+    expect(runs).toHaveLength(1);
+    expect(runs[0]!.members.map((m) => m.slug)).toEqual(["a", "b", "c"]);
+    expect(runs[0]!.peak).toBe(2);
+  });
+
+  it("splits runs where density drops below two", () => {
+    const a = dated("a", "2022-01", "2022-03");
+    const b = dated("b", "2022-02", "2022-06");
+    const c = dated("c", "2022-08", "2022-10");
+    const d = dated("d", "2022-09", "2022-12");
+    const runs = concurrencyRuns([a, b, c, d]);
+    expect(runs).toHaveLength(2);
+    expect(runs[0]!.members.map((m) => m.slug)).toEqual(["a", "b"]);
+    expect(runs[1]!.members.map((m) => m.slug)).toEqual(["c", "d"]);
+  });
+
+  it("a long engagement bridging two dense windows is a member of both runs", () => {
+    const bridge = dated("bridge", "2022-01", "2022-12");
+    const x = dated("x", "2022-01", "2022-02");
+    const y = dated("y", "2022-11", "2022-12");
+    const runs = concurrencyRuns([bridge, x, y]);
+    expect(runs).toHaveLength(2);
+    expect(runs[0]!.members.map((m) => m.slug)).toContain("bridge");
+    expect(runs[1]!.members.map((m) => m.slug)).toContain("bridge");
+  });
+
+  it("records the calendar year(s) of the peak", () => {
+    const runs = concurrencyRuns(cluster2022);
+    expect(runs).toHaveLength(1);
+    expect(runs[0]!.peak).toBe(6);
+    expect(runs[0]!.peakYears).toEqual([2022]);
+  });
+});
+
+describe("spineLayout", () => {
+  it("keeps a ≤4-lane chronology as laned entries with bracket data", () => {
+    const layout = spineLayout(realFour);
+    expect(layout.items.every((item) => item.kind === "entry")).toBe(true);
+    expect(layout.laneCount).toBeLessThanOrEqual(4);
+    const entries = layout.items.flatMap((i) => (i.kind === "entry" ? [i] : []));
+    // All four overlap transitively → one contiguous bracket of four.
+    expect(entries[0]!.bracket).toEqual({ size: 4, pos: "start" });
+    expect(entries[3]!.bracket).toEqual({ size: 4, pos: "end" });
+  });
+
+  it("collapses a beyond-the-cap run into one bracketed group (edge case #6)", () => {
+    const layout = spineLayout(cluster2022);
+    const groups = layout.items.flatMap((i) => (i.kind === "group" ? [i] : []));
+    expect(groups).toHaveLength(1);
+    expect(groups[0]!.items).toHaveLength(6);
+    expect(groups[0]!.yearLabel).toBe("2022");
+    expect(layout.laneCount).toBe(0); // nothing left outside the group
+  });
+
+  it("orders items start desc with a group positioned by its newest member", () => {
+    const before = dated("before", "2021-01", "2021-06");
+    const after = dated("after", "2023-05", "2023-09");
+    const layout = spineLayout([...cluster2022, before, after]);
+    expect(
+      layout.items.map((i) => (i.kind === "group" ? "GROUP" : i.item.slug)),
+    ).toEqual(["after", "GROUP", "before"]);
+  });
+
+  it("is deterministic regardless of input order", () => {
+    const forward = spineLayout(cluster2022);
+    const backward = spineLayout([...cluster2022].reverse());
+    expect(forward).toEqual(backward);
   });
 });

@@ -1,11 +1,17 @@
 /**
  * Content types — §9.1.
  *
- * One deviation from the spec's literal type, agreed for edge case #4
- * (undated projects): `start` is `string | null` rather than `string`.
- * `start: null` means the engagement's months are not yet supplied
- * (⚠ NEEDS INPUT) — the project renders in the "Earlier work" block and
- * never docks to the spine. No dates are ever fabricated to avoid this.
+ * Two deviations from the spec's literal type, both in service of the
+ * "never invent a date" rule:
+ *
+ * - `start` is `string | null` rather than `string`. `start: null` means
+ *   the engagement's months are not yet supplied (⚠ NEEDS INPUT) — the
+ *   project never docks to the spine.
+ * - `endUnknown` marks a completed engagement whose end month the CV does
+ *   not record (edge case #4: EvriCent, Delta Digital). It renders as
+ *   `02.2024 —` with a trailing dash, is never treated as active, and for
+ *   overlap purposes only its start month counts — the minimal extent that
+ *   is actually known. `end` must stay null alongside it.
  */
 export type Track = "engineering" | "founder" | "open-source";
 
@@ -19,6 +25,7 @@ export type Project = {
   summary: string; // ≤ 160 chars, used on cards and meta description
   start: string | null; // ISO 'YYYY-MM'; null === undated (⚠ NEEDS INPUT)
   end: string | null; // null === present (only meaningful when start is set)
+  endUnknown?: true; // end month not recorded — see header comment (edge case #4)
   status: "active" | "completed" | "on-hold" | "archived";
   confidential?: boolean; // hides client name, shows "Confidential — fintech"
   stack: string[];
