@@ -36,6 +36,7 @@ number is expected to move there.
 | M3 The Spine | 102 kB (150 kB on `/work` — motion loads there only) |
 | M4 Work index + case studies | 102 kB (149 kB `/work` · 106 kB `/work/[slug]`) |
 | M5 Home | 150 kB → **107 kB** after the motion-strategy decision † (106 kB `/work` · 106 kB `/work/[slug]`) |
+| M6 Zowis · About · Lab | 107 kB (102 kB `/zowis` · 106 kB `/about` · 103 kB `/lab`) |
 
 † Decision recorded in spec §11/§14 (v1.4): the spine fill is a plain rAF
 scroll listener; motion is off every route until M8, and M8 must use
@@ -59,7 +60,7 @@ unaffected (see the comment in `next.config.ts`).
 - [x] **M3 The Spine** — full §9.3 chronology in content (16 projects, corrected dates, `endUnknown` for EvriCent/Delta Digital), spine layout algorithm (lanes, concurrency runs, the 2022 six-way bracketed group), SpineTimeline/SpineEntry/SpineRule components, minimal `/work` page (68 tests)
 - [x] **M4 Work index + case studies** — URL-driven TrackFilter (works without JS, live-region announcements, unknown values normalise), six MDX case studies (RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV, Sumotrust) with fact rail, metrics, cover fallback and NextProject band; whole-row spine links; everything else stays spine-only
 - [x] **M5 Home** — hero (17 count), proof strip, derived name marquee, selected work (JIFU360 · RightNowMD · Zowis), spine preview 2024→present, Zowis crossover band, capabilities, lab teaser with live npm counts (6h ISR), contact band; TextReveal/odometers/magnetic CTA deferred to M8
-- [ ] M6 Zowis, About, Lab
+- [x] **M6 Zowis, About, Lab** — Zowis brand page (plum accent, edge-#1 ratio panels, founded date/store/Instagram held as typed NEEDS_INPUT), About with the compact spine variant over all 17 dated entries + §9.5 education at year granularity, grouped stack, ways of working; Lab with live npm counts (6h ISR) and LingoBase — nothing padded
 - [ ] M7 Contact + API
 - [ ] M8 Motion pass
 - [ ] M9 Polish

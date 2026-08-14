@@ -13,6 +13,8 @@ type DatedProject = Project & { start: string };
 type SpineTimelineProps = {
   projects: DatedProject[];
   ariaLabel?: string;
+  /** `compact` (§10.5.2): title + meta rows, tighter rhythm — the About chronology. */
+  variant?: "full" | "compact";
 };
 
 /** The year a spine item docks at: its start, or its newest member's start. */
@@ -32,8 +34,10 @@ function itemYear(item: SpineItem<DatedProject>): number {
 export function SpineTimeline({
   projects,
   ariaLabel = "Work history, most recent first",
+  variant = "full",
 }: SpineTimelineProps) {
   if (projects.length === 0) return null;
+  const dense = variant === "compact";
 
   const layout = spineLayout(projects);
   const years = layout.items.map(itemYear);
@@ -58,7 +62,11 @@ export function SpineTimeline({
       if (item.kind === "group") {
         rows.push(
           <li key={`group-${item.items[0]!.slug}`}>
-            <SpineGroup projects={item.items} yearLabel={item.yearLabel} />
+            <SpineGroup
+              projects={item.items}
+              yearLabel={item.yearLabel}
+              dense={dense}
+            />
           </li>,
         );
       } else {
@@ -73,6 +81,7 @@ export function SpineTimeline({
                 (p) => p.name,
               )}
               compact={parseYearMonth(project.start).year < 2022}
+              dense={dense}
             />
           </li>,
         );
@@ -81,9 +90,12 @@ export function SpineTimeline({
   }
 
   return (
-    <div className="spine-wrap">
+    <div
+      className="spine-wrap"
+      style={dense ? ({ "--spine-gap": "2rem" } as React.CSSProperties) : undefined}
+    >
       <SpineRule />
-      <ol aria-label={ariaLabel} className="space-y-12">
+      <ol aria-label={ariaLabel} className={dense ? "space-y-8" : "space-y-12"}>
         {rows}
       </ol>
     </div>

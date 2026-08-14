@@ -18,6 +18,8 @@ type SpineEntryProps = {
   grouped?: boolean;
   /** Pre-2022 mobile collapse: title, dates, one line only (edge case #32). */
   compact?: boolean;
+  /** About-page compact variant (§10.5.2): title + meta only, everywhere. */
+  dense?: boolean;
 };
 
 const TRACK_ACCENT: Record<Project["track"], string> = {
@@ -66,6 +68,7 @@ export function SpineEntry({
   concurrentNames = [],
   grouped = false,
   compact = false,
+  dense = false,
 }: SpineEntryProps) {
   const meta = [project.role, project.org, project.location].filter(
     (part): part is string => Boolean(part) && part !== "⚠ NEEDS INPUT",
@@ -98,7 +101,12 @@ export function SpineEntry({
        * so they stay selectable (edge case #25): clicks on text hit text,
        * clicks anywhere else on the row hit the link.
        */}
-      <h3 className="font-sans text-lead font-medium text-ink">
+      <h3
+        className={cn(
+          "font-sans font-medium text-ink",
+          dense ? "text-body" : "text-lead",
+        )}
+      >
         {project.caseStudy ? (
           <Link
             href={`/work/${project.slug}`}
@@ -129,16 +137,18 @@ export function SpineEntry({
         )}
       </p>
 
-      <p
-        className={cn(
-          "measure relative z-10 mt-2 w-fit text-sm text-graphite",
-          compact && "hidden md:block",
-        )}
-      >
-        {project.summary}
-      </p>
+      {!dense && (
+        <p
+          className={cn(
+            "measure relative z-10 mt-2 w-fit text-sm text-graphite",
+            compact && "hidden md:block",
+          )}
+        >
+          {project.summary}
+        </p>
+      )}
 
-      {!grouped && concurrentNames.length > 0 && (
+      {!dense && !grouped && concurrentNames.length > 0 && (
         <p className="mono-label mt-2 text-slate md:hidden">
           ⇄ concurrent with{" "}
           <span className="normal-case">{concurrentNames.join(", ")}</span>
@@ -155,9 +165,11 @@ export function SpineEntry({
 export function SpineGroup({
   projects,
   yearLabel,
+  dense = false,
 }: {
   projects: DatedProject[];
   yearLabel: string;
+  dense?: boolean;
 }) {
   return (
     <div className="spine-row" style={{ "--lane": 0 } as CSSProperties}>
@@ -167,8 +179,8 @@ export function SpineGroup({
       </p>
       <ol className="mt-4 divide-y divide-hairline rounded-lg border border-hairline px-5 md:px-6">
         {projects.map((project) => (
-          <li key={project.slug} className="py-5">
-            <SpineEntry project={project} grouped />
+          <li key={project.slug} className={dense ? "py-3" : "py-5"}>
+            <SpineEntry project={project} grouped dense={dense} />
           </li>
         ))}
       </ol>
