@@ -5,7 +5,6 @@ import { Container } from "@/components/layout/Container";
 import { MetricRow } from "@/components/work/MetricRow";
 import { NextProject } from "@/components/work/NextProject";
 import { projects, projectBySlug, spineProjects } from "@/content/projects";
-import { accentVars, duotone } from "@/lib/accent";
 import { formatMonthYear, formatRange, sortByStartDesc } from "@/lib/dates";
 
 /**
@@ -93,12 +92,7 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <Container
-        className="py-[var(--section-y-sm)] md:py-[var(--section-y-md)]"
-        // The project's one hue (§5.1 M7.5), consumed by the cover, the
-        // header rule and the fact-rail labels below — nowhere else.
-        style={accentVars(project)}
-      >
+      <Container className="py-[var(--section-y-sm)] md:py-[var(--section-y-md)]">
         <nav aria-label="Breadcrumb" className="mono-label text-slate">
           <Link href="/work" className="no-underline hover:text-ink">
             Work
@@ -120,25 +114,18 @@ export default async function CaseStudyPage({
             {" · "}
             {STATUS_LABEL[project.status]}
           </p>
-          {/* The single domain-hue hairline rule (§5.1 M7.5). */}
-          <div
-            aria-hidden="true"
-            className="mt-8 h-px"
-            style={{ background: "var(--accent)" }}
-          />
         </header>
 
         <div className="mt-12 gap-[var(--grid-gap)] lg:grid lg:grid-cols-12">
           <div className="lg:col-span-8">
-            {/* Cover — no images supplied yet, so the edge-case #1 fallback
-                as amended by M7.5: a duotone gradient block in the
-                project's one hue, name in the display face. */}
+            {/* Cover — reserved for a real project screenshot; until it
+                exists, the neutral edge-case #1 mist placeholder. Colour
+                never owns the image area (§5.1 redirect). */}
             <div
               aria-hidden="true"
-              className="flex aspect-[16/10] items-center justify-center rounded-lg"
-              style={{ background: duotone }}
+              className="flex aspect-[16/10] items-center justify-center rounded-lg border border-hairline bg-mist"
             >
-              <span className="font-display text-h2 font-semibold text-paper">
+              <span className="font-display text-h2 font-semibold text-slate">
                 {project.name}
               </span>
             </div>
@@ -162,9 +149,7 @@ export default async function CaseStudyPage({
                   key={fact.label}
                   className="border-t border-hairline py-4 first:border-t-0 first:pt-0 last:pb-0"
                 >
-                  <dt className="mono-label" style={{ color: "var(--accent)" }}>
-                    {fact.label}
-                  </dt>
+                  <dt className="mono-label text-slate">{fact.label}</dt>
                   <dd className="mt-1 text-sm text-graphite">{fact.value}</dd>
                 </div>
               ))}

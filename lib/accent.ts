@@ -44,6 +44,8 @@ export function accentVars(project: Accentable): CSSProperties {
   } as CSSProperties;
 }
 
-/** Duotone cover fill — base-dominant so paper text stays ≥5:1 (§5.1). */
-export const duotone =
-  "linear-gradient(135deg, var(--accent) 0%, var(--accent) 55%, var(--accent-sub) 130%)";
+/** The track-accent tint for the card hover bloom (§5.1 redirect item 5). */
+export function bloomVar(project: Accentable): CSSProperties {
+  const track = project.track === "founder" ? "plum" : "signal";
+  return { "--bloom": `var(--color-${track}-sub)` } as CSSProperties;
+}

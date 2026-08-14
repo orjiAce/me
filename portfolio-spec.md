@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.5 (M7.5 colour-pass amendment recorded 2026-08-14, domain palette pending owner approval; v1.4 §11/§14 motion strategy; v1.3 content amendment v3; v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.6 (M7.5 redirected 2026-08-14: domain palette confined to tag pills, colour moved into ambient container washes; v1.5 palette approval; v1.4 §11/§14 motion strategy; v1.3 content amendment v3; v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -192,21 +192,30 @@ White background is the brief. The palette is built from a near-black ink on whi
 }
 ```
 
-**Domain palette — M7.5 colour pass (amendment 2026-08-14; approved with owner revisions 2026-08-14).** A second colour dimension that encodes something true: each engineering project carries a `domain`, and the domain hue appears in exactly four places — the project tag (border + text), the cover placeholder (a duotone gradient block in the domain hue, replacing the grey mist placeholder of edge case #1 and becoming the primary visual for most projects), the card hover border, and on a case study one hairline rule plus the fact-rail labels. Nowhere else. `track` still owns the spine accents — this is a new axis, not a replacement.
+**Domain palette — M7.5 as redirected (2026-08-14).** Each engineering project carries a `domain`; the palette's **only application is the tag pill** — tinted background, base-colour text (every base ≥ 4.6:1 on its own tint). Never on covers, card borders, hover states, the spine rail, or any text run. Cover slots are reserved for real project screenshots; where an image is missing, the neutral mist placeholder of edge case #1 renders — **colour never owns the image area**. `track` still owns the spine accents.
 
-Owner revisions: education merged into **media & learning** (amber; Gateway Edu, JIFU360, Sinimax, Leadership News); no fashion hue — **Zowis uses the plum track accent, including for its duotone covers**; CheckNCommit is marketplace; **LingoBase carries no domain hue**. Teal and amber nudged off the Tailwind defaults. Five domains, tuned family: all bases inside a 5.06–5.16:1 band on paper, all tints ≥ 16:1 under ink.
+Five domains (education merged into media & learning; Zowis rides the plum track accent; LingoBase hue-less; CheckNCommit marketplace), tuned family: bases in a 5.06–5.16:1 band on paper.
 
 ```css
---color-fintech:         #0C7C72;  --color-fintech-sub:     #E6F5F2;
---color-health:          #0D74AE;  --color-health-sub:      #E7F1F9;
---color-media:           #AE5406;  --color-media-sub:       #F9F0E1;
---color-marketplace:     #8150DD;  --color-marketplace-sub: #F1EBFB;
---color-mobility:        #527A12;  --color-mobility-sub:    #EFF4E2;
+--color-fintech:         #0C7C72;  --color-fintech-sub:     #EDF8F6;
+--color-health:          #0D74AE;  --color-health-sub:      #EFF6FC;
+--color-media:           #AE5406;  --color-media-sub:       #FAF3E7;
+--color-marketplace:     #8150DD;  --color-marketplace-sub: #F6F3FD;
+--color-mobility:        #527A12;  --color-mobility-sub:    #F3F7EA;
 ```
 
-Assignment: fintech → OneWallet MFB, Nexaflex, Brace Finance, Sumotrust, Truzact, Delta Digital, EvriCent, Crowdfacture · health → RightNowMD · marketplace → UWA, Lenbi, PortsConnect, CheckNCommit · mobility → BluetanksEV · media & learning → Gateway Edu, JIFU360, Sinimax, Leadership News · Zowis and LingoBase → track accent only.
+Assignment: fintech → OneWallet MFB, Nexaflex, Brace Finance, Sumotrust, Truzact, Delta Digital, EvriCent, Crowdfacture · health → RightNowMD · marketplace → UWA, Lenbi, PortsConnect, CheckNCommit · mobility → BluetanksEV · media & learning → Gateway Edu, JIFU360, Sinimax, Leadership News.
 
-Never: coloured body text; more than one hue per card; gradients on text; a domain hue on the spine rail (track accents own that).
+**Ambient gradient washes (M7.5 redirect).** The colour belongs in the page containers, as large, soft, low-contrast washes. Exactly six treatments:
+
+1. **Hero** — wide radial wash anchored top-right, signal at ≤ 6%, fading to paper well before the headline.
+2. **Section panels** — flat mist becomes a diagonal paper → accent-tinted wash at ~5%, alternating signal/plum between consecutive panels.
+3. **Zowis band** — the one genuinely saturated moment: a real plum gradient (plum → plum-into-ink), copy set in paper/plum-sub for ≥ 7:1.
+4. **Contact band** — a fuller signal wash (4% → 16%), second-most saturated; ink copy.
+5. **Card hover** — a soft track-tint bloom from the top-left corner, never a border colour change.
+6. **Footer** — mist → fog, quiet.
+
+Rules: gradients are ambient — nothing sits on one below 4.5:1; never a gradient on the type itself or on the spine rail; no two adjacent sections both carry a saturated wash (quiet, loud, quiet); all stops derive from existing tokens via `color-mix`; every gradient sets a flat token `background-color` first so it degrades cleanly.
 
 Rules:
 - Ink on paper is the default for everything. Accent is used at roughly **8% of visible surface area** (amended M7.5, from 3%) — links, one word in a headline, the spine node, tag borders and text, duotone cover placeholders, tinted panels where a mist panel earns a domain tint, the active filter pill. Headings, body copy and the spine stay ink. If body text is coloured, it is wrong.
@@ -915,7 +924,7 @@ Work in these milestones; each ends in a runnable state.
 5. **Home** — all sections in order, using components already built.
 6. **Zowis, About, Lab.**
 7. **Contact + API** — form, validation, Resend, bot defence, rate limiting, all failure states.
-7.5. **Colour pass** (amendment 2026-08-14; palette approved with revisions same day) — the §5.1 domain palette: `domain` on every engineering project, domain hue applied in exactly its four places, duotone cover placeholders replacing mist panels (edge case #1), accent budget to ~8%.
+7.5. **Colour pass** (amendment 2026-08-14; redirected same day) — the §5.1 domain palette confined to tag pills, plus the six ambient container washes. Covers stay neutral mist until real screenshots exist. Gate: `/` and `/work` reviewed at 1440 before washes reach the remaining pages.
 8. **Motion pass** — reveals, counters, marquee, magnetic CTA, reduced-motion guard.
 9. **Polish** — OG images, metadata, JSON-LD, sitemap, print styles, image optimisation.
 10. **Hardening** — full edge-case table, axe on every route, Lighthouse to budget, E2E suite, visual baselines.

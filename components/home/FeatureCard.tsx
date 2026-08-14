@@ -2,14 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/ui/Tag";
-import { accentVars, duotone } from "@/lib/accent";
+import { bloomVar } from "@/lib/accent";
 import { cn } from "@/lib/cn";
 
 /**
- * Featured project card (ProjectCardFeature, §10.1.5). No real cover
- * images exist yet, so the M7.5 duotone gradient block in the project's
- * one hue is the primary visual (§5.1, edge case #1). Hover: lift
- * shadow, accent border, cover scale, arrow translate (§5.6) — all CSS.
+ * Featured project card (ProjectCardFeature, §10.1.5). The cover slot is
+ * reserved for real project screenshots; until they exist it renders the
+ * neutral mist placeholder of edge case #1 — colour never owns the image
+ * area (§5.1 redirect). Hover: lift shadow and a soft track-tint bloom
+ * from the top-left corner; the border does not change colour.
  */
 export function FeatureCard({
   project,
@@ -25,20 +26,18 @@ export function FeatureCard({
   return (
     <Link
       href={href}
-      style={accentVars(project)}
+      style={bloomVar(project)}
       className={cn(
-        "group block rounded-lg border border-hairline p-5 no-underline",
-        "transition-[box-shadow,border-color] duration-[var(--dur-fast)]",
-        "hover:border-(--accent) hover:shadow-lift",
+        "card-bloom group block rounded-lg border border-hairline p-5 no-underline",
+        "transition-shadow duration-[var(--dur-fast)] hover:shadow-lift",
         className,
       )}
     >
       <div
         aria-hidden="true"
-        className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-md"
-        style={{ background: duotone }}
+        className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-md border border-hairline bg-mist"
       >
-        <span className="font-display text-h3 font-semibold text-paper transition-transform duration-[var(--dur-slow)] group-hover:scale-[1.03]">
+        <span className="font-display text-h3 font-semibold text-slate transition-transform duration-[var(--dur-slow)] group-hover:scale-[1.03]">
           {project.name}
         </span>
       </div>

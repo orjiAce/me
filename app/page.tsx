@@ -51,10 +51,10 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 2 — Hero (§10.1.2) */}
+      {/* 2 — Hero (§10.1.2) — radial signal wash, top-right, ambient only. */}
       <Section
         spacing="none"
-        className="flex min-h-[88svh] flex-col pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
+        className="wash-hero flex min-h-[88svh] flex-col pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
       >
         <Eyebrow>
           Lead mobile engineer — Abuja, Nigeria — UTC+1
@@ -97,8 +97,8 @@ export default async function HomePage() {
         </p>
       </Section>
 
-      {/* 3 — Proof strip (§10.1.3) */}
-      <Section tone="mist" aria-label="Proof in numbers">
+      {/* 3 — Proof strip (§10.1.3) — quiet signal-tinted panel wash. */}
+      <Section tone="mist" wash="signal" aria-label="Proof in numbers">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:divide-x md:divide-hairline">
           {profile.stats.map((stat) => (
             <div key={stat.label} className="md:px-8 md:first:pl-0">
@@ -168,33 +168,40 @@ export default async function HomePage() {
         </p>
       </Section>
 
-      {/* 7 — Zowis crossover band (§10.1.7) — the only plum-dominant band */}
-      <section className="bg-plum-sub" aria-label="Zowis Fashion Limited">
+      {/* 7 — Zowis crossover band (§10.1.7 / §5.1 redirect item 3): the one
+          genuinely saturated moment on the site. Paper copy on the deep
+          plum wash — every pairing ≥7:1. */}
+      <section className="wash-plum" aria-label="Zowis Fashion Limited">
         <Container className="grid gap-10 py-[var(--section-y-sm)] md:grid-cols-2 md:py-[var(--section-y-md)]">
           {/* Lookbook image ⚠ NEEDS INPUT — ratio-correct placeholder, no fake photo. */}
           <div
             aria-hidden="true"
-            className="flex aspect-[4/5] max-w-md items-center justify-center rounded-lg border border-hairline bg-fog"
+            className="flex aspect-[4/5] max-w-md items-center justify-center rounded-lg bg-plum-sub"
           >
-            <span className="mono-label text-slate">Lookbook</span>
+            <span className="mono-label text-plum">Lookbook</span>
           </div>
           <div className="flex flex-col justify-center">
-            <Eyebrow>Founder track</Eyebrow>
-            <h2 className="mt-4 text-h2">Zowis Fashion Limited</h2>
-            <p className="measure mt-5 text-body">
+            <p className="mono-label flex items-center gap-3 text-plum-sub">
+              <span aria-hidden="true" className="h-px w-8 bg-plum-sub/60" />
+              Founder track
+            </p>
+            <h2 className="mt-4 font-display text-h2 font-semibold text-paper">
+              Zowis Fashion Limited
+            </h2>
+            <p className="measure mt-5 text-body text-paper">
               A women&rsquo;s fashion brand run end to end — the label, the
               e-commerce, and the company behind them. I built its commerce
               backend on Supabase, wired GUO logistics for delivery, and set
               up the ads infrastructure it sells through. The same hands that
               ship client products run this one.
             </p>
-            <p className="mono-label mt-6 text-slate">
+            <p className="mono-label mt-6 text-plum-sub">
               E-commerce · Logistics integration · Brand operations
             </p>
             <p className="mt-8">
               <Link
                 href="/zowis"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-plum no-underline"
+                className="group inline-flex items-center gap-2 text-sm font-medium text-paper no-underline"
               >
                 Enter Zowis
                 <ArrowRight
@@ -208,8 +215,9 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* 8 — Capabilities (§10.1.8) */}
-      <Section tone="mist" aria-label="Capabilities">
+      {/* 8 — Capabilities (§10.1.8) — plum-tinted panel: the quiet echo
+          after the saturated band; alternates against the proof strip. */}
+      <Section tone="mist" wash="plum" aria-label="Capabilities">
         <Eyebrow>What I do</Eyebrow>
         <div className="mt-10 grid gap-x-[var(--grid-gap)] gap-y-12 md:grid-cols-2">
           {capabilities.map((cap) => (
@@ -268,8 +276,9 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 10 — Contact band (§10.1.10) */}
-      <Section aria-label="Contact">
+      {/* 10 — Contact band (§10.1.10 / §5.1 redirect item 4): fuller
+          signal wash, second-most saturated. Ink copy throughout. */}
+      <Section className="wash-contact" aria-label="Contact">
         <h2 className="font-display text-h1 font-semibold text-ink">
           Have something to build?
         </h2>

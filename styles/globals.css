@@ -38,17 +38,18 @@
   --color-signal:     #1B3BE8;  /* engineering track */
   --color-signal-sub: #E8ECFE;  /* engineering tint fill */
   --color-plum:       #7A2E4E;  /* Zowis / founder track — also Zowis duotone */
+  --bg-ivory:       #002615;  /* Zowis / founder track — also Zowis duotone */
   --color-plum-sub:   #F7ECF1;  /* Zowis tint fill */
 
-  /* Domain palette §5.1 (M7.5, approved 2026-08-14) — one tuned family,
-     bases 5.06–5.16:1 on paper, tints ≥16:1 under ink. Applied in exactly
-     four places (tag, duotone cover, card hover border, case-study rule +
-     fact-rail labels); never on the spine rail, never on body text. */
-  --color-fintech:         #0C7C72;  --color-fintech-sub:     #E6F5F2;
-  --color-health:          #0D74AE;  --color-health-sub:      #E7F1F9;
-  --color-media:           #AE5406;  --color-media-sub:       #F9F0E1;
-  --color-marketplace:     #8150DD;  --color-marketplace-sub: #F1EBFB;
-  --color-mobility:        #527A12;  --color-mobility-sub:    #EFF4E2;
+  /* Domain palette §5.1 (M7.5 as redirected 2026-08-14) — one tuned
+     family, bases 5.06–5.16:1 on paper. Its ONLY application is the tag
+     pill: tinted background + base-colour text (every base ≥4.6:1 on its
+     own tint). Never on covers, borders, hovers, the spine rail or text. */
+  --color-fintech:         #0C7C72;  --color-fintech-sub:     #EDF8F6;
+  --color-health:          #0D74AE;  --color-health-sub:      #EFF6FC;
+  --color-media:           #AE5406;  --color-media-sub:       #FAF3E7;
+  --color-marketplace:     #8150DD;  --color-marketplace-sub: #F6F3FD;
+  --color-mobility:        #527A12;  --color-mobility-sub:    #F3F7EA;
 
   /* State */
   --color-success:    #147A4B;
@@ -391,6 +392,87 @@
     .marquee-dup {
       display: none;
     }
+  }
+
+  /*
+   * Ambient gradient washes — §5.1 (M7.5 redirect). Colour lives in the
+   * page containers as large, soft, low-contrast washes; every stop is
+   * derived from existing tokens via color-mix, and every class sets a
+   * flat token background-color first so an unsupported gradient
+   * degrades cleanly. Nothing sits on a wash below 4.5:1.
+   */
+
+  /* 1 — Hero: wide radial signal wash, top-right, gone before the headline. */
+  .wash-hero {
+    background-color: var(--color-paper);
+    background-image: radial-gradient(
+      ellipse 55% 48% at 88% -6%,
+      color-mix(in srgb, var(--color-signal) 6%, var(--color-paper)),
+      transparent 72%
+    );
+  }
+
+  /* 2 — Section panels: diagonal paper → accent-tinted mist (3–6%). */
+  .wash-panel {
+    background-color: var(--color-mist);
+    background-image: linear-gradient(
+      135deg,
+      var(--color-paper),
+      color-mix(in srgb, var(--wash, var(--color-signal)) 5%, var(--color-mist))
+    );
+  }
+
+  /* 3 — Zowis band: the one genuinely saturated moment. Paper copy only. */
+  .wash-plum {
+    background-color: var(--color-plum);
+    background-image: linear-gradient(
+      140deg,
+      var(--color-plum),
+      color-mix(in srgb, var(--color-plum) 72%, var(--color-ink))
+    );
+  }
+
+  /* 4 — Contact band: fuller signal wash, second-most saturated. Ink copy. */
+  .wash-contact {
+    background-color: var(--color-signal-sub);
+    background-image: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--color-signal) 4%, var(--color-paper)),
+      color-mix(in srgb, var(--color-signal) 16%, var(--color-paper))
+    );
+  }
+
+  /* 6 — Footer: mist → fog, quiet. */
+  .wash-footer {
+    background-color: var(--color-mist);
+    background-image: linear-gradient(var(--color-mist), var(--color-fog));
+  }
+
+  /* 5 — Card hover: a soft tint bloom from the top-left corner (track
+     accent tint via --bloom), never a border change. The card becomes
+     its own stacking context so the bloom sits under its content. */
+  .card-bloom {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .card-bloom::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      120% 90% at 0% 0%,
+      var(--bloom, var(--color-signal-sub)),
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+    pointer-events: none;
+  }
+  .card-bloom:hover::before,
+  .card-bloom:focus-visible::before {
+    opacity: 1;
   }
 
   /* 2px pulsing dot beside PRESENT — static under reduced motion (§7.2) */

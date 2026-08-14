@@ -11,13 +11,13 @@ const FOOTER_NAV = [
 ] as const;
 
 /**
- * Large-type footer — §10.8. Full-bleed mist, oversized display navigation
- * with an underline sweep, then contact/meta rows and the bottom bar.
- * Email and socials render only once supplied (⚠ NEEDS INPUT in profile.ts).
+ * Large-type footer — §10.8. Full-bleed mist → fog wash (§5.1 redirect
+ * item 6, degrades to flat mist), oversized display navigation with an
+ * underline sweep, then contact/meta rows and the bottom bar.
  */
 export function Footer() {
   return (
-    <footer className="bg-mist">
+    <footer className="wash-footer">
       <Container className="py-[var(--section-y-sm)] md:py-[var(--section-y-md)]">
         <nav aria-label="Footer">
           <ul className="flex flex-col gap-1">
