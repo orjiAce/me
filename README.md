@@ -37,6 +37,7 @@ number is expected to move there.
 | M4 Work index + case studies | 102 kB (149 kB `/work` · 106 kB `/work/[slug]`) |
 | M5 Home | 150 kB → **107 kB** after the motion-strategy decision † (106 kB `/work` · 106 kB `/work/[slug]`) |
 | M6 Zowis · About · Lab | 107 kB (102 kB `/zowis` · 106 kB `/about` · 103 kB `/lab`) |
+| M7 Contact + API | 107 kB (145 kB `/contact` — RHF + Zod + Radix Toast, route-local) |
 
 † Decision recorded in spec §11/§14 (v1.4): the spine fill is a plain rAF
 scroll listener; motion is off every route until M8, and M8 must use
@@ -61,7 +62,7 @@ unaffected (see the comment in `next.config.ts`).
 - [x] **M4 Work index + case studies** — URL-driven TrackFilter (works without JS, live-region announcements, unknown values normalise), six MDX case studies (RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV, Sumotrust) with fact rail, metrics, cover fallback and NextProject band; whole-row spine links; everything else stays spine-only
 - [x] **M5 Home** — hero (17 count), proof strip, derived name marquee, selected work (JIFU360 · RightNowMD · Zowis), spine preview 2024→present, Zowis crossover band, capabilities, lab teaser with live npm counts (6h ISR), contact band; TextReveal/odometers/magnetic CTA deferred to M8
 - [x] **M6 Zowis, About, Lab** — Zowis brand page (plum accent, edge-#1 ratio panels, founded date/store/Instagram held as typed NEEDS_INPUT), About with the compact spine variant over all 17 dated entries + §9.5 education at year granularity, grouped stack, ways of working; Lab with live npm counts (6h ISR) and LingoBase — nothing padded
-- [ ] M7 Contact + API
+- [x] **M7 Contact + API** — degraded-mode-first: mailto path works end to end with zero env keys (503 → inline error + toast + mailto carrying the typed message); Resend behind `RESEND_API_KEY`; honeypot fake-success, HMAC timing challenge, Turnstile-optional, in-memory rate limit (3/10min, 20/day, `Retry-After`), 60s dedupe registered only on successful send; §17 rows 12–16 covered by 14 unit tests + live curl/browser demos; about-copy.md applied with the count derived from `profile.stats`
 - [ ] M8 Motion pass
 - [ ] M9 Polish
 - [ ] M10 Hardening

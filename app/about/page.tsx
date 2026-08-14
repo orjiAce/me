@@ -5,8 +5,9 @@ import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SpineTimeline } from "@/components/work/SpineTimeline";
 import {
-  bio,
+  bioBlocks,
   certifications,
+  concurrencyNote,
   education,
   stackGroups,
   waysOfWorking,
@@ -20,11 +21,30 @@ export const metadata: Metadata = {
     "Joseph 'Ace' Orji — lead mobile engineer shipping React Native products since 2019, and founder of Zowis Fashion Limited.",
 };
 
+/** Backtick spans in the owner's copy render as inline code. */
+function BioText({ text }: { text: string }) {
+  const parts = text.split("`");
+  return (
+    <>
+      {parts.map((part, i) =>
+        i % 2 === 1 ? (
+          <code key={i} className="font-mono text-[0.9em] text-ink">
+            {part}
+          </code>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 /**
- * About — §10.5. The chronology reuses the Spine in its compact variant
- * over the dated record; undated work and §9.5 education render as quiet
- * rows below it, at the year granularity they were supplied in — no
- * invented months.
+ * About — §10.5, bio from the owner-supplied about-copy.md. The
+ * chronology reuses the Spine in its compact variant over the dated
+ * record, captioned by the copy's concurrency paragraph; undated work
+ * and §9.5 education render as quiet rows at the year granularity they
+ * were supplied in — no invented months.
  */
 export default function AboutPage() {
   return (
@@ -44,10 +64,19 @@ export default function AboutPage() {
           <div className="md:col-span-8">
             <h1 className="text-h1">Ace</h1>
             <div className="mt-6 flex flex-col gap-5">
-              {bio.map((paragraph) => (
-                <p key={paragraph.slice(0, 24)} className="measure text-body">
-                  {paragraph}
-                </p>
+              {bioBlocks.map((block, i) => (
+                <div key={block.heading ?? i} className="flex flex-col gap-5">
+                  {block.heading && (
+                    <h2 className="mt-4 font-display text-h3 font-semibold text-ink">
+                      {block.heading}
+                    </h2>
+                  )}
+                  {block.paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 32)} className="measure text-body">
+                      <BioText text={paragraph} />
+                    </p>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
@@ -58,6 +87,8 @@ export default function AboutPage() {
       <Section aria-label="Chronology">
         <Eyebrow>The chronology</Eyebrow>
         <h2 className="mt-4 text-h2">2014 to now</h2>
+        {/* The copy's concurrency paragraph — the caption for the spine. */}
+        <p className="measure mt-5 text-body">{concurrencyNote}</p>
         <div className="mt-12">
           <SpineTimeline
             projects={spineProjects}
