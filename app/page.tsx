@@ -1,25 +1,67 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Counter } from "@/components/ui/Counter";
+import { Marquee } from "@/components/ui/Marquee";
+import { CopyButton } from "@/components/ui/CopyButton";
+import { FeatureCard } from "@/components/home/FeatureCard";
+import { SpineTimeline } from "@/components/work/SpineTimeline";
+import { capabilities } from "@/content/home";
+import { packages } from "@/content/packages";
 import { profile } from "@/content/profile";
+import {
+  featuredProjects,
+  projectBySlug,
+  spineProjects,
+} from "@/content/projects";
+import { sortByStartDesc } from "@/lib/dates";
+import { weeklyDownloads } from "@/lib/npm";
 
 /**
- * Milestone 1 placeholder — a static render of the hero copy (§10.1) plus a
- * type-scale specimen so the foundation can be reviewed at every breakpoint.
- * The real home page (marquee, spine preview, capabilities, …) is Milestone 5,
- * and the hero gains its TextReveal animation in the motion pass (M8).
+ * Home — §10.1, sections in fixed order. Static with 6h ISR (the lab
+ * teaser's npm counts, §12.3). Hero TextReveal, Counter odometers, and
+ * the magnetic CTA arrive in the motion pass (M8) — everything renders
+ * complete without them.
  */
-export default function HomePage() {
+export default async function HomePage() {
+  const downloads = await Promise.allSettled(
+    packages.map((pkg) => weeklyDownloads(pkg.name)),
+  );
+  const downloadFor = (i: number) => {
+    const result = downloads[i];
+    return result?.status === "fulfilled" ? result.value : null;
+  };
+
+  // §10.1.5 — one card per argument: technical depth, current relevance,
+  // ownership.
+  const jifu = projectBySlug("jifu360")!;
+  const rightnowmd = projectBySlug("rightnowmd")!;
+  const zowis = projectBySlug("zowis")!;
+
+  // §10.1.6 — 2024 → present, in the real Spine component.
+  const preview = spineProjects.filter((p) => p.start >= "2024-01");
+
+  // §10.1.4 — names derived from content, never hardcoded.
+  const marqueeNames = [
+    ...sortByStartDesc(spineProjects).map((p) => p.name),
+    "Zowis",
+  ];
+
   return (
     <>
+      {/* 2 — Hero (§10.1.2) */}
       <Section
         spacing="none"
         className="flex min-h-[88svh] flex-col pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
       >
-        <p className="mono-label text-slate">
+        <Eyebrow>
           Lead mobile engineer — Abuja, Nigeria — UTC+1
-        </p>
+        </Eyebrow>
 
         <h1 className="text-display mt-8 font-bold">
-          Twelve apps in production
+          Seventeen apps in production
           <span className="text-signal">.</span>
           <br />
           Two npm packages
@@ -29,52 +71,233 @@ export default function HomePage() {
         </h1>
 
         <p className="measure mt-10 text-lead">
-          I&rsquo;m Ace. I lead mobile builds in React Native and TypeScript for
-          teams in Lagos, Toronto, Dubai and San Francisco — and I run Zowis
-          Fashion, my own brand, on infrastructure I built myself.
+          I&rsquo;m Ace. I lead mobile builds in React Native and TypeScript
+          for teams in Lagos, Toronto, Dubai and San Francisco — and I run
+          Zowis Fashion, my own brand, on infrastructure I built myself.
         </p>
 
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <Link
+            href="/work"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
+          >
+            See the work
+            <ArrowRight
+              aria-hidden="true"
+              size={16}
+              className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+            />
+          </Link>
+          {/* "Download CV" ghost button lands when the PDF is supplied (§21). */}
+        </div>
+
         <p className="mt-8 inline-flex items-center gap-2.5 text-sm text-graphite">
-          <span
-            aria-hidden="true"
-            className="size-2 rounded-pill bg-success"
-          />
-          Open to remote contracts · {profile.availability.preferredLength}
+          <span aria-hidden="true" className="size-2 rounded-pill bg-success" />
+          {profile.availability.note} · {profile.availability.preferredLength}
         </p>
       </Section>
 
-      {/* Temporary foundation check — removed when Milestone 5 builds the real home. */}
-      <Section tone="mist" aria-label="Type scale specimen">
-        <p className="mono-label text-slate">Milestone 1 — type &amp; spacing check</p>
-        <div className="mt-10 flex flex-col gap-8">
-          <div>
-            <p className="mono-label text-slate">display</p>
-            <p className="text-display font-display font-bold text-ink">Career spine</p>
-          </div>
-          <div>
-            <p className="mono-label text-slate">h1</p>
-            <p className="font-display text-h1 font-semibold text-ink">Work index</p>
-          </div>
-          <div>
-            <p className="mono-label text-slate">h2</p>
-            <p className="font-display text-h2 font-semibold text-ink">Selected work</p>
-          </div>
-          <div>
-            <p className="mono-label text-slate">h3</p>
-            <p className="text-h3 font-medium text-ink">Card title</p>
-          </div>
-          <div>
-            <p className="mono-label text-slate">lead / body / sm / meta</p>
-            <p className="measure text-lead text-graphite">
-              Lead paragraph size, capped at a 68-character measure.
-            </p>
-            <p className="measure mt-2 text-body text-graphite">
-              Body copy at 17px with 1.65 leading.
-            </p>
-            <p className="mt-2 text-sm text-graphite">Small text at 15px.</p>
-            <p className="mono-label mt-2 text-slate">10.2025 — 07.2026</p>
-          </div>
+      {/* 3 — Proof strip (§10.1.3) */}
+      <Section tone="mist" aria-label="Proof in numbers">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:divide-x md:divide-hairline">
+          {profile.stats.map((stat) => (
+            <div key={stat.label} className="md:px-8 md:first:pl-0">
+              <Counter value={stat.value} label={stat.label} />
+            </div>
+          ))}
         </div>
+      </Section>
+
+      {/* 4 — Client marquee (§10.1.4) — full bleed, outside the container */}
+      <div className="py-14 md:py-20">
+        <Marquee items={marqueeNames} />
+      </div>
+
+      {/* 5 — Selected work (§10.1.5) */}
+      <Section aria-label="Selected work">
+        <Eyebrow>Selected work</Eyebrow>
+        <h2 className="mt-4 text-h2">
+          Three arguments, one operator
+        </h2>
+        <div className="mt-10 grid gap-[var(--grid-gap)] md:grid-cols-12">
+          <FeatureCard
+            project={jifu}
+            href="/work/jifu360"
+            className="md:col-span-7"
+          />
+          <FeatureCard
+            project={rightnowmd}
+            href="/work/rightnowmd"
+            className="md:col-span-5"
+          />
+          <FeatureCard
+            project={zowis}
+            href="/zowis"
+            className="md:col-span-12"
+          />
+        </div>
+      </Section>
+
+      {/* 6 — Spine preview (§10.1.6) */}
+      <Section aria-label="Recent chronology">
+        <Eyebrow>The record</Eyebrow>
+        <h2 className="mt-4 text-h2">
+          Concurrent by design
+        </h2>
+        <p className="mono-label mt-3 text-slate">
+          2024 — present. Five contracts ran in parallel at the peak.
+        </p>
+        <div className="mt-12 md:mt-16">
+          <SpineTimeline
+            projects={preview}
+            ariaLabel="Recent work history, most recent first"
+          />
+        </div>
+        <p className="mt-12">
+          <Link
+            href="/work"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-ink no-underline"
+          >
+            View all {spineProjects.length} projects, back to 2019
+            <ArrowRight
+              aria-hidden="true"
+              size={16}
+              className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+            />
+          </Link>
+        </p>
+      </Section>
+
+      {/* 7 — Zowis crossover band (§10.1.7) — the only plum-dominant band */}
+      <section className="bg-plum-sub" aria-label="Zowis Fashion Limited">
+        <Container className="grid gap-10 py-[var(--section-y-sm)] md:grid-cols-2 md:py-[var(--section-y-md)]">
+          {/* Lookbook image ⚠ NEEDS INPUT — ratio-correct placeholder, no fake photo. */}
+          <div
+            aria-hidden="true"
+            className="flex aspect-[4/5] max-w-md items-center justify-center rounded-lg border border-hairline bg-fog"
+          >
+            <span className="mono-label text-slate">Lookbook</span>
+          </div>
+          <div className="flex flex-col justify-center">
+            <Eyebrow>Founder track</Eyebrow>
+            <h2 className="mt-4 text-h2">Zowis Fashion Limited</h2>
+            <p className="measure mt-5 text-body">
+              A women&rsquo;s fashion brand run end to end — the label, the
+              e-commerce, and the company behind them. I built its commerce
+              backend on Supabase, wired GUO logistics for delivery, and set
+              up the ads infrastructure it sells through. The same hands that
+              ship client products run this one.
+            </p>
+            <p className="mono-label mt-6 text-slate">
+              E-commerce · Logistics integration · Brand operations
+            </p>
+            <p className="mt-8">
+              <Link
+                href="/zowis"
+                className="group inline-flex items-center gap-2 text-sm font-medium text-plum no-underline"
+              >
+                Enter Zowis
+                <ArrowRight
+                  aria-hidden="true"
+                  size={16}
+                  className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+                />
+              </Link>
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* 8 — Capabilities (§10.1.8) */}
+      <Section tone="mist" aria-label="Capabilities">
+        <Eyebrow>What I do</Eyebrow>
+        <div className="mt-10 grid gap-x-[var(--grid-gap)] gap-y-12 md:grid-cols-2">
+          {capabilities.map((cap) => (
+            <div key={cap.index}>
+              <p className="mono-label text-signal">{cap.index}</p>
+              <h3 className="mt-2 font-sans text-lead font-medium text-ink">
+                {cap.title}
+              </h3>
+              <p className="measure mt-3 text-sm text-graphite">{cap.body}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 9 — Lab teaser (§10.1.9) */}
+      <Section aria-label="Open source">
+        <Eyebrow>Open source</Eyebrow>
+        <div className="mt-10 grid gap-[var(--grid-gap)] md:grid-cols-2">
+          {packages.map((pkg, i) => {
+            const weekly = downloadFor(i);
+            return (
+              <div
+                key={pkg.name}
+                className="rounded-lg border border-hairline p-6"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-mono text-sm font-medium text-ink">
+                    {pkg.name}
+                  </h3>
+                  {weekly !== null && (
+                    <span className="mono-label text-slate">
+                      {weekly.toLocaleString("en-US")}
+                      <span className="normal-case">/wk</span>
+                    </span>
+                  )}
+                </div>
+                <p className="mt-2 text-sm text-graphite">{pkg.description}</p>
+                <div className="mt-4 flex items-center justify-between gap-2 rounded-md bg-fog px-4 py-1.5">
+                  <code className="font-mono text-meta text-graphite">
+                    {pkg.install}
+                  </code>
+                  <CopyButton text={pkg.install} />
+                </div>
+                <p className="mt-3">
+                  <a
+                    href={pkg.npm}
+                    rel="noopener noreferrer"
+                    className="mono-label text-signal no-underline hover:underline"
+                  >
+                    npm ↗
+                  </a>
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* 10 — Contact band (§10.1.10) */}
+      <Section aria-label="Contact">
+        <h2 className="font-display text-h1 font-semibold text-ink">
+          Have something to build?
+        </h2>
+        <p className="mt-6">
+          <a
+            href={`mailto:${profile.email}`}
+            className="font-display text-h3 font-medium text-signal no-underline hover:underline"
+          >
+            {profile.email}
+          </a>
+        </p>
+        <p className="mt-4 inline-flex items-center gap-2.5 text-sm text-graphite">
+          <span aria-hidden="true" className="size-2 rounded-pill bg-success" />
+          {profile.availability.note} · {profile.availability.preferredLength}
+        </p>
+        <p className="mt-8">
+          <Link
+            href="/contact"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-signal"
+          >
+            Start a conversation
+            <ArrowRight
+              aria-hidden="true"
+              size={16}
+              className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+            />
+          </Link>
+        </p>
       </Section>
     </>
   );
