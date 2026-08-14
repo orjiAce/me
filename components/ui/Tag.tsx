@@ -1,28 +1,23 @@
-import type { Track } from "@/content/types";
-import { cn } from "@/lib/cn";
+import type { Project } from "@/content/types";
+import { accentLabel, accentVars } from "@/lib/accent";
 
-const TRACK_STYLE: Record<Track, string> = {
-  engineering: "border-signal text-signal",
-  founder: "border-plum text-plum",
-  "open-source": "border-signal text-signal",
-};
-
-const TRACK_LABEL: Record<Track, string> = {
-  engineering: "Engineering",
-  founder: "Founder",
-  "open-source": "Open source",
-};
-
-/** Track tag — §6: the track accent tints border and text, nothing else. */
-export function Tag({ track }: { track: Track }) {
+/**
+ * Project tag — §5.1 (M7.5): border and text carry the project's one
+ * hue — its domain, or its track accent when no domain exists (Zowis,
+ * LingoBase). The label names the same axis the colour encodes, so
+ * colour is never the only signal (§15).
+ */
+export function Tag({ project }: { project: Pick<Project, "track" | "domain"> }) {
   return (
     <span
-      className={cn(
-        "mono-label inline-flex items-center rounded-pill border px-3 py-1",
-        TRACK_STYLE[track],
-      )}
+      className="mono-label inline-flex items-center rounded-pill border px-3 py-1"
+      style={{
+        ...accentVars(project),
+        color: "var(--accent)",
+        borderColor: "var(--accent)",
+      }}
     >
-      {TRACK_LABEL[track]}
+      {accentLabel(project)}
     </span>
   );
 }

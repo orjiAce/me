@@ -37,8 +37,18 @@
   /* Track accents */
   --color-signal:     #1B3BE8;  /* engineering track */
   --color-signal-sub: #E8ECFE;  /* engineering tint fill */
-  --color-plum:       #7A2E4E;  /* Zowis / founder track */
+  --color-plum:       #7A2E4E;  /* Zowis / founder track — also Zowis duotone */
   --color-plum-sub:   #F7ECF1;  /* Zowis tint fill */
+
+  /* Domain palette §5.1 (M7.5, approved 2026-08-14) — one tuned family,
+     bases 5.06–5.16:1 on paper, tints ≥16:1 under ink. Applied in exactly
+     four places (tag, duotone cover, card hover border, case-study rule +
+     fact-rail labels); never on the spine rail, never on body text. */
+  --color-fintech:         #0C7C72;  --color-fintech-sub:     #E6F5F2;
+  --color-health:          #0D74AE;  --color-health-sub:      #E7F1F9;
+  --color-media:           #AE5406;  --color-media-sub:       #F9F0E1;
+  --color-marketplace:     #8150DD;  --color-marketplace-sub: #F1EBFB;
+  --color-mobility:        #527A12;  --color-mobility-sub:    #EFF4E2;
 
   /* State */
   --color-success:    #147A4B;

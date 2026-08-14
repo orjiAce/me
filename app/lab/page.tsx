@@ -100,7 +100,7 @@ export default async function LabPage() {
             <h2 className="font-sans text-lead font-medium text-ink">
               {lingobase.name}
             </h2>
-            <Tag track="founder" />
+            <Tag project={lingobase} />
             <span className="mono-label rounded-pill border border-hairline px-3 py-1 text-slate">
               In development
             </span>

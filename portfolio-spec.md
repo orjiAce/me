@@ -192,18 +192,19 @@ White background is the brief. The palette is built from a near-black ink on whi
 }
 ```
 
-**Domain palette — M7.5 colour pass (amendment 2026-08-14; hexes proposed, pending owner approval).** A second colour dimension that encodes something true: each project carries a `domain`, and the domain hue appears in exactly four places — the project tag (border + text), the cover placeholder (a duotone gradient block in the domain hue, replacing the grey mist placeholder of edge case #1 and becoming the primary visual for most projects), the card hover border, and on a case study one hairline rule plus the fact-rail labels. Nowhere else. `track` still owns the spine accents — this is a new axis, not a replacement. Derived as a tuned family (uniform perceived lightness; all bases 5.0–5.5:1 on paper, all tints ≥ 16:1 under ink):
+**Domain palette — M7.5 colour pass (amendment 2026-08-14; approved with owner revisions 2026-08-14).** A second colour dimension that encodes something true: each engineering project carries a `domain`, and the domain hue appears in exactly four places — the project tag (border + text), the cover placeholder (a duotone gradient block in the domain hue, replacing the grey mist placeholder of edge case #1 and becoming the primary visual for most projects), the card hover border, and on a case study one hairline rule plus the fact-rail labels. Nowhere else. `track` still owns the spine accents — this is a new axis, not a replacement.
+
+Owner revisions: education merged into **media & learning** (amber; Gateway Edu, JIFU360, Sinimax, Leadership News); no fashion hue — **Zowis uses the plum track accent, including for its duotone covers**; CheckNCommit is marketplace; **LingoBase carries no domain hue**. Teal and amber nudged off the Tailwind defaults. Five domains, tuned family: all bases inside a 5.06–5.16:1 band on paper, all tints ≥ 16:1 under ink.
 
 ```css
-/* Proposed — do not apply to tokens until approved */
---color-fintech:         #0F766E;  --color-fintech-sub:     #E6F5F2;
+--color-fintech:         #0C7C72;  --color-fintech-sub:     #E6F5F2;
 --color-health:          #0D74AE;  --color-health-sub:      #E7F1F9;
---color-media:           #B45309;  --color-media-sub:       #F9F0E1;
+--color-media:           #AE5406;  --color-media-sub:       #F9F0E1;
 --color-marketplace:     #8150DD;  --color-marketplace-sub: #F1EBFB;
 --color-mobility:        #527A12;  --color-mobility-sub:    #EFF4E2;
---color-education:       #C2410C;  --color-education-sub:   #FAEEE4;
---color-fashion:         #C63368;  --color-fashion-sub:     #FAE9F0;
 ```
+
+Assignment: fintech → OneWallet MFB, Nexaflex, Brace Finance, Sumotrust, Truzact, Delta Digital, EvriCent, Crowdfacture · health → RightNowMD · marketplace → UWA, Lenbi, PortsConnect, CheckNCommit · mobility → BluetanksEV · media & learning → Gateway Edu, JIFU360, Sinimax, Leadership News · Zowis and LingoBase → track accent only.
 
 Never: coloured body text; more than one hue per card; gradients on text; a domain hue on the spine rail (track accents own that).
 
@@ -914,7 +915,7 @@ Work in these milestones; each ends in a runnable state.
 5. **Home** — all sections in order, using components already built.
 6. **Zowis, About, Lab.**
 7. **Contact + API** — form, validation, Resend, bot defence, rate limiting, all failure states.
-7.5. **Colour pass** (amendment 2026-08-14) — the §5.1 domain palette: `domain` on every project, domain hue applied in exactly its four places, duotone cover placeholders replacing mist panels (edge case #1), accent budget to ~8%. *Gate: the seven hexes are approved by the owner before landing on any card.*
+7.5. **Colour pass** (amendment 2026-08-14; palette approved with revisions same day) — the §5.1 domain palette: `domain` on every engineering project, domain hue applied in exactly its four places, duotone cover placeholders replacing mist panels (edge case #1), accent budget to ~8%.
 8. **Motion pass** — reveals, counters, marquee, magnetic CTA, reduced-motion guard.
 9. **Polish** — OG images, metadata, JSON-LD, sitemap, print styles, image optimisation.
 10. **Hardening** — full edge-case table, axe on every route, Lighthouse to budget, E2E suite, visual baselines.

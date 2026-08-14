@@ -15,6 +15,18 @@
  */
 export type Track = "engineering" | "founder" | "open-source";
 
+/**
+ * §5.1 domain palette (M7.5, approved 2026-08-14). A second colour axis
+ * on engineering projects; `track` still owns the spine accents. Zowis
+ * and LingoBase carry no domain — they use their track accent.
+ */
+export type Domain =
+  | "fintech"
+  | "health"
+  | "media"
+  | "marketplace"
+  | "mobility";
+
 export type Project = {
   slug: string;
   name: string;
@@ -28,7 +40,7 @@ export type Project = {
   endUnknown?: true; // end month not recorded — see header comment (edge case #4)
   status: "active" | "completed" | "on-hold" | "archived";
   confidential?: boolean; // hides client name, shows "Confidential — fintech"
-  domain?: string; // "fintech" | "marketplace" | "media" … — reserved for the §7.5 colour pass (amendment v3)
+  domain?: Domain; // §5.1 domain palette axis (engineering projects only)
   stack: string[];
   metrics?: { value: string; label: string; note?: string }[];
   highlights: string[]; // 3–5 bullets, each a shipped outcome

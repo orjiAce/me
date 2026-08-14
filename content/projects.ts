@@ -30,6 +30,7 @@ export const projects: Project[] = [
     slug: "rightnowmd",
     name: "RightNowMD",
     track: "engineering",
+    domain: "health",
     role: "Lead Mobile Engineer",
     org: "TutuTech",
     location: "Remote, US",
@@ -66,6 +67,7 @@ export const projects: Project[] = [
     slug: "sinimax",
     name: "Sinimax",
     track: "engineering",
+    domain: "media",
     role: "Lead Mobile Engineer",
     location: "Abuja, NG",
     summary:
@@ -98,6 +100,7 @@ export const projects: Project[] = [
     slug: "jifu360",
     name: "JIFU360",
     track: "engineering",
+    domain: "media",
     role: "Lead Mobile Engineer",
     location: "Dubai, UAE",
     summary:
@@ -140,6 +143,7 @@ export const projects: Project[] = [
     slug: "lenbi",
     name: "Lenbi",
     track: "engineering",
+    domain: "marketplace",
     role: "Lead Mobile Engineer",
     location: "Remote, CA",
     summary:
@@ -220,6 +224,7 @@ export const projects: Project[] = [
     slug: "onewallet-mfb",
     name: "OneWallet MFB",
     track: "engineering",
+    domain: "fintech",
     role: "Lead Mobile Engineer",
     location: "Abuja, NG",
     summary:
@@ -301,6 +306,7 @@ export const projects: Project[] = [
     slug: "evricent",
     name: "EvriCent",
     track: "engineering",
+    domain: "fintech",
     role: "Lead Mobile Engineer",
     summary:
       "AI-powered spending and repayment system with Plaid bank and card linking and Stripe subscriptions, led with a team of designers and a backend developer.",
@@ -328,6 +334,7 @@ export const projects: Project[] = [
     slug: "delta-digital",
     name: "Delta Digital",
     track: "engineering",
+    domain: "fintech",
     role: "Lead Mobile Engineer",
     summary:
       "Crypto trading app with live Binance price tickers, a Python trading bot and RevenueCat subscriptions — designed in Figma, built pixel-perfect.",
@@ -359,6 +366,7 @@ export const projects: Project[] = [
     slug: "gateway-edu",
     name: "Gateway Edu",
     track: "engineering",
+    domain: "media",
     role: "Head of Mobile",
     location: "NG / UK",
     summary:
@@ -388,6 +396,7 @@ export const projects: Project[] = [
     slug: "brace-finance",
     name: "Brace Finance",
     track: "engineering",
+    domain: "fintech",
     role: "Engineering Lead",
     summary:
       "DeFi app for buying, saving, sending and swapping crypto — Skia-drawn virtual cards and a full identity-verification architecture.",
@@ -410,6 +419,7 @@ export const projects: Project[] = [
     slug: "portsconnect",
     name: "PortsConnect",
     track: "engineering",
+    domain: "marketplace",
     role: "Lead Mobile Engineer",
     summary:
       "Scheduling and appointments platform — built the v2.0 real-time business↔customer chat and the subscription tier that created revenue.",
@@ -439,6 +449,7 @@ export const projects: Project[] = [
     slug: "bluetanks-ev",
     name: "BluetanksEV",
     track: "engineering",
+    domain: "mobility",
     role: "Lead Mobile Engineer",
     location: "United States",
     summary:
@@ -468,6 +479,7 @@ export const projects: Project[] = [
     slug: "sumotrust",
     name: "Sumotrust",
     track: "engineering",
+    domain: "fintech",
     role: "Lead Full-Stack Engineer",
     summary:
       "Naira savings and investment across mobile and web — designed from user research, managing funds for 10,000+ users worldwide.",
@@ -494,6 +506,7 @@ export const projects: Project[] = [
     slug: "truzact",
     name: "Truzact",
     track: "engineering",
+    domain: "fintech",
     role: "Full-Stack Engineer",
     location: "Nigeria",
     summary:
@@ -525,6 +538,7 @@ export const projects: Project[] = [
     slug: "crowdfacture",
     name: "Crowdfacture",
     track: "engineering",
+    domain: "fintech",
     role: "Full-Stack Engineer",
     summary:
       "Community-driven investment platform — hi-fi interface designed in Figma, web app in React.js, iOS/Android app in React Native, published to both stores.",
@@ -543,6 +557,7 @@ export const projects: Project[] = [
     slug: "checkncommit",
     name: "CheckNCommit",
     track: "engineering",
+    domain: "marketplace",
     role: "Full-Stack Engineer",
     summary:
       "Business rating platform, TrustPilot-shaped: membership businesses, free customer accounts, offline-deal ratings — built solo, end to end.",

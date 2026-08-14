@@ -91,6 +91,33 @@ describe("content integrity", () => {
     ]);
   });
 
+  it("assigns a domain to every engineering project and none to founder work (§5.1 M7.5)", () => {
+    for (const p of projects) {
+      if (p.track === "engineering") {
+        expect(p.domain, `${p.slug} missing domain`).toBeDefined();
+      } else {
+        expect(p.domain, `${p.slug} should have no domain`).toBeUndefined();
+      }
+    }
+  });
+
+  it("matches the owner's final domain assignment (M7.5)", () => {
+    const byDomain = (d: string) =>
+      projects.filter((p) => p.domain === d).map((p) => p.slug).sort();
+    expect(byDomain("fintech")).toEqual([
+      "brace-finance", "crowdfacture", "delta-digital", "evricent",
+      "nexaflex", "onewallet-mfb", "sumotrust", "truzact",
+    ]);
+    expect(byDomain("health")).toEqual(["rightnowmd"]);
+    expect(byDomain("marketplace")).toEqual([
+      "checkncommit", "lenbi", "portsconnect", "uwa",
+    ]);
+    expect(byDomain("mobility")).toEqual(["bluetanks-ev"]);
+    expect(byDomain("media")).toEqual([
+      "gateway-edu", "jifu360", "leadership-news", "sinimax",
+    ]);
+  });
+
   it("caps summaries at 160 characters when provided (§9.1)", () => {
     for (const p of projects) {
       if (isProvided(p.summary)) {

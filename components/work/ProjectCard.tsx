@@ -1,24 +1,19 @@
 import type { Project } from "@/content/types";
-import { cn } from "@/lib/cn";
+import { accentLabel, accentVars } from "@/lib/accent";
 import { isLiveOnStores } from "./SpineEntry";
 
 /**
  * Static project card for work that cannot dock to the spine yet — the
  * undated founder projects (§9.4: Zowis and LingoBase founding/start
  * months are ⚠ NEEDS INPUT). No invented dates, no links until a case
- * study exists (edge case #3).
+ * study exists (edge case #3). Label carries the project's one hue
+ * (§5.1 M7.5) — for these two, the track accent.
  */
 export function ProjectCard({ project }: { project: Project }) {
-  const isFounder = project.track === "founder";
   return (
-    <article className="rounded-lg border border-hairline p-6">
-      <p
-        className={cn(
-          "mono-label",
-          isFounder ? "text-plum" : "text-signal",
-        )}
-      >
-        {isFounder ? "Founder" : "Engineering"}
+    <article className="rounded-lg border border-hairline p-6" style={accentVars(project)}>
+      <p className="mono-label" style={{ color: "var(--accent)" }}>
+        {accentLabel(project)}
         {project.status === "active" && (
           <span className="normal-case text-slate"> · Active — dates pending</span>
         )}

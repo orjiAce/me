@@ -69,8 +69,8 @@ export default function ZowisPage() {
                     aria-hidden="true"
                     className={
                       ratio === "4/5"
-                        ? "aspect-[4/5] rounded-lg border border-hairline bg-fog"
-                        : "aspect-square rounded-lg border border-hairline bg-fog"
+                        ? "aspect-[4/5] rounded-lg border border-hairline bg-plum-sub"
+                        : "aspect-square rounded-lg border border-hairline bg-plum-sub"
                     }
                   />
                 ),
