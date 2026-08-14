@@ -28,6 +28,10 @@ export const profile: Profile = {
     { value: "4", label: "Continents served" },
     { value: "2", label: "Open-source packages" },
   ],
-  socials: [], // ⚠ NEEDS INPUT: GitHub, LinkedIn, X, Upwork URLs
-  email: NEEDS_INPUT, // ⚠ NEEDS INPUT: public contact email
+  // Owner-confirmed 2026-08: no X, no Upwork link.
+  socials: [
+    { label: "GitHub", href: "https://github.com/orjiace" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/orji-joseph-mobile-dev" },
+  ],
+  email: "orjiace@gmail.com",
 };

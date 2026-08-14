@@ -1,13 +1,14 @@
 import type { NextConfig } from "next";
 
 /*
- * Security headers — §13.
+ * Security headers — §13 (as amended, decision 2026-08).
  *
- * Deviation from spec, flagged for review: `script-src 'self'` alone blocks
- * Next.js's inline bootstrap scripts (the page would render but never
- * hydrate), and the spec omits style-src while Next injects inline styles.
- * Both get 'unsafe-inline' for now; the hardening milestone (M10) should
- * replace this with a nonce-based CSP via middleware.
+ * script-src keeps 'unsafe-inline' permanently: a nonce-based CSP forces
+ * dynamic rendering on every route, which breaks the static/ISR model (§8)
+ * and the LCP budget (§14). The policy is tightened around it instead:
+ * object-src 'none', base-uri 'self', form-action 'self',
+ * frame-ancestors 'none'. style-src needs 'unsafe-inline' for Next's
+ * injected inline styles.
  */
 const csp = [
   "default-src 'self'",
@@ -17,6 +18,7 @@ const csp = [
   "font-src 'self'",
   "connect-src 'self' https://plausible.io",
   "frame-src https://challenges.cloudflare.com https://cal.com",
+  "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
