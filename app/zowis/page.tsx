@@ -21,8 +21,12 @@ export const metadata: Metadata = {
 export default function ZowisPage() {
   return (
     <>
-      {/* 1 — Hero */}
-      <Section spacing="none" className="pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]">
+      {/* 1 — Hero — ambient wash in the brand's plum */}
+      <Section
+        spacing="none"
+        className="wash-hero pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
+        style={{ "--wash-hero": "var(--color-plum)" } as React.CSSProperties}
+      >
         <p className="font-display text-h3 font-bold tracking-[-0.02em] text-plum">
           ZOWIS
         </p>
@@ -56,7 +60,7 @@ export default function ZowisPage() {
       </Section>
 
       {/* 3 — Lookbook (⚠ images pending — ratio-correct panels, edge case #1) */}
-      <Section tone="mist" aria-label="Lookbook">
+      <Section tone="mist" wash="plum" aria-label="Lookbook">
         <Eyebrow>Lookbook</Eyebrow>
         {zowis.lookbook.length === 0 ? (
           <>

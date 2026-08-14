@@ -220,7 +220,7 @@ Rules: gradients are ambient — nothing sits on one below 4.5:1; never a gradie
 Rules:
 - Ink on paper is the default for everything. Accent is used at roughly **8% of visible surface area** (amended M7.5, from 3%) — links, one word in a headline, the spine node, tag borders and text, duotone cover placeholders, tinted panels where a mist panel earns a domain tint, the active filter pill. Headings, body copy and the spine stay ink. If body text is coloured, it is wrong.
 - `--color-signal` and `--color-plum` never appear in the same component instance except in the track legend and the filter control.
-- All text/background pairs meet WCAG AA. `--color-slate` on `--color-paper` is 4.6:1 and is the lightest text permitted; never use it below 14px.
+- All text/background pairs meet WCAG AA. **Corrected 2026-08-14:** the original slate `#838A93` measured 3.5:1 on paper, not the 4.6:1 previously claimed — a spec bug. Slate is now `#666D76`, measured **5.23:1 on paper, 4.80:1 on mist, 4.50:1 on fog** — AA at any size on every surface it appears on, so the old "never below 14px" restriction is obsolete (mono meta labels are 13px). Full-battery audit of every §5.1 pair on the same date: all other pairs pass AA, tightest being success-on-mist at 4.92:1.
 - `<html>` sets `color-scheme: light` and `<meta name="theme-color" content="#FFFFFF">`. No dark-mode media query anywhere.
 
 ### 5.2 Typography

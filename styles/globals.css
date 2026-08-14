@@ -32,7 +32,7 @@
   /* Ink */
   --color-ink:        #0C0D10;  /* headings, primary text */
   --color-graphite:   #4E545C;  /* body copy */
-  --color-slate:      #838A93;  /* captions, meta, disabled — never below 14px */
+  --color-slate:      #666D76;  /* captions, meta, disabled — AA at any size: 5.23:1 paper, 4.80 mist, 4.50 fog */
 
   /* Track accents */
   --color-signal:     #1B3BE8;  /* engineering track */
@@ -401,12 +401,13 @@
    * degrades cleanly. Nothing sits on a wash below 4.5:1.
    */
 
-  /* 1 — Hero: wide radial signal wash, top-right, gone before the headline. */
+  /* 1 — Hero: wide radial wash, top-right, gone before the headline.
+     Accent defaults to signal; a page can set --wash-hero (Zowis → plum). */
   .wash-hero {
     background-color: var(--color-paper);
     background-image: radial-gradient(
       ellipse 55% 48% at 88% -6%,
-      color-mix(in srgb, var(--color-signal) 6%, var(--color-paper)),
+      color-mix(in srgb, var(--wash-hero, var(--color-signal)) 6%, var(--color-paper)),
       transparent 72%
     );
   }

@@ -35,7 +35,7 @@ export default async function LabPage() {
   const lingobase = projectBySlug("lingobase")!;
 
   return (
-    <Section>
+    <Section className="wash-hero">
       <h1 className="text-h1">Lab</h1>
       <p className="measure mt-4 text-lead text-graphite">
         Open-source packages and what I&rsquo;m building for myself.

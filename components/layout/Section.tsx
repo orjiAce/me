@@ -14,6 +14,7 @@ type SectionProps = {
   spacing?: "default" | "none";
   className?: string;
   containerClassName?: string;
+  style?: React.CSSProperties;
   "aria-label"?: string;
   children: React.ReactNode;
 };
@@ -25,6 +26,7 @@ export function Section({
   spacing = "default",
   className,
   containerClassName,
+  style,
   children,
   ...rest
 }: SectionProps) {
@@ -37,11 +39,12 @@ export function Section({
           "py-[var(--section-y-sm)] md:py-[var(--section-y-md)] lg:py-[var(--section-y-lg)]",
         className,
       )}
-      style={
-        washed
+      style={{
+        ...(washed
           ? ({ "--wash": `var(--color-${wash})` } as React.CSSProperties)
-          : undefined
-      }
+          : undefined),
+        ...style,
+      }}
       {...rest}
     >
       <Container className={containerClassName}>{children}</Container>

@@ -49,8 +49,11 @@ function BioText({ text }: { text: string }) {
 export default function AboutPage() {
   return (
     <>
-      {/* 1 — Portrait + bio */}
-      <Section spacing="none" className="pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]">
+      {/* 1 — Portrait + bio — ambient hero wash (§5.1 redirect, rollout) */}
+      <Section
+        spacing="none"
+        className="wash-hero pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
+      >
         <div className="grid gap-10 md:grid-cols-12">
           {/* Portrait ⚠ NEEDS INPUT — ratio panel, edge case #1. */}
           <div
@@ -130,8 +133,8 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* 3 — Stack, grouped columns (§10.5.3) */}
-      <Section tone="mist" aria-label="Stack">
+      {/* 3 — Stack, grouped columns (§10.5.3) — signal panel wash */}
+      <Section tone="mist" wash="signal" aria-label="Stack">
         <Eyebrow>Stack</Eyebrow>
         <h2 className="mt-4 text-h2">Everything here shipped in a real project</h2>
         <dl className="mt-10 grid gap-x-[var(--grid-gap)] gap-y-8 md:grid-cols-2 lg:grid-cols-3">
@@ -157,8 +160,8 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* 5 — CTA */}
-      <Section tone="mist" aria-label="Contact">
+      {/* 5 — CTA — plum panel wash, alternating with the stack panel */}
+      <Section tone="mist" wash="plum" aria-label="Contact">
         <h2 className="text-h2">Working on something mobile?</h2>
         <p className="mt-4 inline-flex items-center gap-2.5 text-sm text-graphite">
           <span aria-hidden="true" className="size-2 rounded-pill bg-success" />

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
  */
 export default function ContactPage() {
   return (
-    <Section>
+    <Section className="wash-hero">
       <div className="grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <h1 className="text-h1">Let&rsquo;s talk</h1>
