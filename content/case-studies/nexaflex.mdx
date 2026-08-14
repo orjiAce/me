@@ -1,0 +1,64 @@
+## Context
+
+Nexaflex is a crypto-native finance app, live on both stores at v1.9.1:
+users hold and move digital assets across eight chains, spend them through
+a USD virtual card, pay real-world Nigerian bills with them, and buy event
+tickets. I led the mobile build.
+
+## The security architecture
+
+The app was rebuilt around it. `SecureLockManager` keys lock data in
+`expo-secure-store` to the account identifier, so when a different user
+signs in on the same device the previous user's PIN, panic PIN and
+biometric settings are wiped automatically.
+
+**Panic mode** gives the user a second PIN that unlocks the app into a
+decoy state — balances mask, the tab bar swaps in a decoy screen, nothing
+sensitive is reachable — built explicitly for coercion scenarios. Around
+it: biometric unlock, a separate passkey credential gating high-value
+actions (card detail reveal included), `AppState`-driven auto-lock on an
+idle threshold, and a JWT access/refresh pair in secure storage with
+silent refresh and forced logout on refresh failure.
+
+## The quote-polling engine
+
+Withdrawals, swaps, tickets and bill payments each run a polling hook —
+`useQuotePolling`, `useWithdrawalPolling`, `useTicketQuotePolling`,
+`useBillingQoutePolling` — where quotes auto-refresh on an interval,
+expire on a validity window, back off after consecutive failures, and are
+re-validated immediately before submission. A user never signs a stale
+price.
+
+## What I owned
+
+A multi-chain wallet across Bitcoin, Ethereum, Solana, Tron, BNB Chain,
+Avalanche, Polygon and Arbitrum, with per-network deposit addresses and
+ERC20/TRC20/BEP20 abbreviation handling so users don't send funds to the
+wrong chain, aggregated into a single fiat portfolio value — QR receive
+with screenshot export, camera-scanner send with address and network
+validation, asset-to-asset swaps, and per-transaction receipts.
+
+A USD virtual card with issuing, freeze/unfreeze, spending-power display
+and deposit/withdraw against the crypto balance at a quoted rate. Bill
+payments from a crypto balance — airtime, data, electricity with meter
+validation, cable TV and lottery wallets — every biller running the same
+check-quote → confirm → buy pattern. Events with QR tickets saveable to
+the camera roll, Bitcoin mixing behind a four-page educational walkthrough
+with an explicit consent gate, and tiered KYC (levels 1–3) with NIN,
+passport or voter's card, BVN capture and document upload.
+
+Resilience on unreliable networks: TanStack Query state persisted for 24
+hours so the app opens with real data rather than spinners, resilient
+balance hooks serving cached values instantly while surfacing cache age to
+the UI, layered cache services retaining stale data up to 7 days with
+explicit staleness signalling, and MMKV backing the synchronous hot path.
+
+The architectural convention throughout: screens never call axios directly
+— everything routes through a layered client, server data lives in
+TanStack Query and only UI/session state in Zustand, and anything
+sensitive goes to secure store, never AsyncStorage.
+
+## Outcome
+
+Live on the App Store and Google Play at v1.9.1 (iOS build 4, Android
+versionCode 11).

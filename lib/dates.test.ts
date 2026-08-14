@@ -397,13 +397,38 @@ describe("spineLayout", () => {
     expect(entries[3]!.bracket).toEqual({ size: 4, pos: "end" });
   });
 
-  it("collapses a beyond-the-cap run into one bracketed group (edge case #6)", () => {
+  it("collapses a historic beyond-groupCap run into one bracketed group (edge case #6)", () => {
     const layout = spineLayout(cluster2022);
     const groups = layout.items.flatMap((i) => (i.kind === "group" ? [i] : []));
     expect(groups).toHaveLength(1);
     expect(groups[0]!.items).toHaveLength(6);
     expect(groups[0]!.yearLabel).toBe("2022");
     expect(layout.laneCount).toBe(0); // nothing left outside the group
+  });
+
+  it("never collapses a post-cutoff run within the six-lane cap (amendment §5)", () => {
+    // Same six-way shape shifted to 2025 — recent work stays laned.
+    const recent = cluster2022.map((r, i) => ({
+      ...r,
+      slug: `r${i}`,
+      name: `r${i}`,
+      start: r.start.replace("2022", "2025"),
+      end: r.end!.replace("2022", "2025"),
+    }));
+    const layout = spineLayout(recent);
+    expect(layout.items.every((i) => i.kind === "entry")).toBe(true);
+    expect(layout.laneCount).toBe(6);
+  });
+
+  it("still collapses beyond the hard six-lane cap, regardless of era", () => {
+    // Seven pairwise-concurrent 2025 engagements cannot be offset.
+    const seven = Array.from({ length: 7 }, (_, i) =>
+      dated(`s${i}`, "2025-03", "2025-09"),
+    );
+    const layout = spineLayout(seven);
+    const groups = layout.items.flatMap((i) => (i.kind === "group" ? [i] : []));
+    expect(groups).toHaveLength(1);
+    expect(groups[0]!.items).toHaveLength(7);
   });
 
   it("orders items start desc with a group positioned by its newest member", () => {

@@ -22,11 +22,11 @@ export const profile: Profile = {
     note: "Available for fully remote contract engagements",
     preferredLength: "3–6 months",
   },
-  // §9.2 seed. "16" counts the shipped products in §9.3 — the real count,
-  // not the CV's rounded "12+" — but confirm before publishing (§21).
+  // §9.2 seed, amended v3: "17" counts the dated engineering projects in
+  // §9.3 (UWA unarchived, Nexaflex added). Confirm before publishing (§21).
   stats: [
     { value: "7+", label: "Years shipping mobile" },
-    { value: "16", label: "Products shipped" },
+    { value: "17", label: "Products shipped" },
     { value: "2019", label: "Shipping since" },
     { value: "2", label: "Open-source packages" },
   ],

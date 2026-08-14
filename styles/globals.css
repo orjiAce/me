@@ -210,7 +210,7 @@
   @media (min-width: 768px) {
     .spine-wrap {
       --spine-x: 8px;
-      --lane-w: 28px;
+      --lane-w: 18px; /* amended v3: six 18px lanes must clear the gutter */
       --entry-pad: 44px;
     }
   }

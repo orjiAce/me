@@ -281,15 +281,26 @@ export function concurrencyRuns<T extends DatedRange>(items: T[]): ConcurrencyRu
 }
 
 /**
- * Spine layout (§7.2, edge case #6). Lane assignment generalises to N; up
- * to `laneCap` (four) lanes render as horizontal offsets. Where a run of
- * concurrency peaks beyond the cap — the real 2022 maximum of five
- * simultaneous engagements inside the six-strong cluster — offsetting
- * cannot work at any viewport, so the run's members collapse into one
- * bracketed group sharing a node, headed e.g. `2022 — SIX CONCURRENT
- * ENGAGEMENTS`. Lanes are then recomputed without the grouped entries, so
- * the remainder is guaranteed to fit the cap.
+ * Spine layout (§7.2 as amended v3, edge case #6). Lane assignment
+ * generalises to N; up to `laneCap` (six) lanes render as horizontal
+ * offsets. The bracketed-group collapse now applies only to *historic*
+ * clusters: a run peaking before `groupBefore` (2023) with more than
+ * `groupCap` (four) simultaneous engagements — the real 2022 six —
+ * collapses into one group sharing a node. Recent work never collapses:
+ * the 2025–2026 five-lane cluster is the site's strongest evidence and
+ * renders as parallel lanes. Beyond `laneCap` simultaneous engagements,
+ * collapse remains the fallback regardless of era — offsets physically
+ * cannot fit. Lanes are recomputed without grouped entries.
  */
+export type SpineLayoutOptions = {
+  /** Hard offset capacity — beyond this a run always collapses. */
+  laneCap?: number;
+  /** Historic threshold — pre-cutoff runs collapse above this. */
+  groupCap?: number;
+  /** Runs peaking before this year may collapse; later ones never do. */
+  groupBefore?: number;
+};
+
 export type SpineItem<T extends DatedRange> =
   | {
       kind: "entry";
@@ -307,14 +318,20 @@ export type SpineLayout<T extends DatedRange> = {
 
 export function spineLayout<T extends DatedRange>(
   items: T[],
-  laneCap = 4,
+  { laneCap = 6, groupCap = 4, groupBefore = 2023 }: SpineLayoutOptions = {},
 ): SpineLayout<T> {
   const runs = concurrencyRuns(items);
 
-  // Runs beyond the lane cap become bracketed groups. Runs sharing a
-  // member merge (a long engagement could span two dense windows).
+  const collapses = (run: ConcurrencyRun<T>): boolean => {
+    if (run.peak > laneCap) return true;
+    const peakYear = run.peakYears[run.peakYears.length - 1] ?? -Infinity;
+    return run.peak > groupCap && peakYear < groupBefore;
+  };
+
+  // Collapsing runs become bracketed groups. Runs sharing a member merge
+  // (a long engagement could span two dense windows).
   const groups: T[][] = [];
-  for (const run of runs.filter((r) => r.peak > laneCap)) {
+  for (const run of runs.filter(collapses)) {
     const overlapping = groups.find((g) =>
       g.some((item) => run.members.some((m) => m.slug === item.slug)),
     );
@@ -328,7 +345,7 @@ export function spineLayout<T extends DatedRange>(
   }
   const groupYear = (members: T[]): string => {
     const run = runs.find(
-      (r) => r.peak > laneCap && r.members.some((m) => members.some((g) => g.slug === m.slug)),
+      (r) => collapses(r) && r.members.some((m) => members.some((g) => g.slug === m.slug)),
     );
     const years = run?.peakYears ?? [];
     if (years.length === 0) return "";
@@ -363,7 +380,7 @@ export function spineLayout<T extends DatedRange>(
     .filter((w) => w.entry !== null)
     .map((w) => w.entry!.slug);
   const bracketBySlug = new Map<string, { size: number; pos: "start" | "middle" | "end" }>();
-  for (const run of runs.filter((r) => r.peak <= laneCap)) {
+  for (const run of runs.filter((r) => !collapses(r))) {
     const slugs = run.members
       .map((m) => m.slug)
       .filter((slug) => !grouped.has(slug));

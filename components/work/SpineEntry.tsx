@@ -26,6 +26,10 @@ const TRACK_ACCENT: Record<Project["track"], string> = {
   "open-source": "bg-signal",
 };
 
+/** Amendment v3 §4: a store link earns a small mono LIVE marker. */
+export const isLiveOnStores = (project: Project): boolean =>
+  Boolean(project.links?.some((l) => /App Store|Google Play/.test(l.label)));
+
 /** Mono date range: `10.2025 — 07.2026`, `07.2026 — PRESENT`, `02.2024 —` (§7.2). */
 function DateRange({ project }: { project: DatedProject }) {
   const [startText] = formatRange(project.start, project.end).split(" — ");
@@ -119,6 +123,9 @@ export function SpineEntry({
         {meta.length > 0 && <span className="normal-case"> · {meta.join(" · ")}</span>}
         {project.status === "on-hold" && (
           <span className="normal-case"> · Engagement paused by client</span>
+        )}
+        {isLiveOnStores(project) && (
+          <span className="text-success"> · Live</span>
         )}
       </p>
 

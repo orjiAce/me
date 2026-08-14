@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.2 (full §9 chronology, 2026-08; retains the v1.1 §13 CSP decision of 2026-08) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.3 (content amendment v3 folded in 2026-08-14: UWA unarchived, Nexaflex added, Leadership News held, project links, §7.2 lane amendment; retains the v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -23,7 +23,7 @@ Three standing rules for the executor:
 
 A single site that presents two parallel bodies of work in one honest chronology:
 
-- **Engineering** — 7+ years and 16 shipped products, from a solo build at CheckNCommit in 2019 to concurrent lead-engineer contracts across Nigeria, the US, Canada, the UK and Dubai, delivered remotely under **Brains Digital Software Technology**.
+- **Engineering** — 7+ years and 17 shipped products, from a solo build at CheckNCommit in 2019 to concurrent lead-engineer contracts across Nigeria, the US, Canada, the UK and Dubai, delivered remotely under **Brains Digital Software Technology**.
 - **Zowis Fashion Limited** — a women's fashion brand founded and operated by the same person, with its own e-commerce and technical infrastructure.
 
 The site's thesis is that these are not two careers awkwardly stapled together. They are one operator who builds product, ships it, and runs the business around it.
@@ -315,7 +315,7 @@ This is the one thing the site is remembered for. Everything else stays quiet so
 
 The engagements were **concurrent contracts, not sequential jobs**, and this is true across the whole record, not just recently:
 
-- **2026:** RightNowMD, JIFU360, Lenbi, Sinimax and OneWallet MFB all overlap.
+- **2024–2026:** OneWallet MFB, UWA, Nexaflex, Lenbi, JIFU360, Sinimax and RightNowMD chain in one unbroken overlap — **five running simultaneously** through Nov 2025 and again Feb–Jul 2026.
 - **2022:** Gateway Edu, Brace Finance, PortsConnect, BluetanksEV, Sumotrust and Truzact overlap — six engagements inside one year.
 
 A conventional stacked timeline reads that as job-hopping across sixteen employers. Rendering them as parallel lanes on a shared spine tells the truth, and simultaneously demonstrates capacity. This is the single most persuasive thing on the site, which is why it is the signature element.
@@ -325,8 +325,8 @@ A conventional stacked timeline reads that as job-hopping across sixteen employe
 - A continuous 1px vertical rule (`--color-hairline`) runs the full height of the work section, positioned at the left gutter on mobile and at the 2nd grid column on desktop.
 - Each engagement docks to the spine with a node: a 9px circle, filled with the **track accent**, ringed white.
 - The spine rule **fills with accent colour** from the top down as the section scrolls, driven by `useScroll` progress. This is the only scroll-linked animation on the site.
-- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes (offset horizontally by 28px on desktop) and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT ×N` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
-- **Lane cap:** the algorithm must handle up to **six** simultaneous engagements (the real 2022 maximum). Beyond four lanes, stop offsetting and instead render the cluster as a bracketed group sharing one node, with the entries listed inside it and a mono header `2022 — SIX CONCURRENT ENGAGEMENTS`. Squeezing six 28px lanes into the gutter will not work at any viewport.
+- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes (offset horizontally by **18px** on desktop — amended v3) and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT ×N` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
+- **Lane cap (amended v3):** the offset cap is **six lanes** at 18px. Collapse to a bracketed group applies only to *historic* clusters — a run peaking **before 2023** with more than four simultaneous engagements (the real 2022 six) renders as one group sharing a node, headed `2022 — SIX CONCURRENT ENGAGEMENTS`. Recent clusters never collapse: the 2024–2026 five-lane run is the site's strongest evidence and must render as parallel lanes. Beyond six simultaneous engagements, collapse remains the fallback regardless of era. Verify at 1440px that six lanes clear the container gutter; if they don't, drop the offset to 14px before falling back to collapse.
 - **Year rails:** sticky mono year markers (`2026`, `2025`, … `2019`) sit on the spine and pin to the top of the viewport as their range scrolls through. With sixteen entries this is what makes the timeline scannable.
 - On mobile (< 768px) lanes collapse to a single column; overlapping entries instead render a `⇄ concurrent with JIFU360` mono line beneath the title.
 - Date ranges render in Geist Mono as `10.2025 — 07.2026`; open ranges render `07.2026 — PRESENT` with the accent applied to `PRESENT` and a 2px pulsing dot (static when reduced-motion).
@@ -435,7 +435,7 @@ export const profile: Profile = {
   },
   stats: [
     { value: '7+',   label: 'Years shipping mobile' },
-    { value: '16',   label: 'Products shipped' },
+    { value: '17',   label: 'Products shipped' },
     { value: '2019', label: 'Shipping since' },
     { value: '2',    label: 'Open-source packages' },
   ],
@@ -463,8 +463,10 @@ This is the authoritative chronology. It merges the CV with the date corrections
 | `jifu360` | JIFU360 | Lead Mobile Engineer | Dubai, AE | 2025-11 → 2026-08 | completed |
 | `lenbi` | Lenbi | Lead Mobile Engineer | Remote, CA | 2025-10 → 2026-07 | completed |
 | `sinimax` | Sinimax | Lead Mobile Engineer | Abuja, NG | 2026-02 → 2026-06 | on-hold |
+| `nexaflex` | Nexaflex | Lead Mobile Engineer ⚠ confirm title | ⚠ NEEDS INPUT | 2025-01 → 2025-11 | completed |
 | `onewallet-mfb` | OneWallet MFB | Lead Mobile Engineer | Abuja, NG | 2024-06 → 2026-07 | completed |
-| `uwa` | UWA | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT |
+| `uwa` | UWA | Lead Mobile Engineer | Nigeria | 2024-06 → 2026-07 | completed |
+| `leadership-news` | Leadership News | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | archived (held) |
 | `evricent` | EvriCent | Lead Mobile Engineer | — | 2024-02 → ⚠ | completed |
 | `delta-digital` | Delta Digital | Lead Mobile Engineer | — | 2023-05 → ⚠ | completed |
 | `gateway-edu` | Gateway Edu | Lead Mobile Engineer | NG / UK | 2022-06 → 2024-02 | completed |
@@ -494,8 +496,29 @@ Metrics: `17,000+` iOS first-time downloads · `12,500` Play Store downloads · 
 **OneWallet MFB** — Mobile banking for a microfinance bank: hold a wallet, move money, pay merchants, no branch visit, at bank-grade security. Sole mobile engineer leading a team of designers and one backend developer; set architecture (MVVM, Zustand) and coding standards, broke features into ClickUp tasks. Built authentication with biometrics and 2FA, the wallet, payments, instant bank-to-bank transfer, contactless QR payment, push notifications and internationalisation. Implemented end-to-end encryption, secure storage and token management. TanStack Query for server-state caching. Sentry for production bug and stability monitoring. Drove the production release through App Store and Google Play review.
 Impact line: took the app from nothing to live on both stores, and gave the team crash and stability visibility they had never had.
 
-**UWA** — A digital workforce and employment platform for the construction and built-environment industry, connecting employers with skilled, semi-skilled and entry-level workers. Employers post jobs, review applicants across construction trades and professional categories, schedule interviews, manage placements and ongoing projects, and pay workers, all in one place. Workers build a profile covering skills, experience, qualifications, certifications and employment history, assemble a portfolio of past work, track applications and interviews, and get paid for completed work. Identity verification runs through the platform so employers find workers they can rely on and workers find longer-term careers.
-⚠ **NEEDS INPUT before this can go on the spine:** Ace's role, the client/company, dates, stack, and whether it shipped. Until supplied, hold `uwa` in the content file with `status: 'archived'` and exclude it from the spine — do not guess a date to place it.
+**UWA** *(amended v3, from the project README)* — Nigeria's marketplace for skilled and unskilled labour: a React Native (Expo) client for uwa.ng carrying the full employment lifecycle for both sides of the market in one binary, with one navigation shell reshaping itself on `user_class` rather than duplicating screens per role. Talent side: job search with best-match scoring, application status timelines, in-app résumé and portfolio, clock-in/clock-out attendance, a wallet with Nigerian bank withdrawals, identity verification. Employer side: pay-to-activate job posting, applicant review with downloadable CVs, project tracking with clock-in audits, a four-tab payments hub with PDF receipts. Bulk Labour Requests was the heaviest feature: multi-role staffing with per-role headcount, in-thread messaging, invoicing, full or instalment Paystack payment and PDF export. Hard parts: Paystack via `expo-web-browser` auth sessions with deep-link returns; a four-endpoint `useQueries` invoice hook; a custom `useInfinitePagedQuery`; an axios client that never throws; `expo-print` PDFs matching the web client's jsPDF output; persisted TanStack Query cache; a 13-milestone web→mobile parity programme with deliberate divergences recorded. Release: v1.0.0, iOS build 81, Android versionCode 12. ⚠ No download/user/transaction numbers supplied — no numeric impact line.
+Stack: React Native 0.81.5, React 19.1, Expo SDK 54 (new architecture), TypeScript, React Navigation v7, TanStack Query v5 + AsyncStorage persistence, Zustand, axios, Formik + Yup, FlashList, Reanimated 4, Gesture Handler, Google & Facebook auth, Paystack, OneSignal, expo-print/sharing/secure-store, EAS Build + Update.
+
+**Nexaflex** *(new in v3, from the project README; dates owner-confirmed 2025-01 → 2025-11, completed)* — A crypto-native finance app, live on both stores at v1.9.1: multi-chain wallet across eight chains (per-network deposit addresses, ERC20/TRC20/BEP20 abbreviation handling, QR receive/send, swaps), a USD virtual card with passkey-gated detail reveal, Nigerian bill payments from a crypto balance on a check-quote → confirm → buy pattern, events with QR tickets, Bitcoin mixing behind an educational consent gate, and tiered KYC (NIN/passport/voter's card, BVN). **Lead the case study with:** (1) the security architecture the app was rebuilt around — per-account `SecureLockManager`, **panic mode** unlocking into a decoy state for coercion scenarios, biometric unlock, a passkey gating high-value actions, `AppState` auto-lock, JWT silent refresh; (2) the **quote-polling engine** — per-flow polling hooks where quotes auto-refresh, expire, back off and re-validate before submission so a user never signs a stale price. Also: 24-hour persisted query state, resilient balance hooks surfacing cache age, 7-day layered caches, MMKV on the hot path. Convention: screens never call axios directly; server data in TanStack Query, only UI/session state in Zustand, secrets in secure store. ⚠ Role title and location NEEDS INPUT. ⚠ No download/user/volume numbers supplied.
+Stack: React Native 0.79, Expo SDK 53, React 19, TypeScript, React Navigation 7, TanStack Query 5 + AsyncStorage persistence, Zustand, axios interceptor chain, expo-secure-store + react-native-keychain + MMKV, Formik + Yup, Reanimated 3, react-native-svg, expo-image, FlashList, Gorhom Portal, OneSignal, expo-updates OTA, EAS.
+
+**Leadership News** *(new in v3, held)* — Store links are known (§9.3a); role, dates, stack and description are ⚠ NEEDS INPUT. Held as `status: 'archived'`, excluded from the spine, no summary written from the app name.
+
+#### 9.3a Project links (amendment v3 §4)
+
+Render as mono text links in the case-study fact rail and on the work index — **never** as App Store / Google Play badge images (their brand guidelines fight the palette). Work index rows with a store link get a small mono `LIVE` marker; the ten projects that predate store links have none, and that contrast is informative, not a gap to fill.
+
+| Project | Website | App Store | Google Play |
+|---|---|---|---|
+| UWA | `https://uwa.ng` | ⚠ none supplied | ✓ |
+| OneWallet MFB | `https://www.onewalletweb.com/` | ✓ ⚠ listing is "OneWallet Business" — confirm before shortening the label | ✓ |
+| Nexaflex | `https://www.nexaflex.com/` | ✓ | ✓ |
+| JIFU360 | ⚠ none supplied | ✓ | ✓ |
+| Lenbi | ⚠ none supplied | ✓ | ✓ |
+| BluetanksEV | ⚠ none supplied | ✓ | ⚠ none supplied |
+| Leadership News | ⚠ none supplied | ✓ | ✓ |
+
+Full URLs live in `content/projects.ts` `links[]`.
 
 **EvriCent** — AI-powered spending and repayment system. React Native CLI + TypeScript, React Query for server-state caching, Apple and Google social auth, push notifications and in-app messaging, Reanimated for transitions, **Plaid SDK** for bank and credit-card linking, Stripe SDK for subscriptions. Led mobile with a team of designers and a backend developer.
 
@@ -528,7 +551,7 @@ Metric: the crowdfunding release added `1,000` users in two weeks.
 
 Sixteen projects is too many to give equal weight. Rank them:
 
-- **Case study (full MDX page):** RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV, Sumotrust. Six deep pages.
+- **Case study (full MDX page, amended v3):** RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex, BluetanksEV, Sumotrust. Eight deep pages.
 - **Spine entry with expandable detail, no separate page:** Sinimax, EvriCent, Delta Digital, Gateway Edu, Brace Finance, PortsConnect, Truzact, Crowdfacture, CheckNCommit.
 - Everything stays on the spine regardless. The chronology is the argument — nothing gets dropped for being old.
 
@@ -583,8 +606,8 @@ Section order is fixed. Each numbered block is one `<Section>`.
 
 2. **Hero** — the thesis. Full-width, `min-height: 88svh`, top-aligned with generous bottom space (not vertically centred).
    - Eyebrow (mono): `LEAD MOBILE ENGINEER — ABUJA, NIGERIA — UTC+1`
-   - H1 at `--text-display`, three deliberate lines:
-     > Twelve apps in production.
+   - H1 at `--text-display`, three deliberate lines (count amended v3):
+     > Seventeen apps in production.
      > Two npm packages.
      > **One fashion label.**
      Last line in `--color-plum`; first two lines' full stops in `--color-signal`.
@@ -595,11 +618,11 @@ Section order is fixed. Each numbered block is one `<Section>`.
 
 3. **Proof strip** — four `Counter` stats from `profile.stats`, separated by hairlines, mono labels beneath. Animates once on intersection.
 
-4. **Client marquee** — organisation names in display face, not logos (logos for these clients may not be licensed): `RightNowMD · JIFU360 · Lenbi · OneWallet MFB · Sinimax · BluetanksEV · Sumotrust · Gateway Edu · Brace Finance · PortsConnect · Truzact · Crowdfacture · Zowis`. Duplicated track, CSS transform, 40s linear loop, paused on hover and when reduced-motion. Edges masked with a paper gradient.
+4. **Client marquee** — organisation names in display face, not logos (logos for these clients may not be licensed), derived from the content file (amended v3 adds UWA and Nexaflex): `RightNowMD · Sinimax · JIFU360 · Lenbi · Nexaflex · OneWallet MFB · UWA · EvriCent · Delta Digital · Gateway Edu · Brace Finance · PortsConnect · BluetanksEV · Sumotrust · Truzact · Crowdfacture · CheckNCommit · Zowis`. Duplicated track, CSS transform, 40s linear loop, paused on hover and when reduced-motion. Edges masked with a paper gradient.
 
 5. **Selected work** — three featured projects: **JIFU360** (the metrics and the hardest engineering), **RightNowMD** (current, AI + telemedicine), **Zowis** (the founder track). Deliberately one from each argument the site is making — technical depth, current relevance, ownership. Asymmetric grid: first card spans 7 columns, second 5, third full width. Each card: cover image (`--radius-lg`, hairline border), track tag, name, one-line summary, top metric in mono, arrow. Hover: `--shadow-lift`, image scale `1.03` over 620ms, arrow translates 4px.
 
-6. **The Spine preview** — 2024 to present only (RightNowMD, JIFU360, Lenbi, Sinimax, OneWallet MFB, EvriCent), rendered in the full Spine component so the concurrency is visible immediately, with `View all 16 projects, back to 2019 →` linking to `/work`. This is the first sight of the signature element; it must land here.
+6. **The Spine preview** — 2024 to present only (RightNowMD, Sinimax, JIFU360, Lenbi, Nexaflex, OneWallet MFB, UWA, EvriCent — amended v3), rendered in the full Spine component so the concurrency is visible immediately, with `View all 17 projects, back to 2019 →` linking to `/work`. This is the first sight of the signature element; it must land here.
 
 7. **Zowis crossover band** — full-bleed `--color-plum-sub`. Two columns: left, one lookbook image at 4/5; right, eyebrow `FOUNDER TRACK`, H2 "Zowis Fashion Limited", 60-word brand paragraph, and three mono facts (e-commerce · logistics integration · brand operations). CTA `Enter Zowis →` in plum. This is the only plum-dominant band on the home page.
 
@@ -801,7 +824,7 @@ Handle every row. These are the ones that break portfolio sites in practice.
 | 3 | Project has no case study body | Card does not link to a detail page; it renders as a static card. `generateStaticParams` excludes it. |
 | 4 | Project with an unknown end month (EvriCent, Delta Digital) | Renders `02.2024 —` with a trailing dash and no "present" label. Never infer an end date, and never treat it as active. |
 | 5 | `end: null` | Renders "PRESENT". Verify the pulsing dot is static under reduced-motion. |
-| 6 | Six concurrent engagements (the real 2022 cluster) | Lane algorithm generalises to N. Up to 4 lanes offset horizontally; at 5+ the cluster renders as one bracketed group with a mono header. Test explicitly against the 2022 data. |
+| 6 | Concurrency beyond the lane budget | Lane algorithm generalises to N. Up to six 18px lanes offset horizontally (amended v3). Clusters peaking before 2023 with 5+ simultaneous engagements collapse to one bracketed group (the real 2022 six); recent clusters never collapse; beyond six lanes collapse is the fallback regardless of era. Test against both the 2022 data and the 2024–2026 five-lane cluster. |
 | 7 | Very long project or client name | `text-wrap: balance`, hyphenation, and a `min-width: 0` on flex children so nothing overflows. Test with a 40-character name. |
 | 8 | Confidential client | Renders "Confidential — {sector}". Case study still exists; client name is absent from the DOM, the slug and the OG image. |
 | 9 | Filter matches nothing | Empty state with a reset link, and a live-region announcement. |
@@ -886,9 +909,12 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 
 - [ ] Email address, and the social URLs (GitHub, LinkedIn, X, Upwork) for `profile.socials`
 - [ ] End months for EvriCent and Delta Digital (the CV shows a start month only)
-- [ ] UWA: Ace's role, the client, dates, stack, and whether it shipped — it cannot go on the spine without these
+- [ ] Nexaflex: role title and location (README doesn't state them)
+- [ ] Leadership News: role, dates, stack, description — held off the spine until supplied
+- [ ] OneWallet App Store listing is "OneWallet Business" — confirm it is the app Ace built before shortening the link label
+- [ ] UWA App Store link, if one exists (only Google Play was supplied)
 - [ ] Zowis Fashion founding date
-- [ ] Confirm the shipped-product count (16 in §9.3 vs "12+" on the old CV)
+- [ ] Confirm the shipped-product count (17 in §9.3 as amended vs "12+" on the old CV)
 - [ ] Career start year and any education entry for the About chronology
 - [ ] Repo URLs for both npm packages
 - [ ] Confirmation of which client names and metrics are contractually shareable

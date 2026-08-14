@@ -15,9 +15,14 @@ import { validateProjects } from "../lib/dates";
  * concurrency (inclusive month semantics) — keep it.
  *
  * `caseStudy: true` asserts an MDX body exists in content/case-studies/
- * (the build gate verifies this). §9.3 marks exactly six: RightNowMD,
- * JIFU360, Lenbi, OneWallet MFB, BluetanksEV and Sumotrust. Everything
- * else is spine-only.
+ * (the build gate verifies this). Eight case studies (§9.3 as amended
+ * v3): RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex,
+ * BluetanksEV and Sumotrust. Everything else is spine-only.
+ *
+ * Amendment v3 (2026-08-14): UWA unarchived with README-sourced data;
+ * Nexaflex added (dates owner-confirmed: 2025-01 → 2025-11, completed);
+ * Leadership News held with links only; store/website links on seven
+ * projects — rendered as mono text links, never store badge images.
  */
 export const projects: Project[] = [
   // ——— Engineering: the dated chronology, start desc (§9.3) ———
@@ -124,6 +129,10 @@ export const projects: Project[] = [
       "Built real-time chat on PubNub with cross-platform message normalisation and a link-detection moderation pipeline.",
       "Reached users across Spain, Mexico and beyond; CI/CD and OTA through EAS.",
     ],
+    links: [
+      { label: "App Store", href: "https://apps.apple.com/ng/app/jifu-360/id6756445902" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.jifu360.app" },
+    ],
     featured: true,
     caseStudy: true,
   },
@@ -157,6 +166,54 @@ export const projects: Project[] = [
       "Shipped location search with expo-location and Google Places Autocomplete — distance-sorted, category-filtered, with a date-range availability calendar.",
       "Kept long lists fast with FlashList and React Query caching; resolved iOS build conflicts between the Stripe SDK and other native packages.",
     ],
+    links: [
+      { label: "App Store", href: "https://apps.apple.com/ng/app/lenbi/id6751556858" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.lenbi.mobile.app" },
+    ],
+    caseStudy: true,
+  },
+  {
+    // Amendment v3 §2. Dates owner-confirmed 2026-08-14: 2025-01 → 2025-11,
+    // completed. Role title ⚠ NEEDS INPUT (README doesn't state it);
+    // location ⚠ NEEDS INPUT.
+    slug: "nexaflex",
+    name: "Nexaflex",
+    track: "engineering",
+    role: "Lead Mobile Engineer",
+    domain: "fintech",
+    summary:
+      "A crypto-native finance app: multi-chain wallet, USD virtual card, Nigerian bill payments and ticketing, behind a security layer built for coercion.",
+    start: "2025-01",
+    end: "2025-11",
+    status: "completed",
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "React Navigation",
+      "TanStack Query",
+      "Zustand",
+      "expo-secure-store",
+      "react-native-keychain",
+      "MMKV",
+      "Formik + Yup",
+      "Reanimated",
+      "FlashList",
+      "OneSignal",
+      "EAS",
+    ],
+    highlights: [
+      "Rebuilt the app around a security architecture: per-account SecureLockManager, panic mode unlocking into a decoy state for coercion scenarios, biometric unlock, a passkey gating high-value actions and AppState-driven auto-lock.",
+      "Built the quote-polling engine — quotes auto-refresh, expire, back off after failures and re-validate before submission, so a user never signs a stale price.",
+      "Shipped a multi-chain wallet across eight chains with per-network deposit addresses and ERC20/TRC20/BEP20 abbreviation handling.",
+      "Delivered a USD virtual card, Nigerian bill payments from a crypto balance, and QR event ticketing.",
+      "Kept unreliable networks usable: 24-hour persisted query state, resilient balance hooks surfacing cache age, and MMKV on the synchronous hot path.",
+    ],
+    links: [
+      { label: "Website", href: "https://www.nexaflex.com/" },
+      { label: "App Store", href: "https://apps.apple.com/ng/app/nexaflex/id6745123491" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.nexaflex.mobile.app" },
+    ],
     caseStudy: true,
   },
   {
@@ -185,6 +242,58 @@ export const projects: Project[] = [
       "Implemented end-to-end encryption, secure storage and token management at bank-grade security.",
       "Wired Sentry for production bug and stability monitoring — crash visibility the team had never had.",
       "Drove the production release through App Store and Google Play review.",
+    ],
+    links: [
+      { label: "Website", href: "https://www.onewalletweb.com/" },
+      // ⚠ Listing is "OneWallet Business" — confirm it is this app, not a
+      // sibling, before shortening the label to plain "App Store" (§4 note).
+      { label: "App Store (OneWallet Business)", href: "https://apps.apple.com/ng/app/onewallet-business/id6744119883" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.onewallet.business.app" },
+    ],
+    caseStudy: true,
+  },
+  {
+    // Amendment v3 §1 — unarchived with full data from the project README.
+    slug: "uwa",
+    name: "UWA",
+    track: "engineering",
+    role: "Lead Mobile Engineer",
+    org: "Uwa",
+    location: "Nigeria",
+    domain: "marketplace",
+    summary:
+      "Nigeria's marketplace for skilled and unskilled labour — the full employment lifecycle for employers and workers in one React Native binary.",
+    start: "2024-06",
+    end: "2026-07",
+    status: "completed",
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "React Navigation",
+      "TanStack Query",
+      "Zustand",
+      "axios",
+      "Formik + Yup",
+      "FlashList",
+      "Reanimated",
+      "Paystack",
+      "OneSignal",
+      "expo-print",
+      "EAS",
+    ],
+    // ⚠ Amendment: no download/user/transaction numbers supplied — no
+    // metrics, no numeric impact line.
+    highlights: [
+      "Carried the whole employment lifecycle for both sides of the market in one binary — one navigation shell reshaping itself on user_class rather than duplicating screens per role.",
+      "Built Bulk Labour Requests: multi-role staffing with per-role headcount, in-thread messaging, invoicing, full or instalment Paystack payment and PDF export.",
+      "Shipped the talent side end to end: search and best-match scoring, application timelines, in-app résumé and portfolio, clock-in/clock-out attendance, and a wallet with Nigerian bank withdrawals.",
+      "Ran Paystack checkout through expo-web-browser's auth session with deep-link returns — no WebView hacks — reused across job activation and invoices.",
+      "Closed a 13-milestone web→mobile parity programme feature by feature, recording deliberate divergences instead of porting screen-for-screen.",
+    ],
+    links: [
+      { label: "Website", href: "https://uwa.ng" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.uwamobile.app" },
     ],
     caseStudy: true,
   },
@@ -350,6 +459,9 @@ export const projects: Project[] = [
       "Shipped the Stripe payment flow and Expo push notifications.",
       "Built an admin dashboard for registered charging stations.",
     ],
+    links: [
+      { label: "App Store", href: "https://apps.apple.com/ng/app/bluetanks-ev/id1637245676" },
+    ],
     caseStudy: true,
   },
   {
@@ -453,22 +565,26 @@ export const projects: Project[] = [
     caseStudy: false,
   },
 
-  // ——— Engineering: held off the spine (§9.3 UWA rule) ———
+  // ——— Engineering: held off the spine ———
   {
-    // ⚠ NEEDS INPUT before this can go on the spine: role, client, dates,
-    // stack, and whether it shipped. Until supplied it stays archived and
-    // excluded — do not guess a date to place it.
-    slug: "uwa",
-    name: "UWA",
+    // Amendment v3 §3 — store links are known, nothing else is (⚠ role,
+    // dates, stack, description all NEEDS INPUT). Archived and excluded
+    // from the spine until dated; no summary written from the app name.
+    slug: "leadership-news",
+    name: "Leadership News",
     track: "engineering",
     role: NEEDS_INPUT,
-    summary:
-      "Digital workforce platform for construction — employers post jobs, verify and pay workers; workers build profiles, portfolios and careers.",
+    domain: "media",
+    summary: NEEDS_INPUT,
     start: null,
     end: null,
     status: "archived",
     stack: [],
     highlights: [],
+    links: [
+      { label: "App Store", href: "https://apps.apple.com/ng/app/leadership-news/id6749127071" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.leadershipnews.app" },
+    ],
     caseStudy: false,
   },
 

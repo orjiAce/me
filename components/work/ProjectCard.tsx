@@ -1,5 +1,6 @@
 import type { Project } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { isLiveOnStores } from "./SpineEntry";
 
 /**
  * Static project card for work that cannot dock to the spine yet — the
@@ -21,6 +22,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.status === "active" && (
           <span className="normal-case text-slate"> · Active — dates pending</span>
         )}
+        {isLiveOnStores(project) && <span className="text-success"> · Live</span>}
       </p>
       <h3 className="mt-2 font-sans text-lead font-medium text-ink">
         {project.name}

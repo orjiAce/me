@@ -28,6 +28,7 @@ export type Project = {
   endUnknown?: true; // end month not recorded — see header comment (edge case #4)
   status: "active" | "completed" | "on-hold" | "archived";
   confidential?: boolean; // hides client name, shows "Confidential — fintech"
+  domain?: string; // "fintech" | "marketplace" | "media" … — reserved for the §7.5 colour pass (amendment v3)
   stack: string[];
   metrics?: { value: string; label: string; note?: string }[];
   highlights: string[]; // 3–5 bullets, each a shipped outcome
