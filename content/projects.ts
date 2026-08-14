@@ -14,10 +14,10 @@ import { validateProjects } from "../lib/dates";
  * entirely. Lenbi ending 07.2026 while RightNowMD starts 07.2026 is real
  * concurrency (inclusive month semantics) — keep it.
  *
- * `caseStudy` stays false until its MDX body lands in Milestone 4 — the
- * flag asserts "a body exists", not "a body is planned". §9.3 marks
- * RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV and Sumotrust
- * for full case studies.
+ * `caseStudy: true` asserts an MDX body exists in content/case-studies/
+ * (the build gate verifies this). §9.3 marks exactly six: RightNowMD,
+ * JIFU360, Lenbi, OneWallet MFB, BluetanksEV and Sumotrust. Everything
+ * else is spine-only.
  */
 export const projects: Project[] = [
   // ——— Engineering: the dated chronology, start desc (§9.3) ———
@@ -55,7 +55,7 @@ export const projects: Project[] = [
       "Enforced a 15-minute waiting-room join window with UTC comparisons so it holds across time zones; shipped to TestFlight and Google Play via EAS.",
     ],
     featured: true,
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "sinimax",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
       "Reached users across Spain, Mexico and beyond; CI/CD and OTA through EAS.",
     ],
     featured: true,
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "lenbi",
@@ -157,7 +157,7 @@ export const projects: Project[] = [
       "Shipped location search with expo-location and Google Places Autocomplete — distance-sorted, category-filtered, with a date-range availability calendar.",
       "Kept long lists fast with FlashList and React Query caching; resolved iOS build conflicts between the Stripe SDK and other native packages.",
     ],
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "onewallet-mfb",
@@ -186,7 +186,7 @@ export const projects: Project[] = [
       "Wired Sentry for production bug and stability monitoring — crash visibility the team had never had.",
       "Drove the production release through App Store and Google Play review.",
     ],
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "evricent",
@@ -350,7 +350,7 @@ export const projects: Project[] = [
       "Shipped the Stripe payment flow and Expo push notifications.",
       "Built an admin dashboard for registered charging stations.",
     ],
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "sumotrust",
@@ -376,7 +376,7 @@ export const projects: Project[] = [
       "Built a naira savings system for local-currency deposits earning APY, and — with a backend engineer — a secure investment and money-gifting system.",
       "Hardened the clients: console statements stripped in production, keys in .env, tokens in secure store, biometric or PIN authentication.",
     ],
-    caseStudy: false,
+    caseStudy: true,
   },
   {
     slug: "truzact",

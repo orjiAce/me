@@ -1,0 +1,33 @@
+## Context
+
+Lenbi is a peer-to-peer equipment rental marketplace for the Canadian
+market: users both rent out and borrow, on phone and tablet. I led the
+mobile build in React Native and Expo.
+
+## What I owned
+
+Real-time chat over WebSockets with message history, Firebase Storage
+attachments and automatic blocking of personal contact details inside
+conversations. Payments run on Stripe — Apple Pay, Google Pay, voucher
+checkout, and Stripe Connect for lender payouts with earnings tracking and
+bank withdrawal.
+
+Listings sit behind Stripe Identity ID verification, alongside full Google
+and Apple sign-in with loading and cancellation states handled. The
+multi-step listing flow — photos, pricing, availability, location — is
+validated step by step with Formik and Yup. Location search uses
+expo-location and Google Places Autocomplete, sorted by distance, filtered
+by category, with a date-range availability calendar. OneSignal handles
+push, and a rewards-points system covers bookings and referrals.
+
+## Hard parts
+
+Performance on long lists: FlashList and React Query caching. And the iOS
+build itself — resolving native conflicts between the Stripe SDK and other
+native packages.
+
+## Outcome
+
+The marketplace shipped end to end: chat, payments and payouts, identity
+verification, listings, search and rewards, delivered over a ten-month
+engagement that ran concurrently with four other contracts.

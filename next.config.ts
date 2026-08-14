@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 /*
  * Security headers — §13 (as amended, decision 2026-08).
@@ -10,9 +11,13 @@ import type { NextConfig } from "next";
  * frame-ancestors 'none'. style-src needs 'unsafe-inline' for Next's
  * injected inline styles.
  */
+// Dev-only: React's development tooling needs eval() for callstack
+// reconstruction; production React never uses it. Owner-approved 2026-08.
+const scriptEval = process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : "";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://plausible.io https://challenges.cloudflare.com",
+  `script-src 'self' 'unsafe-inline'${scriptEval} https://plausible.io https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https://cdn.prod.website-files.com https://*.supabase.co",
   "font-src 'self'",
@@ -41,4 +46,14 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// MDX is used only for case-study bodies imported from content/ (§9.7) —
+// .mdx never appears as a page/route extension.
+//
+// `pnpm dev` must run Turbopack (see package.json): Next 15.5's webpack
+// DEV pipeline resolves an .mdx module's react runtime import past the
+// vendored-React alias in the RSC layer, crashing case-study pages with
+// a "recentlyCreatedOwnerStacks" TypeError. Turbopack aliases
+// consistently, and `next build` (webpack) is unaffected.
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

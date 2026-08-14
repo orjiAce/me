@@ -88,9 +88,18 @@ export function SpineEntry({
         </>
       )}
 
+      {/*
+       * §7.2: the whole row is the click target, the title the accessible
+       * name — a stretched ::after overlay at z-0. Text blocks sit at z-10
+       * so they stay selectable (edge case #25): clicks on text hit text,
+       * clicks anywhere else on the row hit the link.
+       */}
       <h3 className="font-sans text-lead font-medium text-ink">
         {project.caseStudy ? (
-          <Link href={`/work/${project.slug}`} className="no-underline hover:underline">
+          <Link
+            href={`/work/${project.slug}`}
+            className="no-underline after:absolute after:inset-0 hover:underline"
+          >
             {project.name}
           </Link>
         ) : (
@@ -105,7 +114,7 @@ export function SpineEntry({
         </p>
       )}
 
-      <p className="mono-label mt-1 text-slate">
+      <p className="mono-label relative z-10 mt-1 w-fit text-slate">
         <DateRange project={project} />
         {meta.length > 0 && <span className="normal-case"> · {meta.join(" · ")}</span>}
         {project.status === "on-hold" && (
@@ -115,7 +124,7 @@ export function SpineEntry({
 
       <p
         className={cn(
-          "measure mt-2 text-sm text-graphite",
+          "measure relative z-10 mt-2 w-fit text-sm text-graphite",
           compact && "hidden md:block",
         )}
       >

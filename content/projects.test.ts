@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   featuredProjects,
@@ -81,8 +83,22 @@ describe("content integrity", () => {
     expect(jifu?.metrics?.[0]).toMatchObject({ value: "4.8/5" });
   });
 
-  it("has no caseStudy flags without MDX bodies (Milestone 4 flips these)", () => {
-    expect(projects.every((p) => p.caseStudy === false)).toBe(true);
+  it("marks exactly the six §9.3 case studies, each with an MDX body", () => {
+    const flagged = projects.filter((p) => p.caseStudy).map((p) => p.slug);
+    expect(flagged.sort()).toEqual([
+      "bluetanks-ev",
+      "jifu360",
+      "lenbi",
+      "onewallet-mfb",
+      "rightnowmd",
+      "sumotrust",
+    ]);
+    for (const slug of flagged) {
+      expect(
+        existsSync(join(process.cwd(), "content", "case-studies", `${slug}.mdx`)),
+        `missing MDX body for ${slug}`,
+      ).toBe(true);
+    }
   });
 });
 

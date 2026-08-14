@@ -33,21 +33,24 @@ number is expected to move there.
 |---|---|
 | M1 Foundation | 102 kB |
 | M2 Content layer | 102 kB |
-| M3 The Spine | 185 kB home · 226 kB /work † |
+| M3 The Spine | 102 kB (150 kB on `/work` — motion loads there only) |
+| M4 Work index + case studies | 102 kB (149 kB `/work` · 106 kB `/work/[slug]`) |
 
-† Measured differently from M1/M2: Next 16 (Turbopack) no longer prints the
-per-route size table, so M3 sums the gzipped transfer of every script tag on
-the served page. The jump is the uncommitted Next 15 → 16 upgrade in the
-working tree, not the spine — motion loads only on `/work` (one extra 40 kB
-chunk; home and `/work` otherwise share identical chunks). Re-baseline after
-deciding whether to keep Next 16.
+An accidental Next 15 → 16 upgrade rode along with the M3 commit and was
+reverted immediately after; numbers above are Next 15's build table
+throughout, so all rows are comparable.
+
+Note: `pnpm dev` runs Turbopack. Next 15.5's webpack dev pipeline
+mis-resolves React inside `.mdx` modules in the RSC layer and 500s the
+case-study routes; Turbopack dev and the webpack production build are both
+unaffected (see the comment in `next.config.ts`).
 
 ## Build progress
 
 - [x] **M1 Foundation** — tokens, fonts, Container/Section, header, footer, 404, security headers
 - [x] **M2 Content layer** — full §9 content model, `lib/dates.ts` (35 unit tests, written first), build-time content gate
 - [x] **M3 The Spine** — full §9.3 chronology in content (16 projects, corrected dates, `endUnknown` for EvriCent/Delta Digital), spine layout algorithm (lanes, concurrency runs, the 2022 six-way bracketed group), SpineTimeline/SpineEntry/SpineRule components, minimal `/work` page (68 tests)
-- [ ] M4 Work index + case studies
+- [x] **M4 Work index + case studies** — URL-driven TrackFilter (works without JS, live-region announcements, unknown values normalise), six MDX case studies (RightNowMD, JIFU360, Lenbi, OneWallet MFB, BluetanksEV, Sumotrust) with fact rail, metrics, cover fallback and NextProject band; whole-row spine links; everything else stays spine-only
 - [ ] M5 Home
 - [ ] M6 Zowis, About, Lab
 - [ ] M7 Contact + API
