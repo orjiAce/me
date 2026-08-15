@@ -420,15 +420,40 @@ describe("spineLayout", () => {
     expect(layout.laneCount).toBe(6);
   });
 
-  it("still collapses beyond the hard six-lane cap, regardless of era", () => {
-    // Seven pairwise-concurrent 2025 engagements cannot be offset.
+  it("a seventh lane stays laned — the 14px ladder step (§7.2)", () => {
     const seven = Array.from({ length: 7 }, (_, i) =>
       dated(`s${i}`, "2025-03", "2025-09"),
     );
     const layout = spineLayout(seven);
+    expect(layout.items.every((i) => i.kind === "entry")).toBe(true);
+    expect(layout.laneCount).toBe(7); // component engages 14px above six
+  });
+
+  it("still collapses beyond the seven-lane ceiling, regardless of era", () => {
+    const eight = Array.from({ length: 8 }, (_, i) =>
+      dated(`s${i}`, "2025-03", "2025-09"),
+    );
+    const layout = spineLayout(eight);
     const groups = layout.items.flatMap((i) => (i.kind === "group" ? [i] : []));
     expect(groups).toHaveLength(1);
-    expect(groups[0]!.items).toHaveLength(7);
+    expect(groups[0]!.items).toHaveLength(8);
+  });
+
+  it("docked entries hold their row without competing (§7.2 Option B)", () => {
+    // Seven competitors would collapse at eight — a docked eighth must not
+    // tip it, must take no lane, and must join no bracket.
+    const seven = Array.from({ length: 7 }, (_, i) =>
+      dated(`s${i}`, "2025-03", "2025-09"),
+    );
+    const founder = { ...dated("founder", "2025-03", null), docked: true };
+    const layout = spineLayout([...seven, founder]);
+    expect(layout.items.every((i) => i.kind === "entry")).toBe(true);
+    expect(layout.laneCount).toBe(7);
+    const docked = layout.items.flatMap((i) =>
+      i.kind === "entry" && i.item.slug === "founder" ? [i] : [],
+    )[0]!;
+    expect(docked.lane).toBe(0);
+    expect(docked.bracket).toBeNull();
   });
 
   it("orders items start desc with a group positioned by its newest member", () => {

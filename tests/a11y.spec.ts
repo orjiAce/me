@@ -15,6 +15,7 @@ const ROUTES = [
   "/work/jifu360",
   "/work/nexaflex",
   "/work/uwa",
+  "/work/leadership-news",
   "/definitely-not-a-page",
 ];
 

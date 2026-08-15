@@ -220,8 +220,11 @@
   @media (min-width: 768px) {
     .spine-wrap {
       --spine-x: 8px;
-      --lane-w: 18px; /* amended v3: six 18px lanes must clear the gutter */
+      --lane-w: 18px; /* §7.2 ladder: 18px up to six lanes */
       --entry-pad: 44px;
+    }
+    .spine-wrap.spine-narrow-lanes {
+      --lane-w: 14px; /* §7.2 ladder: seventh lane engages 14px, before collapse */
     }
   }
   @media (min-width: 1024px) {

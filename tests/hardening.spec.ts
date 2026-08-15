@@ -8,7 +8,7 @@ test.describe("JavaScript disabled (row 19)", () => {
   test("home content fully visible — nothing stays hidden", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Seventeen apps in production",
+      "Eighteen apps in production",
     );
     // Reveal-wrapped content must be visible: no html.js → no hidden state.
     const card = page.getByRole("link", { name: /JIFU360/ }).first();
@@ -74,8 +74,8 @@ test("the spine at 320px: all entries, sane scroll length (rows 22/32)", async (
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(0);
-  // 17 dated engagements: 11 lane rows + 6 inside the 2022 group.
-  await expect(page.locator("ol[aria-label] article")).toHaveCount(17);
+  // 19 dated entries: 13 rows (12 contracts + docked Zowis) + 6 grouped.
+  await expect(page.locator("ol[aria-label] article")).toHaveCount(19);
   const screens = await page.evaluate(
     () => document.body.scrollHeight / window.innerHeight,
   );

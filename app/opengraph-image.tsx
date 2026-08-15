@@ -49,7 +49,7 @@ export default async function OpenGraphImage() {
                 flexDirection: "column",
               }}
             >
-              <span>Seventeen apps in production.</span>
+              <span>Eighteen apps in production.</span>
               <span>Two npm packages.</span>
               <span style={{ color: "#7A2E4E" }}>One fashion label.</span>
             </div>

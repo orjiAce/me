@@ -10,7 +10,7 @@ export const zowis = {
   positioning:
     "Women's fashion, designed and sold through its own e-commerce.",
 
-  foundedYear: NEEDS_INPUT, // ⚠ unlocks the mono founded line and spine placement
+  foundedYear: "2025", // founded 2025-11 (owner-supplied 2026-08-15)
 
   storeUrl: "https://www.wearzowis.com", // supplied 2026-08-15
   instagram: NEEDS_INPUT, // ⚠ CTA band held until supplied

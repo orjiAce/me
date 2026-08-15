@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.7 (content amendment v4 folded 2026-08-15: Leadership News full entry + case-study body from its README, role/dates still held; About AI-vendor and Nigerian-languages amendments; v1.6 M7.5 redirect; v1.5 palette; v1.4 motion strategy; v1.3 amendment v3; v1.1 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.8 (§7.2 founder-docking rule + lane-escalation ladder, 2026-08-15; Leadership News and Zowis dated → counts to 18; v1.7 content amendment v4: Leadership News full entry + case-study body from its README, role/dates still held; About AI-vendor and Nigerian-languages amendments; v1.6 M7.5 redirect; v1.5 palette; v1.4 motion strategy; v1.3 amendment v3; v1.1 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -23,7 +23,7 @@ Three standing rules for the executor:
 
 A single site that presents two parallel bodies of work in one honest chronology:
 
-- **Engineering** — 7+ years and 17 shipped products, from a solo build at CheckNCommit in 2019 to concurrent lead-engineer contracts across Nigeria, the US, Canada, the UK and Dubai, delivered remotely under **Brains Digital Software Technology**.
+- **Engineering** — 7+ years and 18 shipped products, from a solo build at CheckNCommit in 2019 to concurrent lead-engineer contracts across Nigeria, the US, Canada, the UK and Dubai, delivered remotely under **Brains Digital Software Technology**.
 - **Zowis Fashion Limited** — a women's fashion brand founded and operated by the same person, with its own e-commerce and technical infrastructure.
 
 The site's thesis is that these are not two careers awkwardly stapled together. They are one operator who builds product, ships it, and runs the business around it.
@@ -350,8 +350,9 @@ A conventional stacked timeline reads that as job-hopping across sixteen employe
 - A continuous 1px vertical rule (`--color-hairline`) runs the full height of the work section, positioned at the left gutter on mobile and at the 2nd grid column on desktop.
 - Each engagement docks to the spine with a node: a 9px circle, filled with the **track accent**, ringed white.
 - The spine rule **fills with accent colour** from the top down as the section scrolls, driven by `useScroll` progress. This is the only scroll-linked animation on the site.
-- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes (offset horizontally by **18px** on desktop — amended v3) and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT ×N` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
-- **Lane cap (amended v3):** the offset cap is **six lanes** at 18px. Collapse to a bracketed group applies only to *historic* clusters — a run peaking **before 2023** with more than four simultaneous engagements (the real 2022 six) renders as one group sharing a node, headed `2022 — SIX CONCURRENT ENGAGEMENTS`. Recent clusters never collapse: the 2024–2026 five-lane run is the site's strongest evidence and must render as parallel lanes. Beyond six simultaneous engagements, collapse remains the fallback regardless of era. Verify at 1440px that six lanes clear the container gutter; if they don't, drop the offset to 14px before falling back to collapse.
+- **Overlap rendering:** entries whose date ranges intersect are assigned to distinct lanes and their nodes are connected by a hairline bracket, with the mono label `CONCURRENT ×N` set once per overlap cluster. Lane assignment is computed in `lib/dates.ts` by interval-graph colouring — do not hardcode lanes.
+- **Founder docking (Option B, 2026-08-15):** founder-track entries dock to the rail as nodes in their chronological position but never join lane competition, concurrency density, brackets or `×N` counts — §7.1's argument is about concurrent *contracts*, and an open-ended company founding would otherwise hold a lane forever. The bracket line shows a gap at a docked row rather than claiming it.
+- **Lane escalation ladder (2026-08-15):** contract lanes escalate in a fixed order — **18px offsets up to six lanes → 14px offsets for a seventh lane (engages automatically) → bracketed collapse**. Collapse below the seven-lane ceiling applies only to *historic* clusters — a run peaking **before 2023** with more than four simultaneous engagements (the real 2022 six), headed `2022 — SIX CONCURRENT ENGAGEMENTS`. Recent clusters never collapse within the ladder: Nov 2025's six concurrent contracts render as six 18px lanes, with the 14px seventh lane held as headroom for future entries. Beyond seven, collapse is the fallback in any era.
 - **Year rails:** sticky mono year markers (`2026`, `2025`, … `2019`) sit on the spine and pin to the top of the viewport as their range scrolls through. With sixteen entries this is what makes the timeline scannable.
 - On mobile (< 768px) lanes collapse to a single column; overlapping entries instead render a `⇄ concurrent with JIFU360` mono line beneath the title.
 - Date ranges render in Geist Mono as `10.2025 — 07.2026`; open ranges render `07.2026 — PRESENT` with the accent applied to `PRESENT` and a 2px pulsing dot (static when reduced-motion).
@@ -460,7 +461,7 @@ export const profile: Profile = {
   },
   stats: [
     { value: '7+',   label: 'Years shipping mobile' },
-    { value: '17',   label: 'Products shipped' },
+    { value: '18',   label: 'Products shipped' },
     { value: '2019', label: 'Shipping since' },
     { value: '2',    label: 'Open-source packages' },
   ],
@@ -491,7 +492,7 @@ This is the authoritative chronology. It merges the CV with the date corrections
 | `nexaflex` | Nexaflex | Lead Mobile Engineer ⚠ confirm title | ⚠ NEEDS INPUT | 2025-01 → 2025-11 | completed |
 | `onewallet-mfb` | OneWallet MFB | Lead Mobile Engineer | Abuja, NG | 2024-06 → 2026-07 | completed |
 | `uwa` | UWA | Lead Mobile Engineer | Nigeria | 2024-06 → 2026-07 | completed |
-| `leadership-news` | Leadership News | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | ⚠ NEEDS INPUT | archived (held) |
+| `leadership-news` | Leadership News | Lead Mobile Engineer | Nigeria | 2025-11 → 2026-05 | completed ⚠ status confirmation pending |
 | `evricent` | EvriCent | Lead Mobile Engineer | — | 2024-02 → ⚠ | completed |
 | `delta-digital` | Delta Digital | Lead Mobile Engineer | — | 2023-05 → ⚠ | completed |
 | `gateway-edu` | Gateway Edu | Lead Mobile Engineer | NG / UK | 2022-06 → 2024-02 | completed |
@@ -634,7 +635,7 @@ Section order is fixed. Each numbered block is one `<Section>`.
 2. **Hero** — the thesis. Full-width, `min-height: 88svh`, top-aligned with generous bottom space (not vertically centred).
    - Eyebrow (mono): `LEAD MOBILE ENGINEER — ABUJA, NIGERIA — UTC+1`
    - H1 at `--text-display`, three deliberate lines (count amended v3):
-     > Seventeen apps in production.
+     > Eighteen apps in production.
      > Two npm packages.
      > **One fashion label.**
      Last line in `--color-plum`; first two lines' full stops in `--color-signal`.
@@ -942,10 +943,10 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 - [ ] Email address, and the social URLs (GitHub, LinkedIn, X, Upwork) for `profile.socials`
 - [ ] End months for EvriCent and Delta Digital (the CV shows a start month only)
 - [ ] Nexaflex: role title and location (README doesn't state them)
-- [ ] Leadership News: role and dates only (v4 supplied everything else) — held off the spine until both arrive
+- [x] Leadership News: role and dates supplied 2026-08-15 (Lead Mobile Engineer, 2025-11 → 2026-05) — ⚠ owner to confirm status (arrived "active" with a past end date; held as completed per v4 §1)
 - [ ] OneWallet App Store listing is "OneWallet Business" — confirm it is the app Ace built before shortening the link label
 - [ ] UWA App Store link, if one exists (only Google Play was supplied)
-- [ ] Zowis Fashion founding date
+- [x] Zowis Fashion founding date — 2025-11 (supplied 2026-08-15); docks to the spine under the founder-docking rule
 - [ ] Confirm the shipped-product count (17 in §9.3 as amended vs "12+" on the old CV)
 - [ ] Career start year and any education entry for the About chronology
 - [ ] Repo URLs for both npm packages

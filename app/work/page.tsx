@@ -11,7 +11,7 @@ import { spineProjects, undatedWork } from "@/content/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Seventeen shipped products since 2019, delivered as concurrent remote contracts — the full chronology, overlaps included.",
+    "Eighteen shipped products since 2019, delivered as concurrent remote contracts — the full chronology, overlaps included.",
 };
 
 const TRACKS: FilterValue[] = ["all", "engineering", "founder", "open-source"];
@@ -47,7 +47,7 @@ export default async function WorkPage({
     <Section>
       <h1 className="text-h1">Work</h1>
       <p className="measure mt-4 text-lead text-graphite">
-        Seventeen shipped products since 2019, for teams in Nigeria, the US,
+        Eighteen shipped products since 2019, for teams in Nigeria, the US,
         Canada, the UK and Dubai.
       </p>
       <p className="mono-label mt-3 text-slate">

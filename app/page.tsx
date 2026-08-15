@@ -90,7 +90,7 @@ export default async function HomePage() {
           <TextReveal
             lines={[
               <>
-                Seventeen apps in production
+                Eighteen apps in production
                 <span className="text-signal">.</span>
               </>,
               <>

@@ -23,7 +23,22 @@ for (const width of WIDTHS) {
     test(`visual: ${name} @ ${width}`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(route);
-      await page.waitForLoadState("networkidle");
+      // networkidle is flaky under parallel load, and below-fold lazy
+      // images never complete without scrolling — walk the page to force
+      // them, then wait for fonts and every image before capturing.
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 60));
+        }
+        window.scrollTo(0, 0);
+        await Promise.all(
+          Array.from(document.images)
+            .filter((img) => !img.complete)
+            .map((img) => new Promise((r) => { img.onload = img.onerror = r; })),
+        );
+      });
       await expect(page).toHaveScreenshot(`${name}-${width}.png`, {
         fullPage: true,
         mask: [page.locator("section[aria-label='Open source'] .rounded-lg.border")],

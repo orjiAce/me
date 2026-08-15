@@ -52,6 +52,20 @@ export default function ZowisPage() {
         )}
       </Section>
 
+      {/* 1b — The storefront, full width (owner-supplied cover) */}
+      <Section spacing="none" className="pt-12 md:pt-16">
+        <Cover
+          cover={{
+            src: "/images/work/zowis/cover.png",
+            alt: "The Zowis storefront at wearzowis.com — two models in red ruffled dresses beside the debut-collection headline 'A tasteful garment that truly celebrates your form.'",
+            ratio: "16/10",
+          }}
+          name="Zowis"
+          sizes="(min-width: 1280px) 1184px, 100vw"
+          className="rounded-lg"
+        />
+      </Section>
+
       {/* 2 — Brand story */}
       <Section aria-label="Brand story">
         <div className="grid gap-10 md:grid-cols-2">

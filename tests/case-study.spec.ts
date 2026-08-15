@@ -8,7 +8,7 @@ test("spine row → case study → NextProject band", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("JIFU360");
   await expect(page.getByText("4.8/5").first()).toBeVisible();
   await page.getByRole("link", { name: /Next project/i }).click();
-  await expect(page).toHaveURL(/\/work\/lenbi/);
+  await expect(page).toHaveURL(/\/work\/leadership-news/);
 });
 
 test("unknown slug 404s with correct status (edge #11)", async ({ page }) => {
@@ -22,9 +22,11 @@ test("spine-only project has no page (edge #3)", async ({ page }) => {
   expect(response?.status()).toBe(404);
 });
 
-test("promoted-but-undated case study stays a 404 until dated (v4 §0)", async ({ page }) => {
+test("Leadership News page is live now that it is dated", async ({ page }) => {
   const response = await page.goto("/work/leadership-news");
-  expect(response?.status()).toBe(404);
+  expect(response?.status()).toBe(200);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Leadership News");
+  await expect(page.getByRole("heading", { name: "AI reading aids" })).toBeVisible();
 });
 
 test("case study fact rail and prose render", async ({ page }) => {

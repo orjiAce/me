@@ -42,7 +42,13 @@ export function SpineTimeline({
   if (projects.length === 0) return null;
   const dense = variant === "compact";
 
-  const layout = spineLayout(projects);
+  // Option B (§7.2): founder-track entries dock to the rail without
+  // joining lane competition; concurrency claims stay contracts-only.
+  const laid = projects.map((p) =>
+    p.track === "founder" ? { ...p, docked: true } : p,
+  );
+  const layout = spineLayout(laid);
+  const contracts = projects.filter((p) => p.track !== "founder");
   const years = layout.items.map(itemYear);
   const newest = Math.max(...years);
   const oldest = Math.min(...years);
@@ -81,9 +87,11 @@ export function SpineTimeline({
               project={project}
               lane={lane}
               bracket={bracket}
-              concurrentNames={concurrentWith(projects, project.slug).map(
-                (p) => p.name,
-              )}
+              concurrentNames={
+                project.track === "founder"
+                  ? []
+                  : concurrentWith(contracts, project.slug).map((p) => p.name)
+              }
               compact={parseYearMonth(project.start).year < 2022}
               dense={dense}
               headingLevel={headingLevel}
@@ -96,7 +104,11 @@ export function SpineTimeline({
 
   return (
     <div
-      className="spine-wrap"
+      className={
+        // Ladder step two (§7.2): a seventh lane narrows offsets to 14px
+        // automatically, before any thought of collapse.
+        layout.laneCount > 6 ? "spine-wrap spine-narrow-lanes" : "spine-wrap"
+      }
       style={dense ? ({ "--spine-gap": "2rem" } as React.CSSProperties) : undefined}
     >
       <SpineRule />

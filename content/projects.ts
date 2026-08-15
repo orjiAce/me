@@ -611,15 +611,17 @@ export const projects: Project[] = [
     slug: "leadership-news",
     name: "Leadership News",
     track: "engineering",
-    role: NEEDS_INPUT,
+    role: "Lead Mobile Engineer",
     org: "Leadership Newspaper",
     location: "Nigeria",
     domain: "media",
     summary:
       "The official Leadership Newspaper app — full paper on a phone, with Gemini reading aids and seven locales including Igbo, Hausa and Yoruba.",
-    start: null, // ⚠ NEEDS INPUT
-    end: null, // ⚠ NEEDS INPUT
-    status: "archived",
+    start: "2025-11",
+    end: "2026-05",
+    // v4 §1: archived → completed once dated. Arrived as "active" with a
+    // past end date — impossible; completed per the amendment's own note.
+    status: "completed",
     stack: [
       "React Native",
       "Expo",
@@ -664,10 +666,15 @@ export const projects: Project[] = [
     role: "Founder",
     summary:
       "Women's fashion brand with its own e-commerce, logistics and ads infrastructure — founded, built and run end to end.",
-    start: null, // ⚠ NEEDS INPUT: founding month — unlocks spine placement
+    start: "2025-11",
     end: null,
     status: "active",
     stack: ["Supabase", "GUO Logistics API", "Meta Business Suite"],
+    cover: {
+      src: "/images/work/zowis/cover.png",
+      alt: "The Zowis storefront at wearzowis.com — two models in red ruffled dresses beside the debut-collection headline 'A tasteful garment that truly celebrates your form.'",
+      ratio: "16/10",
+    },
     links: [{ label: "Website", href: "https://www.wearzowis.com" }],
     highlights: [
       "Built the commerce backend on Supabase, including remediating a critical RLS misconfiguration.",

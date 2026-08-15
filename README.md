@@ -39,6 +39,7 @@ number is expected to move there.
 | M6 Zowis · About · Lab | 107 kB (102 kB `/zowis` · 106 kB `/about` · 103 kB `/lab`) |
 | M7 Contact + API | 107 kB (145 kB `/contact` — RHF + Zod + Radix Toast, route-local) |
 | M8 Motion pass | **108 kB** home · **106 kB** `/work` — no motion library; dep removed |
+| Content complete | 18 contracts + Zowis dated on the spine; §7.2 founder docking + 18px→14px→collapse ladder |
 
 † Decision recorded in spec §11/§14 (v1.4): the spine fill is a plain rAF
 scroll listener; motion is off every route until M8, and M8 must use

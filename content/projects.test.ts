@@ -29,6 +29,9 @@ describe("content integrity", () => {
     // Amendment v3: UWA unarchived; Nexaflex dates owner-confirmed.
     expect(bySlug["uwa"]).toMatchObject({ start: "2024-06", end: "2026-07", status: "completed" });
     expect(bySlug["nexaflex"]).toMatchObject({ start: "2025-01", end: "2025-11", status: "completed" });
+    // Supplied 2026-08-15: Leadership News dated; Zowis founded.
+    expect(bySlug["leadership-news"]).toMatchObject({ start: "2025-11", end: "2026-05", status: "completed", role: "Lead Mobile Engineer" });
+    expect(bySlug["zowis"]).toMatchObject({ start: "2025-11", end: null, status: "active" });
     expect(bySlug["gateway-edu"]).toMatchObject({ start: "2022-06", end: "2024-02" });
     expect(bySlug["brace-finance"]).toMatchObject({ start: "2022-06", end: "2023-01" });
     expect(bySlug["portsconnect"]).toMatchObject({ start: "2022-06", end: "2023-03" });
@@ -61,21 +64,11 @@ describe("content integrity", () => {
     ]);
   });
 
-  it("holds Leadership News off the spine: full v4 entry, role/dates still unsourced", () => {
-    const held = projects.find((p) => p.slug === "leadership-news");
-    expect(held?.status).toBe("archived");
-    expect(held?.role).toBe("⚠ NEEDS INPUT"); // v4 §0: never assume the role
-    expect(held?.start).toBeNull(); // v4 §0: never infer dates
-    expect(held?.summary).toContain("Leadership Newspaper"); // README-sourced, real
-    expect(held?.caseStudy).toBe(true); // tier promotion, page 404s until dated
-    expect(held?.links?.length).toBe(2);
-    expect(spineProjects.some((p) => p.slug === "leadership-news")).toBe(false);
-    expect(undatedWork.some((p) => p.slug === "leadership-news")).toBe(false);
-  });
-
-  it("puts all seventeen dated engagements on the spine (amendment §5)", () => {
-    expect(spineProjects).toHaveLength(17);
-    expect(undatedWork.map((p) => p.slug).sort()).toEqual(["lingobase", "zowis"]);
+  it("puts all nineteen dated entries on the spine — 18 contracts + Zowis", () => {
+    expect(spineProjects).toHaveLength(19);
+    expect(spineProjects.some((p) => p.slug === "leadership-news")).toBe(true);
+    expect(spineProjects.some((p) => p.slug === "zowis")).toBe(true);
+    expect(undatedWork.map((p) => p.slug)).toEqual(["lingobase"]);
   });
 
   it("renders store links as labelled text links on seven projects (amendment §4)", () => {
@@ -164,7 +157,9 @@ describe("content integrity", () => {
  * group rendering.
  */
 describe("spine layout on the real chronology", () => {
-  const layout = spineLayout(spineProjects);
+  const layout = spineLayout(
+    spineProjects.map((p) => (p.track === "founder" ? { ...p, docked: true } : p)),
+  );
 
   it("collapses the 2022 six into one bracketed group headed 2022", () => {
     const groups = layout.items.flatMap((i) => (i.kind === "group" ? [i] : []));
@@ -180,17 +175,18 @@ describe("spine layout on the real chronology", () => {
     ]);
   });
 
-  it("keeps every other engagement laned within the six-lane cap (amendment §5)", () => {
+  it("keeps every contract laned within the six-lane step of the ladder", () => {
     const entries = layout.items.flatMap((i) => (i.kind === "entry" ? [i] : []));
-    expect(entries).toHaveLength(11);
-    expect(layout.laneCount).toBeLessThanOrEqual(6);
+    expect(entries).toHaveLength(13); // 12 contracts + docked Zowis
+    expect(layout.laneCount).toBe(6); // 18px step; 14px seventh lane dormant
   });
 
-  it("never collapses the recent cluster — seven chained engagements stay laned", () => {
+  it("brackets the eight chained contracts — Zowis docks outside the count", () => {
     const entries = layout.items.flatMap((i) => (i.kind === "entry" ? [i] : []));
-    const recent = entries.filter((e) => e.bracket?.size === 7);
+    const recent = entries.filter((e) => e.bracket?.size === 8);
     expect(recent.map((e) => e.item.slug).sort()).toEqual([
       "jifu360",
+      "leadership-news",
       "lenbi",
       "nexaflex",
       "onewallet-mfb",
@@ -198,6 +194,10 @@ describe("spine layout on the real chronology", () => {
       "sinimax",
       "uwa",
     ]);
+    const zowis = entries.find((e) => e.item.slug === "zowis")!;
+    expect(zowis.item.docked).toBe(true);
+    expect(zowis.lane).toBe(0);
+    expect(zowis.bracket).toBeNull();
   });
 
   it("assigns deterministic lanes to the 2024–2026 cluster", () => {
@@ -208,21 +208,20 @@ describe("spine layout on the real chronology", () => {
     expect(lane.get("uwa")).toBe(1);
     expect(lane.get("nexaflex")).toBe(2);
     expect(lane.get("lenbi")).toBe(3);
-    expect(lane.get("jifu360")).toBe(4);
+    expect(lane.get("leadership-news")).toBe(4);
+    expect(lane.get("jifu360")).toBe(5);
     expect(lane.get("sinimax")).toBe(2); // Nexaflex's lane, freed after 11.2025
     expect(lane.get("rightnowmd")).toBe(2); // Sinimax's lane, freed after 06.2026
   });
 
-  it("gives the five engagements of any peak month five distinct lanes", () => {
+  it("gives Nov 2025's six concurrent contracts six distinct lanes", () => {
     const lane = new Map(
       layout.items.flatMap((i) => (i.kind === "entry" ? [[i.item.slug, i.lane] as const] : [])),
     );
-    const nov2025 = ["onewallet-mfb", "uwa", "nexaflex", "lenbi", "jifu360"];
-    const febJun2026 = ["onewallet-mfb", "uwa", "sinimax", "lenbi", "jifu360"];
+    const nov2025 = ["onewallet-mfb", "uwa", "nexaflex", "lenbi", "leadership-news", "jifu360"];
+    expect(new Set(nov2025.map((slug) => lane.get(slug))).size).toBe(6);
     const jul2026 = ["onewallet-mfb", "uwa", "rightnowmd", "lenbi", "jifu360"];
-    for (const month of [nov2025, febJun2026, jul2026]) {
-      expect(new Set(month.map((slug) => lane.get(slug))).size).toBe(5);
-    }
+    expect(new Set(jul2026.map((slug) => lane.get(slug))).size).toBe(5);
   });
 
   it("keeps Lenbi and RightNowMD concurrent — a shared July 2026 is real overlap", () => {
@@ -239,7 +238,9 @@ describe("spine layout on the real chronology", () => {
     expect(order).toEqual([
       "rightnowmd",
       "sinimax",
+      "zowis", // docked founder row holds its chronological place
       "jifu360",
+      "leadership-news",
       "lenbi",
       "nexaflex",
       "onewallet-mfb",

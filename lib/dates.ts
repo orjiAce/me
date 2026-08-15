@@ -25,6 +25,14 @@ export type DatedRange = {
   start: string;
   end: string | null;
   endUnknown?: boolean;
+  /**
+   * §7.2 (Option B, 2026-08-15): docked entries — the founder track —
+   * sit on the rail as nodes without joining lane competition or
+   * concurrency density. §7.1's argument is about concurrent contracts,
+   * and an open-ended company founding would otherwise hold a lane
+   * forever.
+   */
+  docked?: boolean;
 };
 
 const YEAR_MONTH_RE = /^(\d{4})-(0[1-9]|1[0-2])$/;
@@ -281,19 +289,21 @@ export function concurrencyRuns<T extends DatedRange>(items: T[]): ConcurrencyRu
 }
 
 /**
- * Spine layout (§7.2 as amended v3, edge case #6). Lane assignment
- * generalises to N; up to `laneCap` (six) lanes render as horizontal
- * offsets. The bracketed-group collapse now applies only to *historic*
- * clusters: a run peaking before `groupBefore` (2023) with more than
- * `groupCap` (four) simultaneous engagements — the real 2022 six —
- * collapses into one group sharing a node. Recent work never collapses:
- * the 2025–2026 five-lane cluster is the site's strongest evidence and
- * renders as parallel lanes. Beyond `laneCap` simultaneous engagements,
- * collapse remains the fallback regardless of era — offsets physically
- * cannot fit. Lanes are recomputed without grouped entries.
+ * Spine layout (§7.2 as amended, Option B + ladder, 2026-08-15).
+ *
+ * Docked entries (founder track) hold their chronological row on the
+ * rail but never compete: they are excluded from density, runs, lanes
+ * and brackets. Everything else escalates in a fixed order:
+ * up to six lanes render at the default 18px offset; a seventh lane
+ * engages the narrow 14px offset automatically (the component reads
+ * `laneCount`); beyond `laneCap` (seven) collapse is the fallback in
+ * any era. The bracketed-group collapse additionally applies to
+ * historic clusters only — a run peaking before `groupBefore` (2023)
+ * with more than `groupCap` (four) simultaneous engagements, the real
+ * 2022 six. Lanes are recomputed without grouped entries.
  */
 export type SpineLayoutOptions = {
-  /** Hard offset capacity — beyond this a run always collapses. */
+  /** Hard offset capacity (seven, at the 14px fallback) — beyond this a run always collapses. */
   laneCap?: number;
   /** Historic threshold — pre-cutoff runs collapse above this. */
   groupCap?: number;
@@ -318,9 +328,11 @@ export type SpineLayout<T extends DatedRange> = {
 
 export function spineLayout<T extends DatedRange>(
   items: T[],
-  { laneCap = 6, groupCap = 4, groupBefore = 2023 }: SpineLayoutOptions = {},
+  { laneCap = 7, groupCap = 4, groupBefore = 2023 }: SpineLayoutOptions = {},
 ): SpineLayout<T> {
-  const runs = concurrencyRuns(items);
+  const docked = items.filter((item) => item.docked);
+  const competing = items.filter((item) => !item.docked);
+  const runs = concurrencyRuns(competing);
 
   const collapses = (run: ConcurrencyRun<T>): boolean => {
     if (run.peak > laneCap) return true;
@@ -355,7 +367,7 @@ export function spineLayout<T extends DatedRange>(
   };
 
   const grouped = new Set(groups.flat().map((item) => item.slug));
-  const ungrouped = items.filter((item) => !grouped.has(item.slug));
+  const ungrouped = competing.filter((item) => !grouped.has(item.slug));
   const lanes = assignLanes(ungrouped);
   const laneCount = lanes.size === 0 ? 0 : Math.max(...lanes.values()) + 1;
 
@@ -363,6 +375,7 @@ export function spineLayout<T extends DatedRange>(
   type Wrapper = { key: T; entry: T | null; group: T[] | null };
   const wrappers: Wrapper[] = [
     ...ungrouped.map((item) => ({ key: item, entry: item, group: null })),
+    ...docked.map((item) => ({ key: item, entry: item, group: null })),
     ...groups.map((group) => ({
       key: sortByStartDesc(group)[0]!,
       entry: null,
@@ -377,7 +390,7 @@ export function spineLayout<T extends DatedRange>(
   // extraction) are contiguous rows. Non-contiguous memberships — a long
   // engagement bridging past an unrelated row — degrade to no bracket.
   const rowOrder = ordered
-    .filter((w) => w.entry !== null)
+    .filter((w) => w.entry !== null && !w.entry.docked)
     .map((w) => w.entry!.slug);
   const bracketBySlug = new Map<string, { size: number; pos: "start" | "middle" | "end" }>();
   for (const run of runs.filter((r) => !collapses(r))) {
