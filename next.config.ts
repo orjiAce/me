@@ -41,6 +41,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // §14: AVIF with WebP fallback for every optimised image.
+  images: { formats: ["image/avif", "image/webp"] },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

@@ -124,7 +124,13 @@ export default async function HomePage() {
               />
             </Link>
           </MagneticCTA>
-          {/* "Download CV" ghost button lands when the PDF is supplied (§21). */}
+          <a
+            href="/ace-orji-cv-2026-08.pdf"
+            className="mono-label inline-flex min-h-11 items-center gap-2 rounded-pill border border-hairline px-6 text-ink no-underline transition-colors duration-[var(--dur-fast)] hover:border-slate"
+          >
+            Download CV
+            <span className="normal-case text-slate">PDF · 192 KB</span>
+          </a>
         </div>
 
         <p className="mt-8 inline-flex items-center gap-2.5 text-sm text-graphite">

@@ -3,6 +3,8 @@ import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { isProvided } from "@/content/profile";
 import { zowis } from "@/content/zowis";
+import { ArrowRight } from "lucide-react";
+import { Cover } from "@/components/work/Cover";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteUrl } from "@/lib/site";
 
@@ -53,15 +55,12 @@ export default function ZowisPage() {
       {/* 2 — Brand story */}
       <Section aria-label="Brand story">
         <div className="grid gap-10 md:grid-cols-2">
-          {/* Portrait / atelier image ⚠ NEEDS INPUT — ratio panel, no stub photo. */}
-          <div
-            aria-hidden="true"
-            className="flex aspect-[4/5] max-w-md items-center justify-center rounded-lg border border-hairline bg-mist"
-          >
-            <span className="font-display text-h3 font-semibold text-slate">
-              Zowis
-            </span>
-          </div>
+          <Cover
+            cover={{ ...zowis.portrait, ratio: "4/5" }}
+            name="Zowis"
+            sizes="(min-width: 768px) 40vw, 100vw"
+            className="max-w-md rounded-lg"
+          />
           <div className="flex flex-col justify-center gap-5">
             {zowis.story.map((paragraph) => (
               <p key={paragraph.slice(0, 24)} className="measure text-body">
@@ -75,26 +74,29 @@ export default function ZowisPage() {
       {/* 3 — Lookbook (⚠ images pending — ratio-correct panels, edge case #1) */}
       <Section tone="mist" wash="plum" aria-label="Lookbook">
         <Eyebrow>Lookbook</Eyebrow>
-        {zowis.lookbook.length === 0 ? (
-          <>
-            <p className="mono-label mt-4 text-slate">Images pending</p>
-            <div className="mt-8 grid grid-cols-2 gap-[var(--grid-gap)] md:grid-cols-3">
-              {(["4/5", "1/1", "4/5", "1/1", "4/5", "1/1"] as const).map(
-                (ratio, i) => (
-                  <div
-                    key={i}
-                    aria-hidden="true"
-                    className={
-                      ratio === "4/5"
-                        ? "aspect-[4/5] rounded-lg border border-hairline bg-plum-sub"
-                        : "aspect-square rounded-lg border border-hairline bg-plum-sub"
-                    }
-                  />
-                ),
-              )}
-            </div>
-          </>
-        ) : null}
+        <p className="mono-label mt-4 text-slate">More images pending</p>
+        <div className="mt-8 grid grid-cols-2 gap-[var(--grid-gap)] md:grid-cols-3">
+          {zowis.lookbook.map((image) => (
+            <Cover
+              key={image.src}
+              cover={image}
+              name="Zowis"
+              sizes="(min-width: 768px) 33vw, 50vw"
+              className="rounded-lg"
+            />
+          ))}
+          {(["4/5", "1/1", "4/5", "1/1"] as const).map((ratio, i) => (
+            <div
+              key={i}
+              aria-hidden="true"
+              className={
+                ratio === "4/5"
+                  ? "aspect-[4/5] rounded-lg border border-hairline bg-plum-sub"
+                  : "aspect-square rounded-lg border border-hairline bg-plum-sub"
+              }
+            />
+          ))}
+        </div>
       </Section>
 
       {/* 4 — Built and run in-house: the crossover section (§10.4.4) */}
@@ -111,8 +113,27 @@ export default function ZowisPage() {
         </div>
       </Section>
 
-      {/* 5/6 — Product tiles + store/Instagram CTA band land with the
-          store URL and handle (⚠ NEEDS INPUT, §21). */}
+      {/* 6 — CTA band → the store (§10.4.6). Instagram still ⚠ NEEDS INPUT;
+          product tiles wait on product imagery. */}
+      {isProvided(zowis.storeUrl) && (
+        <Section tone="mist" wash="plum" aria-label="Store">
+          <h2 className="text-h2">Wear Zowis</h2>
+          <p className="mt-6">
+            <a
+              href={zowis.storeUrl}
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-11 items-center gap-2 rounded-pill bg-plum px-6 text-sm font-medium text-paper no-underline transition-colors duration-[var(--dur-fast)] hover:bg-ink"
+            >
+              Shop the collection
+              <ArrowRight
+                aria-hidden="true"
+                size={16}
+                className="transition-transform duration-[var(--dur-fast)] group-hover:translate-x-1"
+              />
+            </a>
+          </p>
+        </Section>
+      )}
     </>
   );
 }

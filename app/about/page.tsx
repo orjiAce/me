@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Cover } from "@/components/work/Cover";
 import { SpineTimeline } from "@/components/work/SpineTimeline";
 import {
   bioBlocks,
@@ -55,15 +56,17 @@ export default function AboutPage() {
         className="wash-hero pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
       >
         <div className="grid gap-10 md:grid-cols-12">
-          {/* Portrait ⚠ NEEDS INPUT — ratio panel, edge case #1. */}
-          <div
-            aria-hidden="true"
-            className="flex aspect-[4/5] items-center justify-center rounded-lg border border-hairline bg-mist md:col-span-4"
-          >
-            <span className="font-display text-h2 font-semibold text-slate">
-              Ace
-            </span>
-          </div>
+          <Cover
+            cover={{
+              src: "/images/profile/ace.jpeg",
+              alt: "Portrait of Joseph \u2018Ace\u2019 Orji",
+              ratio: "4/5",
+            }}
+            name="Ace"
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="rounded-lg md:col-span-4"
+            textClassName="text-h2"
+          />
           <div className="md:col-span-8">
             <h1 className="text-h1">Ace</h1>
             <div className="mt-6 flex flex-col gap-5">

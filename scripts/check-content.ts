@@ -24,6 +24,15 @@ async function main(): Promise<void> {
     }
   }
 
+  // A cover path that 404s would break edge case #1's guarantee silently.
+  for (const p of projects) {
+    if (p.cover && !existsSync(join(process.cwd(), "public", p.cover.src))) {
+      throw new Error(
+        `Project "${p.slug}" cover ${p.cover.src} does not exist under public/.`,
+      );
+    }
+  }
+
   console.log(
     `content ok — ${projects.length} projects ` +
       `(${spineProjects.length} on the spine, ${undatedWork.length} undated, ` +

@@ -60,6 +60,11 @@ export const projects: Project[] = [
       "Built live nurse-location tracking over Socket.IO, updating on a map in real time.",
       "Enforced a 15-minute waiting-room join window with UTC comparisons so it holds across time zones; shipped to TestFlight and Google Play via EAS.",
     ],
+    cover: {
+      src: "/images/work/rightnowmd/cover.png",
+      alt: "RightNowMD telemedicine app screens — booking, video visit and DOKITA chat",
+      ratio: "4/5",
+    },
     featured: true,
     caseStudy: true,
   },
@@ -136,6 +141,11 @@ export const projects: Project[] = [
       { label: "App Store", href: "https://apps.apple.com/ng/app/jifu-360/id6756445902" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.jifu360.app" },
     ],
+    cover: {
+      src: "/images/work/jifu360/cover.png",
+      alt: "JIFU360 trading platform screens — live streams, courses and broker trading",
+      ratio: "16/10",
+    },
     featured: true,
     caseStudy: true,
   },
@@ -615,6 +625,7 @@ export const projects: Project[] = [
     end: null,
     status: "active",
     stack: ["Supabase", "GUO Logistics API", "Meta Business Suite"],
+    links: [{ label: "Website", href: "https://www.wearzowis.com" }],
     highlights: [
       "Built the commerce backend on Supabase, including remediating a critical RLS misconfiguration.",
       "Integrated the GUO logistics API for delivery.",

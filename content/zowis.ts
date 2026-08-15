@@ -12,11 +12,19 @@ export const zowis = {
 
   foundedYear: NEEDS_INPUT, // ⚠ unlocks the mono founded line and spine placement
 
-  storeUrl: NEEDS_INPUT, // ⚠ CTA band + product tiles held until supplied
+  storeUrl: "https://www.wearzowis.com", // supplied 2026-08-15
   instagram: NEEDS_INPUT, // ⚠ CTA band held until supplied
 
-  /** ⚠ NEEDS INPUT — lookbook images. Grid renders ratio-correct fog panels until then. */
-  lookbook: [] as { src: string; alt: string; ratio: "4/5" | "1/1" }[],
+  portrait: {
+    src: "/images/zowis/portrait.jpeg",
+    alt: "Zowis Fashion portrait",
+  },
+
+  /** Two supplied so far; the grid keeps ratio panels for the rest (⚠ 4–6 more wanted). */
+  lookbook: [
+    { src: "/images/zowis/lookbook-01.jpeg", alt: "Zowis lookbook — collection piece", ratio: "1/1" },
+    { src: "/images/zowis/lookbook-08.jpeg", alt: "Zowis lookbook — collection piece", ratio: "4/5" },
+  ] as { src: string; alt: string; ratio: "4/5" | "1/1" }[],
 
   /** Brand story — §10.4.2, three short paragraphs, first person, §9.4 facts. */
   story: [

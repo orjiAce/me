@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MetricRow } from "@/components/work/MetricRow";
 import { NextProject } from "@/components/work/NextProject";
+import { Cover } from "@/components/work/Cover";
 import { projects, projectBySlug, spineProjects } from "@/content/projects";
 import { formatMonthYear, formatRange, sortByStartDesc } from "@/lib/dates";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -154,17 +155,15 @@ export default async function CaseStudyPage({
 
         <div className="mt-12 gap-[var(--grid-gap)] lg:grid lg:grid-cols-12">
           <div className="lg:col-span-8">
-            {/* Cover — reserved for a real project screenshot; until it
-                exists, the neutral edge-case #1 mist placeholder. Colour
-                never owns the image area (§5.1 redirect). */}
-            <div
-              aria-hidden="true"
-              className="flex aspect-[16/10] items-center justify-center rounded-lg border border-hairline bg-mist"
-            >
-              <span className="font-display text-h2 font-semibold text-slate">
-                {displayName(project)}
-              </span>
-            </div>
+            {/* Cover — the real screenshot at its own ratio where one
+                exists; the edge-case #1 mist placeholder otherwise. */}
+            <Cover
+              cover={project.cover}
+              name={displayName(project)}
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              className="rounded-lg"
+              textClassName="text-h2"
+            />
 
             {project.metrics && project.metrics.length > 0 && (
               <div className="mt-12">

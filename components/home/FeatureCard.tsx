@@ -2,15 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/ui/Tag";
+import { Cover } from "@/components/work/Cover";
 import { bloomVar, displayName } from "@/lib/accent";
 import { cn } from "@/lib/cn";
 
 /**
- * Featured project card (ProjectCardFeature, §10.1.5). The cover slot is
- * reserved for real project screenshots; until they exist it renders the
- * neutral mist placeholder of edge case #1 — colour never owns the image
- * area (§5.1 redirect). Hover: lift shadow and a soft track-tint bloom
- * from the top-left corner; the border does not change colour.
+ * Featured project card (ProjectCardFeature, §10.1.5). Real screenshots
+ * render via Cover at their own ratio (a tall phone capture stays 4/5,
+ * never forced to 16/10); projects without one keep the edge-case #1
+ * mist placeholder. Hover: lift shadow, cover scale, track-tint bloom.
  */
 export function FeatureCard({
   project,
@@ -33,14 +33,12 @@ export function FeatureCard({
         className,
       )}
     >
-      <div
-        aria-hidden="true"
-        className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-md border border-hairline bg-mist"
-      >
-        <span className="font-display text-h3 font-semibold text-slate transition-transform duration-[var(--dur-slow)] group-hover:scale-[1.03]">
-          {displayName(project)}
-        </span>
-      </div>
+      <Cover
+        cover={project.cover}
+        name={displayName(project)}
+        sizes="(min-width: 768px) 60vw, 100vw"
+        imageClassName="transition-transform duration-[var(--dur-slow)] group-hover:scale-[1.03]"
+      />
 
       <div className="mt-5 flex items-center justify-between gap-4">
         <Tag project={project} />
