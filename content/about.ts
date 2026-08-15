@@ -37,7 +37,10 @@ export const bioBlocks: BioBlock[] = [
   {
     heading: "AI in production",
     paragraphs: [
-      "DOKITA, a medical chat assistant running on the Anthropic API, with questionnaire auto-detection that turns clinical follow-up questions into tappable answers instead of free text.",
+      // Amendment v4: two model providers in production — name both.
+      "DOKITA, a medical chat assistant running on the Anthropic API, with questionnaire auto-detection that turns clinical follow-up questions into tappable answers instead of free text. And a Google Gemini reading layer for Leadership News, one of Nigeria's national dailies — on-demand summaries, key points and deeper insights, streamed and cached client-side. Two model providers, both in production.",
+      // Amendment v4: the Igbo/Hausa/Yoruba thread, in one sentence.
+      "The languages are a through-line: Leadership News ships in seven locales including Igbo, Hausa and Yoruba — the same three LingoBase, my own translation API, is building text-to-speech for.",
     ],
   },
   {

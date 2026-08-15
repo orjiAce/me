@@ -61,10 +61,13 @@ describe("content integrity", () => {
     ]);
   });
 
-  it("holds Leadership News: archived, links only, no invented summary (amendment §3)", () => {
+  it("holds Leadership News off the spine: full v4 entry, role/dates still unsourced", () => {
     const held = projects.find((p) => p.slug === "leadership-news");
     expect(held?.status).toBe("archived");
-    expect(held?.summary).toBe("⚠ NEEDS INPUT");
+    expect(held?.role).toBe("⚠ NEEDS INPUT"); // v4 §0: never assume the role
+    expect(held?.start).toBeNull(); // v4 §0: never infer dates
+    expect(held?.summary).toContain("Leadership Newspaper"); // README-sourced, real
+    expect(held?.caseStudy).toBe(true); // tier promotion, page 404s until dated
     expect(held?.links?.length).toBe(2);
     expect(spineProjects.some((p) => p.slug === "leadership-news")).toBe(false);
     expect(undatedWork.some((p) => p.slug === "leadership-news")).toBe(false);
@@ -131,11 +134,12 @@ describe("content integrity", () => {
     expect(jifu?.metrics?.[0]).toMatchObject({ value: "4.8/5" });
   });
 
-  it("marks exactly the eight case studies (§9.3 as amended), each with an MDX body", () => {
+  it("marks exactly the nine case studies (§9.3 as amended v4), each with an MDX body", () => {
     const flagged = projects.filter((p) => p.caseStudy).map((p) => p.slug);
     expect(flagged.sort()).toEqual([
       "bluetanks-ev",
       "jifu360",
+      "leadership-news",
       "lenbi",
       "nexaflex",
       "onewallet-mfb",

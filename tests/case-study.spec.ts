@@ -22,6 +22,11 @@ test("spine-only project has no page (edge #3)", async ({ page }) => {
   expect(response?.status()).toBe(404);
 });
 
+test("promoted-but-undated case study stays a 404 until dated (v4 §0)", async ({ page }) => {
+  const response = await page.goto("/work/leadership-news");
+  expect(response?.status()).toBe(404);
+});
+
 test("case study fact rail and prose render", async ({ page }) => {
   await page.goto("/work/nexaflex");
   await expect(page.getByText("Role", { exact: true })).toBeVisible();

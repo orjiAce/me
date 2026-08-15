@@ -15,9 +15,10 @@ import { validateProjects } from "../lib/dates";
  * concurrency (inclusive month semantics) — keep it.
  *
  * `caseStudy: true` asserts an MDX body exists in content/case-studies/
- * (the build gate verifies this). Eight case studies (§9.3 as amended
- * v3): RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex,
- * BluetanksEV and Sumotrust. Everything else is spine-only.
+ * (the build gate verifies this). Nine case studies (§9.3 as amended
+ * v4): RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex,
+ * BluetanksEV, Sumotrust and Leadership News (page live once dated).
+ * Everything else is spine-only.
  *
  * Amendment v3 (2026-08-14): UWA unarchived with README-sourced data;
  * Nexaflex added (dates owner-confirmed: 2025-01 → 2025-11, completed);
@@ -592,25 +593,52 @@ export const projects: Project[] = [
 
   // ——— Engineering: held off the spine ———
   {
-    // Amendment v3 §3 — store links are known, nothing else is (⚠ role,
-    // dates, stack, description all NEEDS INPUT). Archived and excluded
-    // from the spine until dated; no summary written from the app name.
+    // Amendment v4 (2026-08-15) — full entry and case-study body from the
+    // project README. ⚠ role and start/end are the ONLY unsourced fields:
+    // do not assume "Lead Mobile Engineer", do not infer dates. Archived
+    // and off the spine until both arrive (status → "completed" then);
+    // the case-study page 404s while undated. Counts stay 17 until dated.
     slug: "leadership-news",
     name: "Leadership News",
     track: "engineering",
     role: NEEDS_INPUT,
+    org: "Leadership Newspaper",
+    location: "Nigeria",
     domain: "media",
-    summary: NEEDS_INPUT,
-    start: null,
-    end: null,
+    summary:
+      "The official Leadership Newspaper app — full paper on a phone, with Gemini reading aids and seven locales including Igbo, Hausa and Yoruba.",
+    start: null, // ⚠ NEEDS INPUT
+    end: null, // ⚠ NEEDS INPUT
     status: "archived",
-    stack: [],
-    highlights: [],
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "React Navigation",
+      "TanStack Query",
+      "Zustand",
+      "MMKV",
+      "Google Gemini",
+      "Reanimated",
+      "FlashList",
+      "react-native-pdf",
+      "react-native-video",
+      "Formik + Yup",
+      "OneSignal",
+      "EAS",
+    ],
+    highlights: [
+      "Carried the whole paper onto a phone: a personalised For You feed, news-flash carousel, WhatsApp-style stories, vertical shorts, long-form video and a PDF e-paper replica.",
+      "Integrated Google Gemini reading aids — on-demand summaries, key points and insights across three models, with streaming generation and a client-side cache.",
+      "Built a custom seven-locale i18n layer in-house — English, French, Dutch, Spanish, Igbo, Hausa and Yoruba.",
+      "Made reading offline-first: TanStack Query state persisted to MMKV for 24 hours, so cold starts open with real articles instead of spinners.",
+      "Centralised networking in a singleton axios client — JWT attachment, token-expiry buffering, global 401 handling; screens never touch axios directly.",
+    ],
     links: [
       { label: "App Store", href: "https://apps.apple.com/ng/app/leadership-news/id6749127071" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.leadershipnews.app" },
     ],
-    caseStudy: false,
+    caseStudy: true,
   },
 
   // ——— Founder track (§9.4) ———

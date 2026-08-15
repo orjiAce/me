@@ -1,0 +1,66 @@
+## Context
+
+The official mobile client for Leadership Newspaper, one of Nigeria's
+national dailies. A production reader rather than a feed wrapper: it
+carries the whole paper onto a phone.
+
+## The reader
+
+**Content and media.** A personalised "For You" feed alongside top news,
+cover stories, a news-flash carousel, most-read and trending sections,
+and category browsing. A WhatsApp-style stories system with multi-frame
+auto-advancing playback and progress bars. Short-form vertical video
+reels, long-form playback across native and YouTube sources, and a
+stock-market overview with a live ticker and charts. A digital e-paper
+reader rendering paginated PDF issues of the printed newspaper.
+
+**Engagement.** Commenting with replies and likes, bookmarking, reading
+history, sharing, deep links and push notifications — with optimistic
+updates on bookmarks and comments so interaction never waits on the
+network.
+
+**Personalisation.** Dark, light and auto theming with persisted
+preference and typed colour tokens; font family and size selection;
+notification and topic preferences; and a custom i18n layer covering
+seven locales — English, French, Dutch, Spanish, Igbo, Hausa and
+Yoruba. Guest-first access with a full auth stack behind it. Also:
+Wordle, Sudoku and Crossword through an in-app web view.
+
+## AI reading aids
+
+Google Gemini generates short summaries, key-point bullets and deeper
+insight analysis on demand, across `gemini-2.5-flash`, `gemini-2.5-pro`
+and `gemini-2.0-flash`, with streaming generation and a client-side
+summary cache so a re-read costs nothing.
+
+## Hard parts
+
+- **Offline-first reading.** TanStack Query state persisted to MMKV for
+  24 hours, so the app opens with real articles on a cold start or a
+  dead connection instead of spinners. Five-minute stale time with an
+  offline-friendly refetch policy.
+- **A singleton axios client** centralising base URL, timeout, JWT
+  attachment, token-expiry buffering, global 401 handling and normalised
+  `ApiException` errors — screens never touch axios directly.
+- **A custom i18n layer** built in-house (`I18nContext`, dot-notation
+  keys, interpolation) rather than pulling in a library, driving every
+  string across seven locales including three Nigerian languages.
+- **A provider tree ordered deliberately** — `ErrorBoundary →
+  GestureHandlerRootView → PersistQueryClientProvider → ThemeProvider →
+  I18nProvider → AlertProvider` — with a custom animated splash playing
+  over the native black splash while fonts and assets load, so there is
+  no white flash on launch.
+- **Memory and performance work as first-class services**: a
+  `performanceMonitor`, an `AggressiveMemoryCleanup` pass, FlashList
+  virtualisation, memoised components and skeleton loaders — a news app
+  renders long image-heavy lists continuously and will leak if nobody
+  owns it.
+- **A five-tab shell with deep linking** mapping `leadershipnews://` and
+  `https://leadership.ng` URLs onto tabs and detail screens.
+- **PDF e-paper rendering** via `react-native-pdf` +
+  `react-native-blob-util`, reproducing the printed page layout on a
+  phone.
+
+## Status
+
+Live on the App Store and Google Play at v1.0.0.

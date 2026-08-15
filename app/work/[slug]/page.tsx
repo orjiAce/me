@@ -20,8 +20,10 @@ import { siteUrl } from "@/lib/site";
  * not-found page — found by the M10 prod-build E2E suite.
  */
 export function generateStaticParams() {
+  // Dated case studies only: Leadership News is promoted to the tier but
+  // its page stays a 404 until the owner supplies role and dates (v4 §0).
   return projects
-    .filter((p) => p.caseStudy)
+    .filter((p) => p.caseStudy && p.start !== null && p.status !== "archived")
     .map((p) => ({ slug: p.slug }));
 }
 

@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.6 (M7.5 redirected 2026-08-14: domain palette confined to tag pills, colour moved into ambient container washes; v1.5 palette approval; v1.4 §11/§14 motion strategy; v1.3 content amendment v3; v1.1 §13 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.7 (content amendment v4 folded 2026-08-15: Leadership News full entry + case-study body from its README, role/dates still held; About AI-vendor and Nigerian-languages amendments; v1.6 M7.5 redirect; v1.5 palette; v1.4 motion strategy; v1.3 amendment v3; v1.1 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -527,7 +527,9 @@ Stack: React Native 0.81.5, React 19.1, Expo SDK 54 (new architecture), TypeScri
 **Nexaflex** *(new in v3, from the project README; dates owner-confirmed 2025-01 → 2025-11, completed)* — A crypto-native finance app, live on both stores at v1.9.1: multi-chain wallet across eight chains (per-network deposit addresses, ERC20/TRC20/BEP20 abbreviation handling, QR receive/send, swaps), a USD virtual card with passkey-gated detail reveal, Nigerian bill payments from a crypto balance on a check-quote → confirm → buy pattern, events with QR tickets, Bitcoin mixing behind an educational consent gate, and tiered KYC (NIN/passport/voter's card, BVN). **Lead the case study with:** (1) the security architecture the app was rebuilt around — per-account `SecureLockManager`, **panic mode** unlocking into a decoy state for coercion scenarios, biometric unlock, a passkey gating high-value actions, `AppState` auto-lock, JWT silent refresh; (2) the **quote-polling engine** — per-flow polling hooks where quotes auto-refresh, expire, back off and re-validate before submission so a user never signs a stale price. Also: 24-hour persisted query state, resilient balance hooks surfacing cache age, 7-day layered caches, MMKV on the hot path. Convention: screens never call axios directly; server data in TanStack Query, only UI/session state in Zustand, secrets in secure store. ⚠ Role title and location NEEDS INPUT. ⚠ No download/user/volume numbers supplied.
 Stack: React Native 0.79, Expo SDK 53, React 19, TypeScript, React Navigation 7, TanStack Query 5 + AsyncStorage persistence, Zustand, axios interceptor chain, expo-secure-store + react-native-keychain + MMKV, Formik + Yup, Reanimated 3, react-native-svg, expo-image, FlashList, Gorhom Portal, OneSignal, expo-updates OTA, EAS.
 
-**Leadership News** *(new in v3, held)* — Store links are known (§9.3a); role, dates, stack and description are ⚠ NEEDS INPUT. Held as `status: 'archived'`, excluded from the spine, no summary written from the app name.
+**Leadership News** *(amended v4, from the project README — role and dates remain the ONLY unsourced fields; do not assume the role, do not infer dates)* — The official mobile client for Leadership Newspaper, one of Nigeria's national dailies: personalised For You feed, news-flash carousel, WhatsApp-style stories, vertical shorts, long-form video, a stock ticker, and a PDF e-paper replica of the printed page. Google Gemini reading aids (summaries, key points, insights across `gemini-2.5-flash/pro` and `2.0-flash`, streamed, cached client-side). Custom in-house i18n across seven locales — English, French, Dutch, Spanish, **Igbo, Hausa, Yoruba**. Offline-first: TanStack Query persisted to MMKV for 24h. Singleton axios client (JWT, expiry buffering, 401 handling); deliberate provider tree with an animated splash over the native black splash; performance/memory services; five-tab shell with deep linking. Live on both stores at v1.0.0.
+Stack: React Native 0.79.5, Expo SDK 53 (bare/dev client), React 19, TypeScript 5.8, React Navigation 7, TanStack Query 5 + MMKV persistence, Zustand 5, @google/genai, Reanimated 3, FlashList, react-native-video + YouTube bridge, react-native-pdf, gifted-charts, Formik + Yup, OneSignal, EAS Build + Update.
+⚠ Held as `status: 'archived'`, off the spine, case-study page a 404, and all counts stay 17 until role and dates arrive; then status → completed, spine 17 → 18, hero and stats update.
 
 #### 9.3a Project links (amendment v3 §4)
 
@@ -576,7 +578,7 @@ Metric: the crowdfunding release added `1,000` users in two weeks.
 
 Sixteen projects is too many to give equal weight. Rank them:
 
-- **Case study (full MDX page, amended v3):** RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex, BluetanksEV, Sumotrust. Eight deep pages.
+- **Case study (full MDX page, amended v4):** RightNowMD, JIFU360, Lenbi, OneWallet MFB, UWA, Nexaflex, BluetanksEV, Sumotrust, and Leadership News (body written; page goes live once dated). Nine deep pages.
 - **Spine entry with expandable detail, no separate page:** Sinimax, EvriCent, Delta Digital, Gateway Edu, Brace Finance, PortsConnect, Truzact, Crowdfacture, CheckNCommit.
 - Everything stays on the spine regardless. The chronology is the argument — nothing gets dropped for being old.
 
@@ -692,6 +694,8 @@ Distinct enough to feel like a brand page, same skeleton so it doesn't feel bolt
 6. CTA band → Zowis store + Instagram.
 
 ### 10.5 About `/about`
+
+> **Amended v4:** the bio's "AI in production" section names both model vendors (Anthropic on DOKITA, Google Gemini on Leadership News), and carries one sentence on the Igbo/Hausa/Yoruba through-line between Leadership News and LingoBase.
 
 1. Portrait + H1 "Ace" + the long-form bio in first person: 7+ years, path from first shipped app to lead engineer, why remote contract work, why fashion as well.
 2. Full life/career chronology — the Spine reused with `variant="compact"`, mixing engineering, founder milestones (Zowis incorporation, first package published) and any education entry. `⚠ NEEDS INPUT: education, first-year-of-career date`
@@ -938,7 +942,7 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 - [ ] Email address, and the social URLs (GitHub, LinkedIn, X, Upwork) for `profile.socials`
 - [ ] End months for EvriCent and Delta Digital (the CV shows a start month only)
 - [ ] Nexaflex: role title and location (README doesn't state them)
-- [ ] Leadership News: role, dates, stack, description — held off the spine until supplied
+- [ ] Leadership News: role and dates only (v4 supplied everything else) — held off the spine until both arrive
 - [ ] OneWallet App Store listing is "OneWallet Business" — confirm it is the app Ace built before shortening the link label
 - [ ] UWA App Store link, if one exists (only Google Play was supplied)
 - [ ] Zowis Fashion founding date

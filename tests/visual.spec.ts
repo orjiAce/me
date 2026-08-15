@@ -2,8 +2,10 @@ import { expect, test } from "@playwright/test";
 
 /**
  * §18 — visual baselines at 375 / 768 / 1440 per route, committed.
- * reducedMotion: reduce (config-wide) keeps them deterministic; the live
- * npm download counts are masked because they change per build.
+ * reducedMotion: reduce (config-wide) keeps them deterministic. The npm
+ * package cards are masked whole: their download counts come from a live
+ * API at build time and may render or hide (§12.3), so nothing inside
+ * them can be a baseline.
  */
 const WIDTHS = [375, 768, 1440] as const;
 const ROUTES: [string, string][] = [
@@ -24,7 +26,7 @@ for (const width of WIDTHS) {
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveScreenshot(`${name}-${width}.png`, {
         fullPage: true,
-        mask: [page.getByText(/\/wk/)],
+        mask: [page.locator("section[aria-label='Open source'] .rounded-lg.border")],
         maxDiffPixels: 120,
       });
     });
