@@ -224,6 +224,11 @@ export const projects: Project[] = [
       "Delivered a USD virtual card, Nigerian bill payments from a crypto balance, and QR event ticketing.",
       "Kept unreliable networks usable: 24-hour persisted query state, resilient balance hooks surfacing cache age, and MMKV on the synchronous hot path.",
     ],
+    cover: {
+      src: "/images/work/nexaflex/cover.png",
+      alt: "Nexaflex crypto finance app screens — multi-chain wallet, virtual card and bills",
+      ratio: "16/10",
+    },
     links: [
       { label: "Website", href: "https://www.nexaflex.com/" },
       { label: "App Store", href: "https://apps.apple.com/ng/app/nexaflex/id6745123491" },
