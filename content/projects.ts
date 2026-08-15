@@ -259,6 +259,11 @@ export const projects: Project[] = [
       "Wired Sentry for production bug and stability monitoring — crash visibility the team had never had.",
       "Drove the production release through App Store and Google Play review.",
     ],
+    cover: {
+      src: "/images/work/onewallet-mfb/cover.png",
+      alt: "OneWallet MFB banking app screens — wallet, transfers and QR payments",
+      ratio: "16/10",
+    },
     links: [
       { label: "Website", href: "https://www.onewalletweb.com/" },
       // ⚠ Listing is "OneWallet Business" — confirm it is this app, not a
@@ -634,6 +639,11 @@ export const projects: Project[] = [
       "Made reading offline-first: TanStack Query state persisted to MMKV for 24 hours, so cold starts open with real articles instead of spinners.",
       "Centralised networking in a singleton axios client — JWT attachment, token-expiry buffering, global 401 handling; screens never touch axios directly.",
     ],
+    cover: {
+      src: "/images/work/leadership-news/cover.png",
+      alt: "Leadership News app screens — feed, stories, e-paper and Gemini summaries",
+      ratio: "16/10",
+    },
     links: [
       { label: "App Store", href: "https://apps.apple.com/ng/app/leadership-news/id6749127071" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.leadershipnews.app" },
