@@ -6,8 +6,10 @@ async function fillForm(page: import("@playwright/test").Page) {
   await page.goto("/contact");
   await page.getByLabel("Name").fill("E2E Tester");
   await page.getByLabel("Email").fill("e2e@example.com");
-  await page.getByLabel("Project type").selectOption("Contract role");
-  await page.getByLabel("Message").fill("A message from the E2E suite, long enough to pass.");
+  // v5 §3: project type is a pill radio group, not a select. Click the
+  // visible label, which is what a user actually hits.
+  await page.locator("label").filter({ hasText: /^Contract role$/ }).click();
+  await page.getByLabel("Message", { exact: true }).fill("A message from the E2E suite, long enough to pass.");
 }
 
 test("happy path: success replaces the form", async ({ page }) => {
@@ -32,8 +34,15 @@ test("network failure: inline error + toast + mailto, text preserved (edge #12)"
   await page.getByRole("button", { name: "Send message" }).click();
   const alert = page.getByRole("alert").filter({ hasText: /\S/ });
   await expect(alert).toContainText("Your message is still here");
-  await expect(alert.getByRole("link")).toHaveAttribute("href", /^mailto:.*body=A%20message/);
-  await expect(page.getByLabel("Message")).toHaveValue(/E2E suite/);
+  // v5 §3: the failure state surfaces BOTH direct channels.
+  await expect(alert.locator('a[href^="mailto:"]')).toHaveAttribute(
+    "href",
+    /^mailto:.*body=A%20message/,
+  );
+  await expect(
+    alert.getByRole("link", { name: "Message me on WhatsApp" }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Message", { exact: true })).toHaveValue(/E2E suite/);
   await expect(page.getByText("Message not sent").first()).toBeVisible(); // toast
 });
 

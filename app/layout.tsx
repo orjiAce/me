@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s — Ace Orji",
   },
   description:
-    "Lead mobile engineer shipping React Native and TypeScript products for teams across four continents — and founder of Zowis Fashion Limited.",
+    "Lead mobile engineer shipping React Native and TypeScript products for teams across four continents, and founder of Zowis Fashion Limited.",
   openGraph: {
     type: "website",
     siteName: "Ace Orji",

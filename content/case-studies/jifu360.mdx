@@ -1,31 +1,31 @@
-## Context
+## A trading academy in one app
 
 JIFU360 is a trading education platform for a Dubai-based client: social
 feeds, live streaming, AI assistance, broker integrations and a full course
 academy in one app. I led mobile and built the app from scratch.
 
-## What I owned
+## Architecture and chat
 
 The architecture is a domain-driven `types → service → hooks → screen`
-module pattern, applied across every feature. Real-time chat runs on PubNub
+module pattern. Every feature follows it. Real-time chat runs on PubNub
 with cross-platform message normalisation and a link-detection moderation
 pipeline. Push notifications go through FCM and OneSignal; CI/CD and
 over-the-air updates through EAS.
 
-## Hard parts
+## Streaming and broker connectivity
 
 Live streaming is WebRTC on the Dolby Millicast SDK and react-native-webrtc.
 On iOS that includes native Picture-in-Picture via a custom
 `AVPictureInPictureVideoCallViewController` + `AVSampleBufferDisplayLayer`
-module, converting I420 frames to BGRA.
+module that converts I420 frames to BGRA.
 
 Broker connectivity reaches MT4/MT5 through a .NET REST API and a Go
-WebSocket/assets service — real-time trade placement, global trading ideas
+WebSocket/assets service: real-time trade placement, global trading ideas
 and copy-trading.
 
-## Outcome
+## The numbers
 
-- **4.8/5** iOS rating from 96 ratings — third-party verified
+- **4.8/5** iOS rating from 96 ratings, third-party verified
 - **17,000+** iOS first-time downloads
 - **12,500** Play Store downloads
 - Users across Spain, Mexico and beyond

@@ -10,6 +10,7 @@ import {
   type SanitizedContact,
 } from "@/lib/contact";
 import { profile } from "@/content/profile";
+import { siteUrl } from "@/lib/site";
 
 /** §12.1 — Node runtime, never Edge. */
 export const runtime = "nodejs";
@@ -33,6 +34,33 @@ const formSecret =
     console.warn("contact: FORM_SECRET missing — using an ephemeral secret");
     return randomBytes(32).toString("hex");
   })();
+
+/**
+ * v5 §3 — the from address must sit on the Resend-verified sending domain.
+ * A mismatched domain (gmail.com being the classic) is accepted by the
+ * form, then rejected by the provider at send time with nothing the
+ * submitter can see: the failure is invisible until someone reads the
+ * logs. Checked once at module init and logged loudly.
+ */
+function checkFromAddress(): void {
+  const from = process.env.CONTACT_FROM_EMAIL;
+  if (!from) {
+    console.warn(
+      "contact: CONTACT_FROM_EMAIL unset — falling back to onboarding@resend.dev",
+    );
+    return;
+  }
+  const expected = new URL(siteUrl).hostname.replace(/^www\./, "");
+  const domain = from.split("@")[1]?.toLowerCase();
+  if (domain !== expected) {
+    console.error(
+      `contact: CONTACT_FROM_EMAIL is @${domain}, not the verified sending ` +
+        `domain @${expected} — Resend will reject every send and the form ` +
+        "will fail silently. Set it to an address on @" + expected + ".",
+    );
+  }
+}
+checkFromAddress();
 
 function ip(request: NextRequest): string {
   return (

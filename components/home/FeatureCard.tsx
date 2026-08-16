@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/ui/Tag";
 import { Cover } from "@/components/work/Cover";
+import { AppIcon } from "@/components/work/AppIcon";
 import { bloomVar, displayName } from "@/lib/accent";
 import { cn } from "@/lib/cn";
 
@@ -50,7 +51,8 @@ export function FeatureCard({
         )}
       </div>
 
-      <h3 className="mt-3 font-sans text-lead font-medium text-ink">
+      <h3 className="mt-3 flex items-center gap-3 font-sans text-lead font-medium text-ink">
+        <AppIcon project={project} placement="card" />
         {displayName(project)}
       </h3>
       <p className="mt-1 text-sm text-graphite">{project.summary}</p>

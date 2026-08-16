@@ -35,7 +35,7 @@ export const contactFieldsSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(10, "Tell me a little more — at least 10 characters.")
+    .min(10, "Tell me a little more: at least 10 characters.")
     .max(4000, "Keep the message under 4,000 characters."),
 });
 

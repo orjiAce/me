@@ -6,7 +6,10 @@ import type { Project } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 const RATIO_CLASS: Record<string, string> = {
+  "2/1": "aspect-[2/1]",
+  "16/9": "aspect-video",
   "16/10": "aspect-[16/10]",
+  "3/2": "aspect-[3/2]",
   "4/5": "aspect-[4/5]",
   "1/1": "aspect-square",
 };

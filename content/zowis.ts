@@ -17,31 +17,31 @@ export const zowis = {
 
   portrait: {
     src: "/images/zowis/portrait.jpeg",
-    alt: "Zowis Fashion portrait",
+    alt: "A model in a draped burgundy mini dress with a red floral off-shoulder strap, against a grey studio backdrop.",
   },
 
   /** Two supplied so far; the grid keeps ratio panels for the rest (⚠ 4–6 more wanted). */
   lookbook: [
-    { src: "/images/zowis/lookbook-01.jpeg", alt: "Zowis lookbook — collection piece", ratio: "1/1" },
-    { src: "/images/zowis/lookbook-08.jpeg", alt: "Zowis lookbook — collection piece", ratio: "4/5" },
+    { src: "/images/zowis/lookbook-01.jpeg", alt: "Two models in matching red dresses with oversized bow detailing and ruffled peplum skirts, against a warm stone backdrop.", ratio: "1/1" },
+    { src: "/images/zowis/lookbook-08.jpeg", alt: "Two models on a carved wooden bench, one in a burgundy mini dress with a red floral strap, the other in a mint dress with a green floral strap.", ratio: "4/5" },
   ] as { src: string; alt: string; ratio: "4/5" | "1/1" }[],
 
   /** Brand story — §10.4.2, three short paragraphs, first person, §9.4 facts. */
   story: [
-    "Zowis Fashion Limited is a women's fashion brand I founded and operate. It sells through its own e-commerce — not a marketplace storefront — and I run the company end to end: the brand, the filings, the operations.",
-    "Its infrastructure is mine too. I built the commerce backend on Supabase — including finding and remediating a critical row-level-security misconfiguration — integrated the GUO logistics API for delivery, and set up Meta Business Suite and the ad account it sells through.",
-    "I don't just build product for clients. I run one.",
+    "Zowis Fashion Limited is a women's fashion brand I founded and operate. It sells through its own e-commerce rather than a marketplace storefront, and I run the company end to end: the brand, the filings, the operations.",
+    "Its infrastructure is mine too. I built the commerce backend on Supabase, including finding and remediating a critical row-level-security misconfiguration. I integrated the GIG logistics API for delivery and set up Meta Business Suite and the ad account it sells through.",
+    "I run a product of my own, not only other people's.",
   ],
 
   /** "Built and run in-house" — §10.4.4, the crossover section. */
   builtInHouse: [
     {
       label: "Commerce backend",
-      body: "Supabase, built and hardened in-house — including remediating a critical RLS misconfiguration.",
+      body: "Supabase, built and hardened in-house, including remediating a critical RLS misconfiguration.",
     },
     {
       label: "Logistics",
-      body: "GUO logistics API integrated for nationwide delivery.",
+      body: "GIG logistics API integrated for nationwide delivery.",
     },
     {
       label: "Ads infrastructure",

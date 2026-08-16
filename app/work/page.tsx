@@ -11,7 +11,7 @@ import { spineProjects, undatedWork } from "@/content/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Eighteen shipped products since 2019, delivered as concurrent remote contracts — the full chronology, overlaps included.",
+    "Eighteen shipped products since 2019, delivered as concurrent remote contracts. The full chronology, overlaps included.",
 };
 
 const TRACKS: FilterValue[] = ["all", "engineering", "founder", "open-source"];
@@ -51,7 +51,7 @@ export default async function WorkPage({
         Canada, the UK and Dubai.
       </p>
       <p className="mono-label mt-3 text-slate">
-        Contracts ran concurrently. The lanes below show real overlap.
+        These contracts ran at the same time. The lanes show the overlap.
       </p>
 
       <div className="mt-10">
@@ -61,7 +61,7 @@ export default async function WorkPage({
 
       {shown === 0 ? (
         <p className="mt-14 text-graphite">
-          No projects on this track yet.{" "}
+          Nothing on this track.{" "}
           <Link href="/work" className="text-signal underline">
             Show all work
           </Link>

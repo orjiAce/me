@@ -1,15 +1,14 @@
-## Context
+## Two roles, one binary
 
-UWA is Nigeria's marketplace for skilled and unskilled labour — a React
+UWA is Nigeria's marketplace for skilled and unskilled labour: a React
 Native (Expo) client for uwa.ng connecting employers who need workers with
-talent looking for work. Most job-board apps stop at "apply to a job"; this
-one carries the whole employment lifecycle for both sides of the market in
-a single binary, with one navigation shell that reshapes itself on
-`user_class` rather than duplicating screens per role.
+talent looking for work. It carries the whole employment lifecycle for both
+sides of the market in a single binary, with one navigation shell that
+reshapes itself on `user_class` rather than duplicating screens per role.
 
-## What I owned
+## Both sides of the market
 
-**For talent:** job search and filtering by text, location and employment
+For talent: job search and filtering by text, location and employment
 type, saved jobs and best-match scoring; applications with cover letters
 and a pending → shortlisted → hired status timeline, withdrawal, and hire
 accept/reject; an in-app résumé covering experience, education, skills,
@@ -19,19 +18,19 @@ payment requests, Nigerian bank account addition and name resolution, and
 withdrawals; identity verification, support ticket threads, in-app blog
 and push.
 
-**For employers:** full job posting with pay-to-activate and draft
+For employers: full job posting with pay-to-activate and draft
 completion; per-job applicant review with status filters and full
 candidate profiles including downloadable CVs; project tracking with
 clock-in audits across all workers or per project; a four-tab payments hub
 covering job payment requests, talent payment requests, transaction
 history with PDF receipts, and bulk-labour invoices.
 
-**Bulk Labour Requests** was the heaviest feature: multi-role staffing
+Bulk Labour Requests was the heaviest feature: multi-role staffing
 requests with per-role headcount, duration, location and supporting
 documents, tracked through review, with in-thread messaging to the Uwa
 team, invoicing, full or instalment payment via Paystack, and PDF export.
 
-## Hard parts
+## Paystack, pagination and PDFs
 
 - Paystack checkout opened through `expo-web-browser`'s auth session with
   the return captured via an `expo-linking` deep link — no WebView hacks,
@@ -41,25 +40,24 @@ team, invoicing, full or instalment payment via Paystack, and PDF export.
   via `useQueries`, normalised behind a single `useBulkLabourInvoice` hook,
   with full/partial payment branching.
 - A custom `useInfinitePagedQuery` built on `useQueries` after both
-  `useInfiniteQuery` and a setState-accumulator approach proved unstable,
-  normalising the three different response shapes the API returns into one
+  `useInfiniteQuery` and a setState-accumulator approach proved unstable. It
+  normalises the three different response shapes the API returns into one
   flat array.
-- An axios client that never throws — `validateStatus: () => true`,
+- An axios client that never throws: `validateStatus: () => true`,
   timeouts and network errors normalised into `{status, data}`, 401
   auto-logout.
-- PDFs rendered as HTML and printed with `expo-print`, matching the web
+- PDFs rendered as HTML and printed with `expo-print`. That matches the web
   client's jsPDF output without pulling a DOM-coupled library into the
   bundle.
 - TanStack Query persisted to AsyncStorage so the app restores its cache on
   cold start and resumes paused mutations.
-- A 13-milestone (M0–M12) web→mobile parity programme: rather than porting
-  the React web client screen-for-screen, the gap was audited
-  feature-by-feature and closed idiomatically for React Native, with
-  deliberate divergences recorded — bottom sheets over centred modals,
-  FlashList cards over multi-column tables, chip rows over dropdown filters.
+- A 13-milestone (M0–M12) web→mobile parity programme: the gap was audited
+  feature-by-feature and closed idiomatically for React Native rather than
+  porting the React web client screen-for-screen. Divergences were recorded
+  deliberately: bottom sheets over centred modals, FlashList cards over
+  multi-column tables, chip rows over dropdown filters.
 
-## Outcome
+## Live on Google Play
 
-Live on Google Play at v1.0.0 (iOS build 81, Android versionCode 12),
-delivered across a two-year engagement that ran concurrently with up to
-four other contracts.
+Live on Google Play at v1.0.0 (iOS build 81, Android versionCode 12). The
+engagement ran two years, concurrently with up to four other contracts.

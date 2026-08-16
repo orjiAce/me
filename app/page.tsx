@@ -18,7 +18,7 @@ import { projectBySlug, spineProjects } from "@/content/projects";
 import { sortByStartDesc } from "@/lib/dates";
 import { weeklyDownloads } from "@/lib/npm";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { siteUrl } from "@/lib/site";
+import { personNode } from "@/lib/structured-data";
 
 /**
  * Home — §10.1, sections in fixed order. Static with 6h ISR (the lab
@@ -53,27 +53,7 @@ export default async function HomePage() {
   return (
     <>
       {/* §16 — Person */}
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: profile.name,
-          alternateName: profile.alias,
-          jobTitle: "Lead Mobile Engineer",
-          worksFor: { "@type": "Organization", name: profile.company },
-          knowsAbout: [
-            "React Native",
-            "TypeScript",
-            "Expo",
-            "Mobile architecture",
-            "WebRTC",
-            "Payments",
-          ],
-          sameAs: profile.socials.map((s) => s.href),
-          email: `mailto:${profile.email}`,
-          url: siteUrl,
-        }}
-      />
+      <JsonLd data={{ "@context": "https://schema.org", ...personNode() }} />
 
       {/* 2 — Hero (§10.1.2) — radial signal wash, top-right, ambient only. */}
       <Section
@@ -81,7 +61,7 @@ export default async function HomePage() {
         className="wash-hero flex min-h-[88svh] flex-col pt-[var(--section-y-sm)] md:pt-[var(--section-y-md)]"
       >
         <Eyebrow>
-          Lead mobile engineer — Abuja, Nigeria — UTC+1
+          Lead mobile engineer · Abuja, Nigeria · UTC+1
         </Eyebrow>
 
         {/* §11.1: hero text reveal only — 3 line masks, 620ms + 80ms
@@ -105,9 +85,9 @@ export default async function HomePage() {
         </h1>
 
         <p className="measure mt-10 text-lead">
-          I&rsquo;m Ace. I lead mobile builds in React Native and TypeScript
-          for teams in Lagos, Toronto, Dubai and San Francisco — and I run
-          Zowis Fashion, my own brand, on infrastructure I built myself.
+          I&rsquo;m Ace, a React Native developer. I lead mobile builds in
+          TypeScript for teams in Abuja, Toronto and Dubai. I also run Zowis
+          Fashion, my own brand, on infrastructure I built myself.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -157,10 +137,7 @@ export default async function HomePage() {
 
       {/* 5 — Selected work (§10.1.5) */}
       <Section aria-label="Selected work">
-        <Eyebrow>Selected work</Eyebrow>
-        <h2 className="mt-4 text-h2">
-          Three arguments, one operator
-        </h2>
+        <h2 className="text-h2">Selected work</h2>
         <div className="mt-10 grid gap-[var(--grid-gap)] md:grid-cols-12">
           <Reveal delay={0} className="md:col-span-7">
             <FeatureCard project={jifu} href="/work/jifu360" className="h-full" />
@@ -177,9 +154,7 @@ export default async function HomePage() {
       {/* 6 — Spine preview (§10.1.6) */}
       <Section aria-label="Recent chronology">
         <Eyebrow>The record</Eyebrow>
-        <h2 className="mt-4 text-h2">
-          Concurrent by design
-        </h2>
+        <h2 className="mt-4 text-h2">Recent work</h2>
         <p className="mono-label mt-3 text-slate">
           2024 — present. Five contracts ran in parallel at the peak.
         </p>
@@ -225,11 +200,10 @@ export default async function HomePage() {
               Zowis Fashion Limited
             </h2>
             <p className="measure mt-5 text-body text-paper">
-              A women&rsquo;s fashion brand run end to end — the label, the
+              A women&rsquo;s fashion brand run end to end: the label, the
               e-commerce, and the company behind them. I built its commerce
-              backend on Supabase, wired GUO logistics for delivery, and set
-              up the ads infrastructure it sells through. The same hands that
-              ship client products run this one.
+              backend on Supabase, wired GIG logistics for delivery, and set
+              up the ads infrastructure it sells through.
             </p>
             <p className="mono-label mt-6 text-plum-sub">
               E-commerce · Logistics integration · Brand operations
@@ -284,7 +258,7 @@ export default async function HomePage() {
                     {pkg.name}
                   </h3>
                   {weekly !== null && (
-                    <span className="mono-label text-slate">
+                    <span data-npm-count className="mono-label text-slate">
                       {weekly.toLocaleString("en-US")}
                       <span className="normal-case">/wk</span>
                     </span>

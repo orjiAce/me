@@ -1,6 +1,6 @@
 # Build Spec — Joseph "Ace" Orji · Personal Portfolio
 
-**Version** 1.8 (§7.2 founder-docking rule + lane-escalation ladder, 2026-08-15; Leadership News and Zowis dated → counts to 18; v1.7 content amendment v4: Leadership News full entry + case-study body from its README, role/dates still held; About AI-vendor and Nigerian-languages amendments; v1.6 M7.5 redirect; v1.5 palette; v1.4 motion strategy; v1.3 amendment v3; v1.1 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
+**Version** 1.9 (amendment v5, 2026-08-16: app icons §9.1/§10.2a, contact form rework §12.1, SEO §16 — SoftwareApplication, ProfilePage, content-derived sitemap, related work, /llms.txt, alt-text rule; copy pass over every user-facing string; v1.8 §7.2 founder-docking rule + lane-escalation ladder, 2026-08-15; Leadership News and Zowis dated → counts to 18; v1.7 content amendment v4: Leadership News full entry + case-study body from its README, role/dates still held; About AI-vendor and Nigerian-languages amendments; v1.6 M7.5 redirect; v1.5 palette; v1.4 motion strategy; v1.3 amendment v3; v1.1 CSP decision) · **Owner** Joseph Orji (Ace) · **Intended executor** Claude Code
 **Deliverable** A production-quality, fully responsive personal portfolio site, runnable locally and deployable to Vercel.
 
 ---
@@ -583,9 +583,28 @@ Sixteen projects is too many to give equal weight. Rank them:
 - **Spine entry with expandable detail, no separate page:** Sinimax, EvriCent, Delta Digital, Gateway Edu, Brace Finance, PortsConnect, Truzact, Crowdfacture, CheckNCommit.
 - Everything stays on the spine regardless. The chronology is the argument — nothing gets dropped for being old.
 
+**Implementation (2026-08-16).** A row does exactly one thing, and the
+affordance says which before the click:
+
+- **Has a page** (`caseStudy`, plus Zowis's bespoke `/zowis`) → the row
+  navigates, and carries an arrow.
+- **No page** → the row expands in place through a native
+  `<details>`/`<summary>`, carrying a chevron that rotates when open. The
+  panel holds the metric, the full highlights and the stack.
+
+`<details>` rather than a button with React state, because §11.6's rule is
+that nothing is ever hidden without JS — and these rows have no case-study
+page to fall back to. It also brings native keyboard support; an explicit
+`aria-expanded` is synced on toggle for older screen readers.
+
+Grouped rows (the 2022 cluster) must carry their own positioning context.
+The stretched `::after` click overlay resolves against the nearest
+positioned ancestor, so without it the overlay escapes to the group wrapper
+and the last row in the cluster swallows every click in it.
+
 ### 9.4 Projects seed — founder track
 
-**Zowis Fashion Limited** (`slug: zowis`, `track: founder`, active). Women's fashion brand with e-commerce. Ace is founder and also builds and runs its technical infrastructure: Supabase backend (including remediating a critical RLS misconfiguration), GUO logistics API integration for delivery, Meta Business Suite and ad-account setup, plus company filings and operations. Framed as: *"I don't just build product for clients. I run one."* ⚠ Founding date needed.
+**Zowis Fashion Limited** (`slug: zowis`, `track: founder`, active). Women's fashion brand with e-commerce. Ace is founder and also builds and runs its technical infrastructure: Supabase backend (including remediating a critical RLS misconfiguration), GIG logistics API integration for delivery, Meta Business Suite and ad-account setup, plus company filings and operations. Framed as: *"I don't just build product for clients. I run one."* ⚠ Founding date needed.
 
 **LinguaAPI / LingoBase** (`slug: lingobase`, `track: founder`, in development). Developer-facing translation API. Supabase multi-tenant backend, Azure Translator engine, dual Paystack + Stripe billing for African and international markets. Differentiator in progress: Nigerian-language TTS across Yoruba, Igbo and Hausa. UI being rebuilt to a light modern SaaS surface on Tailwind + shadcn/ui, keeping the mint/emerald accent. Label it honestly as in development.
 
@@ -621,6 +640,56 @@ export const packages: Pkg[] = [
 ### 9.7 Reserved
 
 `content/writing/*.mdx` with frontmatter `{title, date, summary, tags, draft}`. Route not built at v1.
+
+---
+
+## 9a. App icons (amendment v5 §1)
+
+**Content model.** `Project.icon?: { src: string; alt: string }`, files at
+`public/images/work/<slug>/icon.png`, sourced from the 1024×1024 App Store /
+Play listing icon — the highest-fidelity version, already square.
+
+An app icon is **a different object from a cover image** and must never be
+treated as one.
+
+**Placements — three, and nowhere else.** All render through
+`components/work/AppIcon.tsx`:
+
+| Placement | Size | Position |
+|---|---|---|
+| Work index + home cards | 40px mobile, 48px desktop | Left of the project name, same line. The name shifts right; nothing else moves. |
+| Case-study header | 64px | Above the project name, left-aligned with it. |
+| Spine rows | 28px | Between the node and the title. Hidden below 768px, where the row is already tight. |
+
+**Never** in the cover slot, as a page background, above 64px, or in the OG
+image — the OG grammar is type-led and an icon would unbalance it.
+
+**Treatment.**
+
+- `border-radius: 22%` — the iOS squircle approximation. Deliberately **not**
+  `--radius-md`: app icons carry their own convention and the site token reads
+  wrong at this size.
+- A 1px `--color-hairline` ring on every icon. This is load-bearing: several of
+  these icons are white or near-white and dissolve into the paper ground
+  without it. Drawn as an **overlay**, not an inset box-shadow — a replaced
+  element paints its bitmap over an inset shadow, which would hide the ring on
+  exactly the white icons that need it.
+- No shadow, no hover animation on the icon; the card already lifts.
+- `next/image` with explicit width and height, `quality={90}`, never `fill`.
+- `alt=""` in all three placements — the project name is adjacent and visible,
+  so the icon adds nothing a screen reader needs. Never "JIFU360 app icon".
+
+**Fallback.** No icon → **render nothing**. No letter monogram, no generic
+glyph, no tinted square. The name simply starts at the left edge. Roughly half
+the record predates app icons and the inconsistency is honest.
+
+> **Status (2026-08-16):** wired for `rightnowmd`, `sinimax`, `jifu360`,
+> `onewallet-mfb`, `uwa`, `bluetanks-ev`. Still wanted: `lenbi` and
+> `leadership-news` (no file supplied), and `nexaflex` — the file supplied is
+> a 156×40 horizontal wordmark, not a square listing icon, and would be
+> centre-cropped to an unreadable fragment. `bluetanks-ev` (135×135) and
+> `jifu360` (180×180) are below the 1024×1024 the treatment wants; they are
+> adequate to 64px but will soften on a 3× display.
 
 ---
 
@@ -690,7 +759,7 @@ Distinct enough to feel like a brand page, same skeleton so it doesn't feel bolt
 1. Hero: brand wordmark, H1 "Zowis Fashion Limited", one line of positioning, founded-year mono line.
 2. Brand story: two-column, 3 short paragraphs + portrait or atelier image.
 3. Lookbook grid: 6–8 images, masonry-ish 2/3-column, `4/5` and `1/1` ratios mixed, lazy-loaded, lightbox. `⚠ NEEDS INPUT: images`
-4. **"Built and run in-house"** — the crossover section that makes this page valuable to a technical audience: Supabase commerce backend, RLS hardening, GUO logistics API for delivery, Meta Business Suite and ads infrastructure, corporate filings and operations. Presented as four cards with mono labels.
+4. **"Built and run in-house"** — the crossover section that makes this page valuable to a technical audience: Supabase commerce backend, RLS hardening, GIG logistics API for delivery, Meta Business Suite and ads infrastructure, corporate filings and operations. Presented as four cards with mono labels.
 5. Featured products (optional, §12.2) or a static 3-tile grid linking to the store.
 6. CTA band → Zowis store + Instagram.
 
@@ -757,6 +826,60 @@ Node runtime. Flow:
 7. Return `{ ok: true }`. Log failures with a request id; never leak provider errors to the client.
 
 Env: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `FORM_SECRET`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
+
+#### 12.1.5 Env contract and the silent-failure guard (v5 §3)
+
+```
+CONTACT_TO_EMAIL=hello@orji.dev
+CONTACT_FROM_EMAIL=hello@orji.dev
+```
+
+**Both must be on the Resend-verified sending domain.** A from address on
+`gmail.com` — or any domain Resend has not verified — is accepted by the form
+and then rejected by the provider at send time, with nothing the submitter can
+see. That is how this stayed broken. The route now checks the from address's
+domain against the canonical site domain at module init and logs a loud error
+on mismatch.
+
+**`reply_to` is mandatory** on the notification email, set to the submitter's
+address. Without it, hitting reply on a form notification sends mail to
+yourself. This is the single most commonly missed detail in a contact form.
+
+#### 12.1.6 Form UI (v5 §3)
+
+Within the existing design system — no new colours, no new type sizes.
+
+- Two-column grid on `lg+`: name/email on one row, company/budget on the next.
+  Message full width.
+- **Project type is a row of selectable pills**, not a `<select>`. Five options
+  is a set you scan, not a set you open. Implemented as a real radio group in a
+  `<fieldset>`/`<legend>`, with the inputs `sr-only` and the pills as labels, so
+  keyboard and screen-reader behaviour is the native one.
+- Budget stays a select, stays optional, labelled optional.
+- **Live character count** on the message, appearing past 100 characters and
+  turning `--color-danger` at the 4000 limit. Deliberately *not* a live region —
+  announcing on every keystroke would make the field unusable with a screen
+  reader — it is linked by `aria-describedby` instead.
+- Validation on blur, never on keystroke. Errors inline, linked by
+  `aria-describedby`, never in placeholder text.
+- Pending: the whole form is a `disabled` `<fieldset>`, so every field locks;
+  button shows a spinner and "Sending…".
+- Success replaces the form. **No response-time promise** (owner-confirmed
+  2026-08-16) — it confirms receipt and says who the reply goes to.
+- Failure preserves every typed value and surfaces **both** direct channels: the
+  `mailto:` fallback carrying the typed message, and WhatsApp.
+
+#### 12.1.7 WhatsApp
+
+A `wa.me` link in the direct-channels rail beside email, and again in the form's
+failure state. **Not** a floating bubble, no fixed-position widget. Ghost button
+per §5.6, Lucide glyph (not the WhatsApp mark), no green brand colour,
+accessible name "Message me on WhatsApp", prefilled message.
+
+Number lives in `profile.whatsapp` as E.164 digits without the `+`. Owner
+supplied the local form `08103684893` on 2026-08-16; stored as `2348103684893`
+(Nigeria +234, trunk 0 dropped). **Accepted trade-off:** the number renders into
+the page HTML and scrapers will find it.
 
 ### 12.2 Zowis product feed (optional)
 
@@ -839,9 +962,64 @@ Target WCAG 2.1 AA, verified with axe on every route.
 
 - Per-route `generateMetadata`: title template `%s — Ace Orji`, description from `project.summary`, canonical URL, OG + Twitter card tags.
 - JSON-LD: `Person` on `/` (with `jobTitle`, `worksFor`, `knowsAbout`, `sameAs`), `BreadcrumbList` + `CreativeWork` on case studies, `Organization` on `/zowis`.
-- `sitemap.ts` enumerating all static routes plus every project slug, with `lastModified`.
 - `robots.ts` allowing all, pointing at the sitemap.
 - Semantic HTML throughout — the site must be fully readable as a document with CSS disabled.
+
+### 16.1 Entity graph (v5 §4.1/§4.2)
+
+One `Person`, emitted from `lib/structured-data.ts` with a stable `@id` of
+`{siteUrl}/#person`, referenced everywhere rather than duplicated. `/` carries the
+`Person`; `/about` is a `ProfilePage` whose `mainEntity` is that Person.
+
+Case studies with a live store listing additionally carry `SoftwareApplication`:
+
+- `author` is **Ace** — the developer. Never the client, who is the publisher.
+- `operatingSystem` is derived from which listings actually exist, so a
+  Play-only app is never described as shipping on iOS.
+- `applicationCategory` maps from the §5.1 `domain` axis, in one auditable table.
+- `aggregateRating` is read out of `project.metrics` and emitted only when a real
+  rating value **and** count are both present, so it can never be synthesised.
+  Exactly one project qualifies: JIFU360, 4.8/5 from 96 iOS ratings. **Never
+  hand-write one for any other project.**
+
+### 16.2 Sitemap
+
+`sitemap.ts` enumerates the static routes plus every case study that actually
+builds (dated, non-archived — matching `generateStaticParams`, so it can never
+list a URL that 404s). `lastModified` derives from content — a project's end
+month, or its start month while it is still running — never from build time: a
+deploy that changes nothing must not claim every page changed.
+
+### 16.3 Query targeting (v5 §4.4)
+
+The copy says "Lead Mobile Engineer", which is correct, but people search
+"React Native developer". The phrase appears **once each** in the hero lead and
+the About bio, worked in naturally. No keyword stuffing, no keyword footer, no
+hidden div.
+
+### 16.4 Twitter tags
+
+`twitter:creator` and `twitter:site` are **omitted entirely** — there is no X
+account, and empty tags are worse than absent ones.
+
+### 16.5 Internal linking
+
+`NextProject` is chronological and gives each case study exactly one outbound
+internal link. A **related work** block adds two or three more on a topical
+axis, drawn from projects sharing a `domain` and filtered to those with a live
+case study. Renders nothing when a project has no domain or nothing shares it.
+
+### 16.6 /llms.txt
+
+A plain-text summary at `/llms.txt` for AI search, generated from `content/` so
+it cannot drift from the site. Who Ace is, what he builds, and the canonical
+URLs.
+
+### 16.7 Alt text (v5 §4.6)
+
+Every raster image describes **what it shows** — the screen, what the app is
+displaying — never "<name> cover". App icons are the exception: `alt=""`,
+decorative, because the project name is adjacent in all three placements.
 
 ---
 
@@ -958,6 +1136,42 @@ After milestone 3 and again after milestone 8, screenshot the site at 375 and 14
 - [x] Domain name — **orji.dev** (supplied 2026-08-14)
 - [ ] Whether the Zowis product feed is in scope for v1 (§12.2) or the static fallback is enough
 - [ ] Cal.com or other booking link, if wanted
+- [ ] **App icon PNGs** (v5 §1 / §9a) — 1024×1024 listing icons at
+      `public/images/work/<slug>/icon.png` for `uwa`, `onewallet-mfb`,
+      `nexaflex`, `jifu360`, `lenbi`, `bluetanks-ev`, `leadership-news`,
+      `rightnowmd`. Pipeline is built; each is a file plus one `icon:` line.
+- [ ] **Live contact-form proof** (v5 §3) — blocked on the §2 DNS work, which
+      the owner is doing. Once `hello@orji.dev` sends and receives, demonstrate:
+      a live submission landing in the inbox; the auto-acknowledgement reaching
+      the sender; `reply_to` resolving to the submitter; the 429 path; the
+      Turnstile-absent path; and the JS-disabled path. The first four are
+      covered by mocked E2E today; only the real-provider legs are outstanding.
+
+---
+
+## 21a. Deferred to post-launch (amendment v5)
+
+Explicitly out of scope for v1, recorded so they are not silently lost.
+
+- **Indexable depth — `/writing`** (v5 §4.3). Nine case studies is the entire
+  corpus, and personal sites rank on long-tail technical content. The route is
+  reserved and unbuilt. The honest answer to "improve the SEO" is three or four
+  posts drawn from work already documented: the iOS Picture-in-Picture native
+  module with I420→BGRA conversion; the quote-polling pattern for crypto
+  withdrawals; the six-way concurrent contract workflow; custom i18n across seven
+  locales including three Nigerian languages. Each targets queries with real
+  volume and almost no competition, and each already exists in note form inside
+  the case studies. **Deferred at the owner's instruction, 2026-08-16.**
+- **Analytics.** No vendor is wired — no gtag, Plausible or PostHog — so the
+  v5 §3 `cta_click` / `location=contact` tracking on the WhatsApp CTA is not
+  implemented. `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` already exists in the env contract
+  from M9 if Plausible is later chosen; it would need a CSP entry. Adding a
+  vendor is a decision, not a default.
+- **Search Console + Bing Webmaster Tools** (v5 §4.5). A post-deploy action, not
+  a code change: nothing ranks that has not been submitted or linked to.
+- **Email/DNS (v5 §2).** Cloudflare Email Routing on the root, Resend for
+  sending, the single merged SPF record. Owner-executed; the contact form's
+  live proof is blocked on it.
 
 ---
 

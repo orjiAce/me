@@ -11,7 +11,7 @@ import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Zowis Fashion Limited",
   description:
-    "Women's fashion, designed and sold through its own e-commerce — founded, built and run end to end by Ace Orji.",
+    "Women's fashion, designed and sold through its own e-commerce. Founded, built and run end to end by Ace Orji.",
 };
 
 /**

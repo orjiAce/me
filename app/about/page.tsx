@@ -15,6 +15,9 @@ import {
 } from "@/content/about";
 import { profile } from "@/content/profile";
 import { spineProjects, undatedWork } from "@/content/projects";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { personNode, PERSON_ID } from "@/lib/structured-data";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -50,6 +53,17 @@ function BioText({ text }: { text: string }) {
 export default function AboutPage() {
   return (
     <>
+      {/* §16 as amended (v5 §4.2) — ProfilePage wrapping the shared Person */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: `${siteUrl}/about`,
+          mainEntity: personNode(),
+          about: { "@id": PERSON_ID },
+        }}
+      />
+
       {/* 1 — Portrait + bio — ambient hero wash (§5.1 redirect, rollout) */}
       <Section
         spacing="none"

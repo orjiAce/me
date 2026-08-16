@@ -36,7 +36,7 @@ export const projects: Project[] = [
     org: "TutuTech",
     location: "Remote, US",
     summary:
-      "Telemedicine app in React Native + Expo: four booking paths, VSee video visits, live nurse tracking and DOKITA, an AI medical assistant on Claude.",
+      "Telemedicine app in React Native + Expo: four booking paths, VSee video visits and live nurse tracking. Plus DOKITA, an AI medical assistant on Claude.",
     start: "2026-07",
     end: null,
     status: "active",
@@ -63,10 +63,11 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/rightnowmd/cover.png",
-      alt: "RightNowMD telemedicine app screens — booking, video visit and DOKITA chat",
+      alt: "Three RightNowMD screens: a booking menu offering DOKITA AI, a $50 telemedicine video call, a $200 provider visit or a clinic visit; the DOKITA AI assistant introducing itself above a medical disclaimer; and a My Sessions list of active AI triage and nurse visits.",
       ratio: "4/5",
     },
     featured: true,
+    icon: { src: "/images/work/rightnowmd/icon.png", alt: "" },
     caseStudy: true,
   },
   {
@@ -77,7 +78,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     location: "Abuja, NG",
     summary:
-      "Streaming app architected from scratch in React Native, TypeScript and NativeWind — cross-platform video, store-compliant billing, component system.",
+      "Streaming app architected from scratch in React Native, TypeScript and NativeWind: cross-platform video, store-compliant billing, component system.",
     start: "2026-02",
     end: "2026-06",
     // §9.3: render as "Engagement paused by client." No commentary on the contract.
@@ -100,6 +101,7 @@ export const projects: Project[] = [
       "Shipped a consumption-only subscription and billing flow compliant with both stores.",
       "Set up Zustand (persist) for global state and TanStack Query for server state with cache invalidation and optimistic updates.",
     ],
+    icon: { src: "/images/work/sinimax/icon.png", alt: "" },
     caseStudy: false,
   },
   {
@@ -110,7 +112,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     location: "Dubai, UAE",
     summary:
-      "Trading education platform: live Dolby Millicast streaming with native iOS PiP, MT4/MT5 broker connectivity, PubNub chat and a full course academy.",
+      "Trading education platform: live Dolby Millicast streaming with native iOS PiP and MT4/MT5 broker connectivity. Plus PubNub chat and a full course academy.",
     start: "2025-11",
     end: "2026-08",
     status: "completed",
@@ -144,10 +146,11 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/jifu360/cover.png",
-      alt: "JIFU360 trading platform screens — live streams, courses and broker trading",
+      alt: "Three JIFU360 screens: a dashboard welcoming a member into the academy above a promotional carousel; a five-minute Bitcoin candlestick chart with the drawing toolbar open; and a Market Ideas screen with FX and crypto idea channels and a EURUSD buy idea marked active.",
       ratio: "16/10",
     },
     featured: true,
+    icon: { src: "/images/work/jifu360/icon.png", alt: "" },
     caseStudy: true,
   },
   {
@@ -158,7 +161,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     location: "Remote, CA",
     summary:
-      "Peer-to-peer equipment rental marketplace: Stripe Connect payouts, Stripe Identity verification, real-time chat and location search with availability.",
+      "Peer-to-peer equipment rental marketplace: Stripe Connect payouts and Stripe Identity verification. Real-time chat and location search with availability.",
     start: "2025-10",
     end: "2026-07",
     status: "completed",
@@ -197,7 +200,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     domain: "fintech",
     summary:
-      "A crypto-native finance app: multi-chain wallet, USD virtual card, Nigerian bill payments and ticketing, behind a security layer built for coercion.",
+      "A crypto-native finance app: multi-chain wallet, USD virtual card, Nigerian bill payments and ticketing. All behind a security layer built for coercion.",
     start: "2025-01",
     end: "2025-11",
     status: "completed",
@@ -226,7 +229,7 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/nexaflex/cover.png",
-      alt: "Nexaflex crypto finance app screens — multi-chain wallet, virtual card and bills",
+      alt: "Four Nexaflex screens: a portfolio home showing a $629.00 balance with send, receive and pay-bills actions; an events browser with upcoming and nearby events; a bills menu covering airtime and data, electricity, cable TV and betting wallets; and a USD virtual card above its transaction history.",
       ratio: "16/10",
     },
     links: [
@@ -244,7 +247,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     location: "Abuja, NG",
     summary:
-      "Mobile banking for a microfinance bank — wallet, transfers, contactless QR payments and biometric 2FA — taken from nothing to live on both stores.",
+      "Mobile banking for a microfinance bank: wallet, transfers, contactless QR payments and biometric 2FA. Taken from nothing to live on both stores.",
     start: "2024-06",
     end: "2026-07",
     status: "completed",
@@ -266,7 +269,7 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/onewallet-mfb/cover.png",
-      alt: "OneWallet MFB banking app screens — wallet, transfers and QR payments",
+      alt: "Three OneWallet MFB screens: a merchant dashboard showing a 60,000 naira balance with the day's takings and commission, biller shortcuts and store, POS and QR services; an instalment payment plan open on a handheld phone; and a shareable scan-to-pay QR poster with the account details beneath it.",
       ratio: "16/10",
     },
     links: [
@@ -276,6 +279,7 @@ export const projects: Project[] = [
       { label: "App Store (OneWallet Business)", href: "https://apps.apple.com/ng/app/onewallet-business/id6744119883" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.onewallet.business.app" },
     ],
+    icon: { src: "/images/work/onewallet-mfb/icon.png", alt: "" },
     caseStudy: true,
   },
   {
@@ -288,7 +292,7 @@ export const projects: Project[] = [
     location: "Nigeria",
     domain: "marketplace",
     summary:
-      "Nigeria's marketplace for skilled and unskilled labour — the full employment lifecycle for employers and workers in one React Native binary.",
+      "Nigeria's marketplace for skilled and unskilled labour: the full employment lifecycle for employers and workers in one React Native binary.",
     start: "2024-06",
     end: "2026-07",
     status: "completed",
@@ -321,6 +325,12 @@ export const projects: Project[] = [
       { label: "Website", href: "https://uwa.ng" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.uwamobile.app" },
     ],
+    icon: { src: "/images/work/uwa/icon.png", alt: "" },
+    cover: {
+      src: "/images/work/uwa/cover.png",
+      alt: "Four UWA screens: a construction job feed with percentage-match badges on each listing; a My Jobs feed showing site-engineer roles with salary and location; an application-submitted confirmation; and the employer dashboard, where posted roles sit in an approved, under-review or shortlisted state above ongoing projects.",
+      ratio: "2/1",
+    },
     caseStudy: true,
   },
   {
@@ -330,7 +340,7 @@ export const projects: Project[] = [
     domain: "fintech",
     role: "Lead Mobile Engineer",
     summary:
-      "AI-powered spending and repayment system with Plaid bank and card linking and Stripe subscriptions, led with a team of designers and a backend developer.",
+      "AI-powered spending and repayment system with Plaid bank and card linking and Stripe subscriptions. Led with a team of designers and a backend developer.",
     start: "2024-02",
     end: null,
     endUnknown: true, // ⚠ NEEDS INPUT: end month (CV shows start only) — renders "02.2024 —"
@@ -358,7 +368,7 @@ export const projects: Project[] = [
     domain: "fintech",
     role: "Lead Mobile Engineer",
     summary:
-      "Crypto trading app with live Binance price tickers, a Python trading bot and RevenueCat subscriptions — designed in Figma, built pixel-perfect.",
+      "Crypto trading app with live Binance price tickers, a Python trading bot and RevenueCat subscriptions. Designed in Figma, built pixel-perfect.",
     start: "2023-05",
     end: null,
     endUnknown: true, // ⚠ NEEDS INPUT: end month (CV shows start only) — renders "05.2023 —"
@@ -391,7 +401,7 @@ export const projects: Project[] = [
     role: "Head of Mobile",
     location: "NG / UK",
     summary:
-      "Crypto education platform used across Nigeria, the UK and other African markets — gaming adventure system, communities, Web3 — shipped in 4 months.",
+      "Crypto education platform used across Nigeria, the UK and other African markets: gaming adventure system, communities, Web3. Shipped in 4 months.",
     start: "2022-06",
     end: "2024-02",
     status: "completed",
@@ -420,7 +430,7 @@ export const projects: Project[] = [
     domain: "fintech",
     role: "Engineering Lead",
     summary:
-      "DeFi app for buying, saving, sending and swapping crypto — Skia-drawn virtual cards and a full identity-verification architecture.",
+      "DeFi app for buying, saving, sending and swapping crypto: Skia-drawn virtual cards and a full identity-verification architecture.",
     start: "2022-06",
     end: "2023-01",
     status: "completed",
@@ -443,7 +453,7 @@ export const projects: Project[] = [
     domain: "marketplace",
     role: "Lead Mobile Engineer",
     summary:
-      "Scheduling and appointments platform — built the v2.0 real-time business↔customer chat and the subscription tier that created revenue.",
+      "Scheduling and appointments platform: built the v2.0 real-time business↔customer chat and the subscription tier that created revenue.",
     start: "2022-06",
     end: "2023-03",
     status: "completed",
@@ -464,6 +474,11 @@ export const projects: Project[] = [
       "Shipped a subscription tier that opened more features and created revenue.",
       "Frontend engineer in a team of four, across mobile and web; shipped to both stores via EAS.",
     ],
+    cover: {
+      src: "/images/work/portsconnect/cover.png",
+      alt: "Three PortsConnect screens: a role picker offering a personal account that books appointments or an organisation account that approves and declines them; a login screen; and a home screen with an appointment-booking entry point above the day's appointment, showing the staff member and time slot.",
+      ratio: "16/10",
+    },
     caseStudy: false,
   },
   {
@@ -474,7 +489,7 @@ export const projects: Project[] = [
     role: "Lead Mobile Engineer",
     location: "United States",
     summary:
-      "Smart navigation to the nearest EV charging station anywhere in the US, sortable by fastest or cheapest — 35,000 stations onboarded.",
+      "Smart navigation to the nearest EV charging station anywhere in the US, sortable by fastest or cheapest. 35,000 stations onboarded.",
     start: "2022-05",
     end: "2022-10",
     status: "completed",
@@ -494,6 +509,12 @@ export const projects: Project[] = [
     links: [
       { label: "App Store", href: "https://apps.apple.com/ng/app/bluetanks-ev/id1637245676" },
     ],
+    icon: { src: "/images/work/bluetanks-ev/icon.png", alt: "" },
+    cover: {
+      src: "/images/work/bluetanks-ev/cover.png",
+      alt: "Four BluetanksEV screens: a sign-up screen over an illustration of a car at a charge point; a home screen with charge, vehicle-to-grid, navigation and payment tiles above a utilisation history listing each charge point's energy delivered, duration and amount paid; the BlueTanks Pay card with its balance and transaction history; and the EVox community feed, where drivers report non-functional stations.",
+      ratio: "16/9",
+    },
     caseStudy: true,
   },
   {
@@ -503,7 +524,7 @@ export const projects: Project[] = [
     domain: "fintech",
     role: "Lead Full-Stack Engineer",
     summary:
-      "Naira savings and investment across mobile and web — designed from user research, managing funds for 10,000+ users worldwide.",
+      "Naira savings and investment across mobile and web, designed from user research. Manages funds for 10,000+ users worldwide.",
     start: "2022-01",
     end: "2023-02",
     status: "completed",
@@ -531,7 +552,7 @@ export const projects: Project[] = [
     role: "Full-Stack Engineer",
     location: "Nigeria",
     summary:
-      "Centralised-exchange crypto savings and investment, mobile and web — 80+ live-priced assets and a crowdfunding release that added 1,000 users in two weeks.",
+      "Centralised-exchange crypto savings and investment, mobile and web. 80+ live-priced assets and a crowdfunding release that added 1,000 users in two weeks.",
     start: "2020-11",
     end: "2022-04",
     status: "completed",
@@ -562,7 +583,7 @@ export const projects: Project[] = [
     domain: "fintech",
     role: "Full-Stack Engineer",
     summary:
-      "Community-driven investment platform — hi-fi interface designed in Figma, web app in React.js, iOS/Android app in React Native, published to both stores.",
+      "Community-driven investment platform: hi-fi interface designed in Figma, web app in React.js, iOS/Android app in React Native. Published to both stores.",
     start: "2019-09",
     end: "2021-10",
     status: "completed",
@@ -581,7 +602,7 @@ export const projects: Project[] = [
     domain: "marketplace",
     role: "Full-Stack Engineer",
     summary:
-      "Business rating platform, TrustPilot-shaped: membership businesses, free customer accounts, offline-deal ratings — built solo, end to end.",
+      "Business rating platform, TrustPilot-shaped: membership businesses, free customer accounts, offline-deal ratings. Built solo, end to end.",
     start: "2019-10",
     end: "2020-08",
     status: "completed",
@@ -616,7 +637,7 @@ export const projects: Project[] = [
     location: "Nigeria",
     domain: "media",
     summary:
-      "The official Leadership Newspaper app — full paper on a phone, with Gemini reading aids and seven locales including Igbo, Hausa and Yoruba.",
+      "The official Leadership Newspaper app: the full paper on a phone, with Gemini reading aids and seven locales including Igbo, Hausa and Yoruba.",
     start: "2025-11",
     end: "2026-05",
     // v4 §1: archived → completed once dated. Arrived as "active" with a
@@ -648,7 +669,7 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/leadership-news/cover.png",
-      alt: "Leadership News app screens — feed, stories, e-paper and Gemini summaries",
+      alt: "Four Leadership News screens: a top-news feed with a story-circle rail above the lead article; a full-screen story card opened mid-article; a sports highlights list of Premier League video clips; and the e-newspaper shelf showing dated front pages of the printed paper.",
       ratio: "16/10",
     },
     links: [
@@ -665,11 +686,11 @@ export const projects: Project[] = [
     track: "founder",
     role: "Founder",
     summary:
-      "Women's fashion brand with its own e-commerce, logistics and ads infrastructure — founded, built and run end to end.",
+      "A women's fashion brand I founded. I built its e-commerce and logistics infrastructure and I run it.",
     start: "2025-11",
     end: null,
     status: "active",
-    stack: ["Supabase", "GUO Logistics API", "Meta Business Suite"],
+    stack: ["Supabase", "GIG Logistics API", "Meta Business Suite"],
     cover: {
       src: "/images/work/zowis/cover.png",
       alt: "The Zowis storefront at wearzowis.com — two models in red ruffled dresses beside the debut-collection headline 'A tasteful garment that truly celebrates your form.'",
@@ -678,7 +699,7 @@ export const projects: Project[] = [
     links: [{ label: "Website", href: "https://www.wearzowis.com" }],
     highlights: [
       "Built the commerce backend on Supabase, including remediating a critical RLS misconfiguration.",
-      "Integrated the GUO logistics API for delivery.",
+      "Integrated the GIG logistics API for delivery.",
       "Set up Meta Business Suite and the ad account infrastructure.",
       "Run the company end to end: filings, operations and brand.",
     ],

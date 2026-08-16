@@ -4,12 +4,15 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MetricRow } from "@/components/work/MetricRow";
 import { NextProject } from "@/components/work/NextProject";
+import { RelatedWork } from "@/components/work/RelatedWork";
 import { Cover } from "@/components/work/Cover";
+import { AppIcon } from "@/components/work/AppIcon";
 import { projects, projectBySlug, spineProjects } from "@/content/projects";
 import { formatMonthYear, formatRange, sortByStartDesc } from "@/lib/dates";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { displayName } from "@/lib/accent";
 import { siteUrl } from "@/lib/site";
+import { softwareApplicationNode } from "@/lib/structured-data";
 
 /**
  * Case study — §10.3. Pages exist only for projects with an MDX body
@@ -76,6 +79,9 @@ export default async function CaseStudyPage({
     `../../../content/case-studies/${slug}.mdx`
   );
 
+  // v5 §4.1 — null unless the project has a live App Store / Play listing.
+  const appNode = softwareApplicationNode(project);
+
   const facts: { label: string; value: React.ReactNode }[] = [
     { label: "Role", value: project.role },
     {
@@ -128,6 +134,7 @@ export default async function CaseStudyPage({
               dateCreated: project.start,
               url: `${siteUrl}/work/${slug}`,
             },
+            ...(appNode ? [appNode] : []),
           ],
         }}
       />
@@ -140,6 +147,7 @@ export default async function CaseStudyPage({
         </nav>
 
         <header className="mt-8">
+          <AppIcon project={project} placement="header" className="mb-5" />
           <h1 className="text-h1">{displayName(project)}</h1>
           <p className="mt-4 text-lead text-graphite">
             {[project.role, project.org, project.location]
@@ -176,6 +184,10 @@ export default async function CaseStudyPage({
             <div className="prose mt-12">
               <Body />
             </div>
+
+            {/* v5 §4.5 — topical internal links, alongside the chronological
+                NextProject band below. */}
+            <RelatedWork project={project} />
           </div>
 
           {/* Fact rail — sticky on lg+, inline card on mobile (§10.3.3). */}

@@ -45,7 +45,21 @@ export type Project = {
   metrics?: { value: string; label: string; note?: string }[];
   highlights: string[]; // 3–5 bullets, each a shipped outcome
   links?: { label: string; href: string }[];
-  cover?: { src: string; alt: string; ratio: "16/10" | "4/5" | "1/1" };
+  cover?: {
+    src: string;
+    alt: string;
+    /** Pick the value closest to the file's own ratio: object-cover crops
+     *  the difference, and past ~10% that clips real content. */
+    ratio: "2/1" | "16/9" | "16/10" | "3/2" | "4/5" | "1/1";
+  };
+  /**
+   * App Store / Play listing icon (amendment v5 §1), 1024×1024 square at
+   * public/images/work/<slug>/icon.png. Distinct from `cover` and never
+   * rendered in the cover slot. Absent is the normal case — roughly half
+   * the record predates app icons — and absent renders nothing at all:
+   * no monogram, no glyph, no tinted square.
+   */
+  icon?: { src: string; alt: string };
   gallery?: { src: string; alt: string }[];
   featured?: boolean; // surfaces on home
   caseStudy?: boolean; // if true, an MDX body must exist
@@ -70,6 +84,8 @@ export type Profile = {
   stats: { value: string; label: string }[];
   socials: { label: string; href: string }[];
   email: string;
+  /** E.164 digits without a leading "+", for wa.me links (v5 §3). */
+  whatsapp?: string;
 };
 
 export type TimelineEntry = {

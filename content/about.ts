@@ -24,7 +24,7 @@ export type BioBlock = { heading?: string; paragraphs: string[] };
 export const bioBlocks: BioBlock[] = [
   {
     paragraphs: [
-      "I build React Native apps where the hard part isn't the screens. It's the real-time video, the payment rails, the native module nobody wants to write, or the AI layer that has to hold up in production.",
+      "I build React Native apps. The work that takes the time is the real-time video, the payment rails, the native module nobody wants to write, and the AI layer that has to hold up in production.",
       `${shippedWord} products shipped since ${since}, for clients in the US, Canada, Dubai, the UK and Nigeria. Seven years of it, most as the lead mobile engineer and often as the only one.`,
     ],
   },
@@ -38,9 +38,9 @@ export const bioBlocks: BioBlock[] = [
     heading: "AI in production",
     paragraphs: [
       // Amendment v4: two model providers in production — name both.
-      "DOKITA, a medical chat assistant running on the Anthropic API, with questionnaire auto-detection that turns clinical follow-up questions into tappable answers instead of free text. And a Google Gemini reading layer for Leadership News, one of Nigeria's national dailies — on-demand summaries, key points and deeper insights, streamed and cached client-side. Two model providers, both in production.",
+      "DOKITA, a medical chat assistant running on the Anthropic API, with questionnaire auto-detection that turns clinical follow-up questions into tappable answers instead of free text. And a Google Gemini reading layer for Leadership News, one of Nigeria's national dailies: on-demand summaries, key points and deeper insights, streamed and cached client-side.",
       // Amendment v4: the Igbo/Hausa/Yoruba thread, in one sentence.
-      "The languages are a through-line: Leadership News ships in seven locales including Igbo, Hausa and Yoruba — the same three LingoBase, my own translation API, is building text-to-speech for.",
+      "Leadership News ships in seven locales including Igbo, Hausa and Yoruba — the same three LingoBase, my own translation API, is building text-to-speech for.",
     ],
   },
   {
@@ -52,7 +52,7 @@ export const bioBlocks: BioBlock[] = [
   {
     heading: "Security when the threat model is physical",
     paragraphs: [
-      "For a crypto app used in Nigeria, I built a second PIN that unlocks the phone into a decoy state — balances mask, the tab bar swaps out, nothing sensitive is reachable. It exists for coercion, not convenience. Alongside it: per-user app locks that wipe the previous user's credentials on device handover, a passkey gate on high-value actions, and idle auto-lock.",
+      "For a crypto app used in Nigeria, I built a second PIN that unlocks the phone into a decoy state: balances mask, the tab bar swaps out, nothing sensitive is reachable. It's there for situations where someone is being forced to open the app. Alongside it: per-user app locks that wipe the previous user's credentials on device handover, a passkey gate on high-value actions, and idle auto-lock.",
     ],
   },
   {
@@ -64,22 +64,22 @@ export const bioBlocks: BioBlock[] = [
   {
     heading: "How I work",
     paragraphs: [
-      "I also run Zowis Fashion Limited, a women's fashion brand I founded — and I build and maintain its infrastructure myself: the Supabase commerce backend, delivery through the GUO logistics API, the ads stack, the filings. It changes how I build for other people. When you've had to answer for an outage on your own storefront, you stop treating reliability as somebody else's column.",
+      "I also run Zowis Fashion Limited, a women's fashion brand I founded, and I build and maintain its infrastructure myself: the Supabase commerce backend, delivery through the GIG logistics API, the ads stack, the filings. When the storefront going down costs me money directly, reliability stops being someone else's problem.",
     ],
   },
   {
     heading: "Stack",
     paragraphs: [
       "React Native (Expo and CLI), TypeScript, Zustand, TanStack Query, Reanimated. Node.js, Express, Firebase, Supabase, GraphQL. Swift and Kotlin when a native module has to be written from scratch.",
-      "I've taken apps through App Store and Google Play review many times over — EAS builds, OTA updates, permissions, compliance, submission. I maintain two open-source React Native packages, `rn-credit-card-textinput` and `rn-slick-bottom-tabs`.",
-      "Comfortable leading a mobile team, or working solo as the only mobile engineer on a product.",
+      "I've taken apps through App Store and Google Play review many times over: EAS builds, OTA updates, permissions, compliance, submission. I maintain two open-source React Native packages, `rn-credit-card-textinput` and `rn-slick-bottom-tabs`.",
+      "Comfortable leading a mobile team, or working solo as the only React Native developer on a product.",
     ],
   },
 ];
 
 /** Sits directly above the compact spine — the caption for it. */
 export const concurrencyNote =
-  "Most of these ran at the same time. Through 2026 I was carrying five contracts concurrently, and in 2022 six. The timeline on this site shows that as parallel lanes rather than a stack, because that's what it was.";
+  "Most of these ran at the same time. Through 2026 I was carrying five contracts concurrently, and in 2022 six. The timeline on this site shows that as parallel lanes rather than a stack.";
 
 // The copy's closing line ("Tell me what you're building…") is dropped:
 // the contact band already ends the page with a CTA — don't say it twice.
@@ -151,7 +151,7 @@ export const stackGroups: { label: string; items: string }[] = [
 export const waysOfWorking = [
   {
     label: "Remote-first",
-    body: "Fully remote from Abuja, and set up for it — every engagement since 2019 has been delivered that way.",
+    body: "Fully remote from Abuja. Every engagement since 2019 has been delivered that way.",
   },
   {
     label: "Contract length",
@@ -163,6 +163,6 @@ export const waysOfWorking = [
   },
   {
     label: "Handover",
-    body: "Typed codebases, architecture set down early, tasks broken out in the open, Sentry wired before release — teams keep shipping after I leave.",
+    body: "Typed codebases, architecture set down early, tasks broken out in the open, Sentry wired before release. Teams keep shipping after I leave.",
   },
 ];

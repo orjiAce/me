@@ -11,7 +11,7 @@ import { weeklyDownloads } from "@/lib/npm";
 export const metadata: Metadata = {
   title: "Lab",
   description:
-    "Open-source React Native packages with live download counts, and LingoBase — a translation API in development.",
+    "Open-source React Native packages with live download counts, and LingoBase, a translation API in development.",
 };
 
 /** §8: npm counts revalidate every 6h. */
@@ -56,7 +56,7 @@ export default async function LabPage() {
                     {pkg.name}
                   </h2>
                   {weekly !== null && (
-                    <span className="mono-label text-slate">
+                    <span data-npm-count className="mono-label text-slate">
                       {weekly.toLocaleString("en-US")}
                       <span className="normal-case"> downloads/wk</span>
                     </span>

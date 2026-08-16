@@ -1,5 +1,6 @@
 import type { Project } from "@/content/types";
 import { Tag } from "@/components/ui/Tag";
+import { AppIcon } from "./AppIcon";
 import { isLiveOnStores } from "./SpineEntry";
 
 /**
@@ -23,7 +24,8 @@ export function ProjectCard({ project }: { project: Project }) {
           <span className="mono-label text-success">Live</span>
         )}
       </p>
-      <h3 className="mt-2 font-sans text-lead font-medium text-ink">
+      <h3 className="mt-2 flex items-center gap-3 font-sans text-lead font-medium text-ink">
+        <AppIcon project={project} placement="card" />
         {project.name}
       </h3>
       <p className="measure mt-2 text-sm text-graphite">{project.summary}</p>

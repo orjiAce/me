@@ -36,4 +36,8 @@ export const profile: Profile = {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/orji-joseph-mobile-dev" },
   ],
   email: "orjiace@gmail.com",
+  // v5 §3 — E.164 digits, no "+", for wa.me. Owner-supplied 2026-08-16 as
+  // the local form 08103684893; Nigeria (+234) with the trunk 0 dropped.
+  // Note: this renders into the page HTML and scrapers will find it.
+  whatsapp: "2348103684893",
 };

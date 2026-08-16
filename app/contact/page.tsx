@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/layout/Section";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { profile } from "@/content/profile";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a conversation about a mobile build — remote contract engagements, 3–6 months preferred.",
+    "Start a conversation about a mobile build. Remote contract engagements, 3–6 months preferred.",
 };
 
 /**
@@ -34,6 +35,9 @@ export default function ContactPage() {
             >
               {profile.email}
             </a>
+          </p>
+          <p className="mt-6">
+            <WhatsAppLink />
           </p>
           <p className="mono-label mt-6 flex gap-5">
             {profile.socials.map((social) => (

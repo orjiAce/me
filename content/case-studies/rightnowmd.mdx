@@ -1,13 +1,13 @@
-## Context
+## Four kinds of visit
 
 RightNowMD is a telemedicine platform built with the TutuTech team: patients
 connect with doctors across video calls, in-home nurse visits, clinic
-appointments and provider sessions. I lead the mobile build — a full app from
+appointments and provider sessions. I lead the mobile build: a full app from
 scratch in React Native and Expo.
 
-## What I owned
+## The whole client
 
-The whole client. Each of the four session types has a separate booking path
+Each of the four session types has a separate booking path
 with its own routing, session creation and checkout logic. Client state runs
 on Zustand with persistence; server state on TanStack Query. Forms are Formik
 with Yup validation, animation is Reanimated, and releases go to TestFlight
@@ -17,21 +17,21 @@ Video consultations run on VSee ClinicKit with a secure SSO token login, so
 patients join HD calls without a second sign-in. Firebase push covers
 reminders, incoming calls and provider assignment.
 
-## Hard parts
+## DOKITA and live tracking
 
 DOKITA, the AI medical chat assistant, runs on the Anthropic API (Claude
-Sonnet) — with auto-detected questionnaires that turn follow-up questions
-into tappable Yes/No answers instead of free-text friction.
+Sonnet), with auto-detected questionnaires that turn follow-up questions
+into tappable Yes/No answers instead of free text.
 
 Live nurse-location tracking streams over Socket.IO and updates on a map in
 real time. The waiting-room timer only exposes "Join call" inside a
-15-minute window, using UTC comparisons so it holds across time zones.
+15-minute window. UTC comparisons keep it correct across time zones.
 
 Also in flight: a new REST triage API with a sessions/turns loop and VSee
-handoff, running alongside the existing chat — with the API key kept out of
-the mobile bundle.
+handoff, running alongside the existing chat. The API key stays out of the
+mobile bundle.
 
-## Outcome
+## Where it stands
 
 The app is live on TestFlight and Google Play via EAS, and the engagement is
 ongoing.
