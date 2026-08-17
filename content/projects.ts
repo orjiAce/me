@@ -102,6 +102,11 @@ export const projects: Project[] = [
       "Set up Zustand (persist) for global state and TanStack Query for server state with cache invalidation and optimistic updates.",
     ],
     icon: { src: "/images/work/sinimax/icon.png", alt: "" },
+    cover: {
+      src: "/images/work/sinimax/cover.png",
+      alt: "Five Sinimax screens: a personalised home rail of Nollywood classics with a genre filter; a watch-together sheet for joining a room by invite code; a CrossWatch player where two viewers chat alongside the film; a plan picker billed against phone credit; and search, with popular titles across the continent.",
+      ratio: "2/1",
+    },
     caseStudy: false,
   },
   {
@@ -243,6 +248,7 @@ export const projects: Project[] = [
       { label: "App Store", href: "https://apps.apple.com/ng/app/nexaflex/id6745123491" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.nexaflex.mobile.app" },
     ],
+    icon: { src: "/images/work/nexaflex/icon.png", alt: "" },
     caseStudy: true,
   },
   {
@@ -682,6 +688,7 @@ export const projects: Project[] = [
       { label: "App Store", href: "https://apps.apple.com/ng/app/leadership-news/id6749127071" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=ng.leadershipnews.app" },
     ],
+    icon: { src: "/images/work/leadership-news/icon.png", alt: "" },
     caseStudy: true,
   },
 

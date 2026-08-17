@@ -46,7 +46,7 @@ export function Header() {
           {/* Wordmark in the owner-supplied SEGO face; ORJI takes the
               signal accent so the two halves read as one mark, not two. */}
           <span className="font-wordmark text-[1.5rem] leading-none tracking-[0.02em]">
-            ACE<span className="ml-[0.12em] text-signal">ORJI</span>
+            orji<span className="ml-[0.12em] text-danger">ace</span>
           </span>
         </Link>
 
