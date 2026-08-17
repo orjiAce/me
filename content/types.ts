@@ -50,7 +50,7 @@ export type Project = {
     alt: string;
     /** Pick the value closest to the file's own ratio: object-cover crops
      *  the difference, and past ~10% that clips real content. */
-    ratio: "2/1" | "16/9" | "16/10" | "3/2" | "4/5" | "1/1";
+    ratio: "2/1" | "16/9" | "16/10" | "3/2" | "4/3" | "4/5" | "1/1";
   };
   /**
    * App Store / Play listing icon (amendment v5 §1), 1024×1024 square at

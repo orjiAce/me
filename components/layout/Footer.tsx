@@ -74,7 +74,6 @@ export function Footer() {
           <p className="text-sm text-slate">
             © 2026 {profile.name} · {profile.company}
           </p>
-          <p className="mono-label text-slate">Built with Next.js</p>
         </div>
       </Container>
     </footer>

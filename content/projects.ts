@@ -188,6 +188,12 @@ export const projects: Project[] = [
       { label: "App Store", href: "https://apps.apple.com/ng/app/lenbi/id6751556858" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.lenbi.mobile.app" },
     ],
+    icon: { src: "/images/work/lenbi/icon.png", alt: "" },
+    cover: {
+      src: "/images/work/lenbi/cover.png",
+      alt: "Four Lenbi screens: a home feed toggling between borrowing and lending with featured items priced per day; a listings view where an owner approves or declines booking requests; an item detail with rental fees, rating and rental period; and a profile showing rental and listing earnings beside a points and rewards tier.",
+      ratio: "16/9",
+    },
     caseStudy: true,
   },
   {

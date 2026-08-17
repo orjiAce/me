@@ -12,6 +12,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { SpineTimeline } from "@/components/work/SpineTimeline";
 import { capabilities } from "@/content/home";
+import { zowis as zowisBrand } from "@/content/zowis";
+import { Cover } from "@/components/work/Cover";
 import { packages } from "@/content/packages";
 import { profile } from "@/content/profile";
 import { projectBySlug, spineProjects } from "@/content/projects";
@@ -184,13 +186,12 @@ export default async function HomePage() {
           plum wash — every pairing ≥7:1. */}
       <section className="wash-plum" aria-label="Zowis Fashion Limited">
         <Container className="grid gap-10 py-[var(--section-y-sm)] md:grid-cols-2 md:py-[var(--section-y-md)]">
-          {/* Lookbook image ⚠ NEEDS INPUT — ratio-correct placeholder, no fake photo. */}
-          <div
-            aria-hidden="true"
-            className="flex aspect-[4/5] max-w-md items-center justify-center rounded-lg bg-plum-sub"
-          >
-            <span className="mono-label text-plum">Lookbook</span>
-          </div>
+          <Cover
+            cover={zowisBrand.feature}
+            name="Zowis"
+            sizes="(min-width: 768px) 40vw, 100vw"
+            className="max-w-md rounded-lg"
+          />
           <div className="flex flex-col justify-center">
             <p className="mono-label flex items-center gap-3 text-plum-sub">
               <span aria-hidden="true" className="h-px w-8 bg-plum-sub/60" />

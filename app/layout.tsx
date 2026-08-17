@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { bricolage } from "@/lib/fonts";
+import { bricolage, sego } from "@/lib/fonts";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -25,6 +25,16 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  // Owner-supplied favicon set (favicon_io), served from public/.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -38,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`light ${bricolage.variable} ${GeistSans.variable} ${GeistMono.variable}`}
+      className={`light ${bricolage.variable} ${sego.variable} ${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
         {/* Motion guard (§11.6): scroll-driven initial-hidden states exist

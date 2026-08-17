@@ -1,5 +1,3 @@
-import { NEEDS_INPUT } from "./profile";
-
 /**
  * Zowis page content — §10.4 / §9.4. Every string here restates §9.4
  * facts; nothing is invented brand copy. Gaps are typed NEEDS_INPUT and
@@ -13,18 +11,34 @@ export const zowis = {
   foundedYear: "2025", // founded 2025-11 (owner-supplied 2026-08-15)
 
   storeUrl: "https://www.wearzowis.com", // supplied 2026-08-15
-  instagram: NEEDS_INPUT, // ⚠ CTA band held until supplied
+
+  /** The brand's own wordmark, owner-supplied 2026-08-17. */
+  logo: { src: "/images/zowis/icon.png", alt: "Zowis", width: 611, height: 295 },
+
+  /** Brand channels — @wearzowis on both (owner-supplied 2026-08-17). */
+  socials: [
+    { label: "Instagram", handle: "@wearzowis", href: "https://www.instagram.com/wearzowis" },
+    { label: "TikTok", handle: "@wearzowis", href: "https://www.tiktok.com/@wearzowis" },
+  ],
 
   portrait: {
     src: "/images/zowis/portrait.jpeg",
     alt: "A model in a draped burgundy mini dress with a red floral off-shoulder strap, against a grey studio backdrop.",
   },
 
-  /** Two supplied so far; the grid keeps ratio panels for the rest (⚠ 4–6 more wanted). */
+  /** The three supplied lookbook frames (2026-08-17). */
   lookbook: [
-    { src: "/images/zowis/lookbook-01.jpeg", alt: "Two models in matching red dresses with oversized bow detailing and ruffled peplum skirts, against a warm stone backdrop.", ratio: "1/1" },
-    { src: "/images/zowis/lookbook-08.jpeg", alt: "Two models on a carved wooden bench, one in a burgundy mini dress with a red floral strap, the other in a mint dress with a green floral strap.", ratio: "4/5" },
-  ] as { src: string; alt: string; ratio: "4/5" | "1/1" }[],
+    { src: "/images/zowis/lookbook-01.jpeg", alt: "Two models in matching red dresses with oversized bow detailing and ruffled peplum skirts, against a warm stone backdrop.", ratio: "4/3" },
+    { src: "/images/zowis/lookbook-03.jpeg", alt: "A model in a red gown with a bow at the bodice, off-shoulder puff sleeves and a full ruffled skirt, against a warm stone backdrop.", ratio: "4/5" },
+    { src: "/images/zowis/lookbook-04.jpeg", alt: "Two models on a carved wooden bench, one in a burgundy mini dress with a red floral strap, the other in a mint dress with a green floral strap.", ratio: "4/5" },
+  ] as { src: string; alt: string; ratio: "4/3" | "4/5" | "1/1" }[],
+
+  /** The frame the home-page crossover band uses (§10.1.7). */
+  feature: {
+    src: "/images/zowis/lookbook.jpeg",
+    alt: "A model photographed from behind in a red gown with puff sleeves and a sweeping ruffled train, against a warm stone backdrop.",
+    ratio: "4/5" as const,
+  },
 
   /** Brand story — §10.4.2, three short paragraphs, first person, §9.4 facts. */
   story: [

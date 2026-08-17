@@ -10,6 +10,7 @@ const RATIO_CLASS: Record<string, string> = {
   "16/9": "aspect-video",
   "16/10": "aspect-[16/10]",
   "3/2": "aspect-[3/2]",
+  "4/3": "aspect-[4/3]",
   "4/5": "aspect-[4/5]",
   "1/1": "aspect-square",
 };

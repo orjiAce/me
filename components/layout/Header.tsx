@@ -43,10 +43,11 @@ export function Header() {
           href="/"
           className="flex items-baseline gap-1.5 text-ink no-underline"
         >
-          <span className="font-display text-[1.375rem] font-bold leading-none tracking-[-0.02em]">
-            ACE
+          {/* Wordmark in the owner-supplied SEGO face; ORJI takes the
+              signal accent so the two halves read as one mark, not two. */}
+          <span className="font-wordmark text-[1.5rem] leading-none tracking-[0.02em]">
+            ACE<span className="ml-[0.12em] text-signal">ORJI</span>
           </span>
-          <span className="mono-label text-slate">ORJI</span>
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
@@ -87,8 +88,8 @@ export function Header() {
               >
                 <Dialog.Title className="sr-only">Menu</Dialog.Title>
                 <div className="flex h-16 items-center justify-between px-[var(--gutter-sm)]">
-                  <span className="font-display text-[1.375rem] font-bold leading-none tracking-[-0.02em] text-ink">
-                    ACE
+                  <span className="font-wordmark text-[1.5rem] leading-none tracking-[0.02em] text-ink">
+                    ACE<span className="ml-[0.12em] text-signal">ORJI</span>
                   </span>
                   <Dialog.Close asChild>
                     <button
