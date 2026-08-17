@@ -88,7 +88,7 @@ export default async function HomePage() {
 
         <p className="measure mt-10 text-lead">
           I&rsquo;m Ace, a React Native developer. I lead mobile builds in
-          TypeScript for teams in Abuja, Toronto and Dubai. I also run Zowis
+          TypeScript for teams in Nigeria, Toronto and Dubai. I also run Zowis
           Fashion, my own brand, on infrastructure I built myself.
         </p>
 

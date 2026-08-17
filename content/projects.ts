@@ -63,8 +63,8 @@ export const projects: Project[] = [
     ],
     cover: {
       src: "/images/work/rightnowmd/cover.png",
-      alt: "Three RightNowMD screens: a booking menu offering DOKITA AI, a $50 telemedicine video call, a $200 provider visit or a clinic visit; the DOKITA AI assistant introducing itself above a medical disclaimer; and a My Sessions list of active AI triage and nurse visits.",
-      ratio: "4/5",
+      alt: "Four RightNowMD screens: a booking menu offering DOKITA AI, a $50 telemedicine video call, a $200 provider visit or a clinic visit; the DOKITA AI assistant introducing itself above a medical disclaimer; a My Sessions list of active AI triage and nurse visits; and a patient profile with quick actions for editing details and reviewing sessions.",
+      ratio: "16/10",
     },
     featured: true,
     icon: { src: "/images/work/rightnowmd/icon.png", alt: "" },
